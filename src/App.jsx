@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Header from "./components/layout/Header";
 import Notices from "./pages/Notices";
 import Mypage from "./pages/Mypage";
+import Reservations from "./pages/Reservations";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/notice" element={<Notices />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypage/:id" element={<Mypage />} />
+          <Route path="/reservation" element={<Reservations />} />
         </Routes>
       </BrowserRouter>
     </div>
