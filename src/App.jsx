@@ -4,7 +4,10 @@ import Home from "./pages/Home";
 import Header from "./components/layout/Header";
 import Notices from "./pages/Notices";
 import Mypage from "./pages/Mypage";
-import Reservations from "./pages/Reservations";
+import Visits from "./pages/Visits";
+import VisitList from "./components/visit/VisitList";
+import VisitItem from "./components/visit/VisitItem";
+import VisitForm from "./components/visit/VisitForm";
 
 function App() {
   return (
@@ -15,7 +18,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/notice" element={<Notices />} />
           <Route path="/mypage/:id" element={<Mypage />} />
-          <Route path="/reservation" element={<Reservations />} />
+
+          {/* 서브 라우팅 설정 */}
+          <Route path="/visits" element={<Visits />}>
+            <Route path="form" element={<VisitForm />} />
+            <Route path="item" element={<VisitItem />} />
+            <Route path="list" element={<VisitList />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

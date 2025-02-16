@@ -79,9 +79,9 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="/reservation"
+                  to="/visits"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/reservation"
+                    location.pathname === "/visits"
                       ? "text-blue-700"
                       : "text-gray-900 hover:text-blue-700"
                   }`}
