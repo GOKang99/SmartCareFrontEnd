@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ResidentForm = () => {
   const [image, setImage] = useState(null);
@@ -273,14 +274,26 @@ const ResidentForm = () => {
           </div>
         </div>
 
-        {/* 제출 버튼 */}
-        <div className="mb-6">
+        {/* 제출 버튼과 취소 버튼을 양옆으로 배치하면서 가운데 정렬 */}
+        <div className="mb-6 flex justify-center space-x-4">
+          {" "}
+          {/* flex로 가운데 정렬하고, 버튼 사이에 여백을 추가 */}
+          {/* 제출 버튼 */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 text-lg font-semibold"
+            className="w-full sm:w-48 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 text-lg font-semibold"
           >
             제출
           </button>
+          {/* 취소 버튼을 Link로 변경 */}
+          <Link to="/resident">
+            <button
+              type="button"
+              className="w-full sm:w-48 bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition duration-300 text-lg font-semibold"
+            >
+              취소
+            </button>
+          </Link>
         </div>
       </form>
     </div>

@@ -17,7 +17,7 @@ function App() {
           <Route path="/notice" element={<Notices />} />
           <Route path="/mypage/:id" element={<Mypage />} />
           <Route path="/reservation" element={<Reservations />} />
-          <Route path="/resident" element={<Residents />} />
+          <Route path="/resident/*" element={<Residents />} />
         </Routes>
       </BrowserRouter>
     </div>
