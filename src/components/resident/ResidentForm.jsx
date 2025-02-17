@@ -1,128 +1,287 @@
-import React from "react";
-import imges from "../../../public/gm.png";
+import React, { useState } from "react";
 
 const ResidentForm = () => {
+  const [image, setImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && (file.type === "image/png" || file.type === "image/jpg")) {
+      setImage(URL.createObjectURL(file));
+    } else {
+      alert("jpg 또는 png 파일만 업로드 가능합니다.");
+    }
+  };
+
   return (
-    <div className="">
+    <div className="p-6 max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl">
       <form>
-        <img className="resident_img" alt="res img" src={imges} />
-
-        <label>
-          입소자 성명
-          <input required placeholder="이름" type="text" name="name" />
-        </label>
-
-        <label>
-          성별
-          <input required placeholder="성별" type="text" name="gender" />
-        </label>
-
-        <label>
-          생년월일
-          <input required placeholder="생년월일" type="text" name="birth" />
-        </label>
-
-        <label>
-          전화번호
-          <input required placeholder="전화번호" type="tel" name="phone" />
-        </label>
-
-        <label>
-          전화번호
-          <input required placeholder="전화번호" type="tel" name="phone" />
-        </label>
-
-        <label>
-          등급
-          <input required placeholder="등급" type="text" name="grade" />
-        </label>
-
-        <label>
-          치매
-          <input type="checkbox" name="dementiaYn" />
-          낙상위험
-          <input type="checkbox" name="fallYn" />
-          욕창위험
-          <input type="checkbox" name="bedsoreYn" />
-          자세변경
-          <input type="checkbox" name="postureYn" />
-        </label>
-
-        <label>
-          주요질환
-          <input required placeholder="주요질환" type="text" name="disease" />
-        </label>
-
-        <label>
-          생활실
-          <input required placeholder="생활실" type="text" name="location" />
-        </label>
-
-        <label>
-          입소일
-          <input required type="date" name="enterdate" />
-        </label>
-
-        <label>
-          퇴소일
-          <input type="date" name="exitdate" />
-        </label>
-
-        <label>
-          주소
-          <input required placeholder="주소" type="text" name="address" />
-        </label>
-
-        <label>
-          최종학력
+        {/* 이미지 업로드 섹션 */}
+        <div className="mb-6">
+          <label
+            htmlFor="image-upload"
+            className="block text-xl font-semibold text-gray-700 mb-2"
+          >
+            이미지 업로드
+          </label>
           <input
-            required
-            placeholder="최종학력"
-            type="text"
-            name="schoolgrade"
+            id="image-upload"
+            type="file"
+            accept=".jpg, .png"
+            onChange={handleImageChange}
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-gray-300 hover:file:bg-gray-100"
           />
-        </label>
+          {image && (
+            <img
+              src={image}
+              alt="preview"
+              className="mt-4 rounded-md shadow-lg max-w-xs mx-auto"
+            />
+          )}
+        </div>
 
-        <label>
-          요양시스템 입소자 코드
-          <input
-            required
-            placeholder="입소자 코드"
-            type="text"
-            name="systemcode"
-          />
-        </label>
+        {/* 폼 항목들을 3개씩 나열하는 부분 */}
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {/* 입소자 성명 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              입소자 성명
+            </label>
+            <input
+              required
+              placeholder="이름"
+              type="text"
+              name="name"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
 
-        <label>
-          장기요양인정번호
-          <input
-            required
-            placeholder="장기요양인정번호"
-            type="text"
-            name="longtermNo"
-          />
-        </label>
+          {/* 성별 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              성별
+            </label>
+            <input
+              required
+              placeholder="성별"
+              type="text"
+              name="gender"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
 
-        <label>
-          케어그룹
-          <input required placeholder="케어그룹" type="text" name="caregroup" />
-        </label>
+          {/* 생년월일 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              생년월일
+            </label>
+            <input
+              required
+              placeholder="생년월일"
+              type="date"
+              name="birth"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
 
-        <label>
-          식사종류
-          <input required placeholder="식사종류" type="text" name="foodtype" />
-        </label>
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {/* 전화번호 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              전화번호
+            </label>
+            <input
+              required
+              placeholder="전화번호"
+              type="tel"
+              name="phone"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
 
-        <label>
-          기능장애
-          <input
-            required
-            placeholder="기능장애"
-            type="text"
-            name="functiondis"
-          />
-        </label>
-        <button type="submit">제출</button>
+          {/* 등급 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              등급
+            </label>
+            <input
+              required
+              placeholder="등급"
+              type="text"
+              name="grade"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 주요질환 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              주요질환
+            </label>
+            <input
+              required
+              placeholder="주요질환"
+              type="text"
+              name="disease"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {/* 생활실 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              생활실
+            </label>
+            <input
+              required
+              placeholder="생활실"
+              type="text"
+              name="location"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 입소일 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              입소일
+            </label>
+            <input
+              required
+              type="date"
+              name="enterdate"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 퇴소일 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              퇴소일
+            </label>
+            <input
+              type="date"
+              name="exitdate"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {/* 주소 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              주소
+            </label>
+            <input
+              required
+              placeholder="주소"
+              type="text"
+              name="address"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 최종학력 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              최종학력
+            </label>
+            <input
+              required
+              placeholder="최종학력"
+              type="text"
+              name="schoolgrade"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 입소자 코드 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              요양시스템 입소자 코드
+            </label>
+            <input
+              required
+              placeholder="입소자 코드"
+              type="text"
+              name="systemcode"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {/* 장기요양인정번호 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              장기요양인정번호
+            </label>
+            <input
+              required
+              placeholder="장기요양인정번호"
+              type="text"
+              name="longtermNo"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 케어그룹 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              케어그룹
+            </label>
+            <input
+              required
+              placeholder="케어그룹"
+              type="text"
+              name="caregroup"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* 식사종류 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              식사종류
+            </label>
+            <input
+              required
+              placeholder="식사종류"
+              type="text"
+              name="foodtype"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {/* 기능장애 */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              기능장애
+            </label>
+            <input
+              required
+              placeholder="기능장애"
+              type="text"
+              name="functiondis"
+              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        {/* 제출 버튼 */}
+        <div className="mb-6">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 text-lg font-semibold"
+          >
+            제출
+          </button>
+        </div>
       </form>
     </div>
   );
