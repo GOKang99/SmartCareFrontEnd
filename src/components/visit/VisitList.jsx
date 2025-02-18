@@ -22,9 +22,6 @@ const VisitList = () => {
     fetchAllVisits();
   }, []);
 
-  // if (error) {
-  //   return <p className="text-red-500">{error}</p>;
-  // }
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}

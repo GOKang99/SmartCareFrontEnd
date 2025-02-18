@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import VisitItem from "./VisitItem";
-import axios from "axios";
 import api from "../../services/api";
 import NoVisitsMessage from "./NoVisitsMessage";
 // 데이터를 받아오는 컴포넌트
 const VisitItemContainer = () => {
   const [visitData, setVisitData] = useState(null);
   const [error, setError] = useState("");
-  const [visId, setVisId] = useState(2);
-  const [guardId, setGuardId] = useState(1);
+
+  //VisId하드코딩
+  const visId = 2;
+  const guardId = 1;
 
   useEffect(() => {
     const fetchVisit = async () => {

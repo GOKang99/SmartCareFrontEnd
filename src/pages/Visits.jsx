@@ -4,6 +4,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import VisitItemContainer from "../components/visit/VisitItemContainer";
 import VisitList from "../components/visit/VisitList";
 import VisitLisitForGuard from "../components/visit/VisitLisitForGuard";
+import VisitForm from "../components/visit/VisitForm";
 
 const Visits = () => {
   return (
@@ -22,6 +23,7 @@ const Visits = () => {
         <Route path="container" element={<VisitItemContainer />} />
         <Route path="list" element={<VisitList />} />
         <Route path="my" element={<VisitLisitForGuard />} />
+        <Route path="form" element={<VisitForm />} />
       </Routes>
     </div>
   );
