@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import PasswordChangeModal from "./PasswordChangeModal";
 
 const Mypage = () => {
   const { id } = useParams(); // URL에서 user id를 가져온다고 가정(/mypage/1)
   const [userData, setUserData] = useState(null); // 백엔드에서 받은 유저 정보
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,63 +35,84 @@ const Mypage = () => {
 
   // 환자 이미지 표시 (없으면 기본 이미지)
   const residentImage =
-    userData.residentImage || "https://via.placeholder.com/150";
+    isUser && userData.residentImage
+      ? userData.residentImage
+      : "https://picsum.photos/200";
 
   return (
     <>
-      <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-        {/* 프로필 사진 (보호자가 아니라면 그냥 유저의 무언가 표시하거나 생략) */}
-        <div className="flex flex-col items-center">
-          <div className="w-24 h-24 bg-gray-300 rounded-full mb-4 flex items-center justify-center">
-            <span className="text-gray-500 text-sm">사진</span>
-          </div>
-          <h2 className="text-xl font-semibold">
-            {/* 보호자(ROLE_USER)면 '입소자 성함' 대신 "내 정보"를 표시할 수도 있고, 원하는 대로 조정 */}
-            {userData.username} {/* ex) 홍길동 */}
-          </h2>
+      {/* 메인 카드 컨테이너 (가운데 정렬, 그림자, 둥근모서리) */}
+      <div className="max-w-md mx-auto mt-10 shadow-lg rounded-lg overflow-hidden min-h-[700px] pb-10">
+        {/* 상단 바 (타이틀: 마이페이지) - 남색 배경 */}
+        <div className="bg-blue-500 text-white p-4">
+          <h1 className="text-lg font-semibold">마이페이지</h1>
         </div>
 
-        {/* 정보 섹션 */}
-        <div className="mt-6 space-y-4">
-          {/* 보호자 성함 */}
-          <div className="flex justify-between border-b pb-2">
-            <span className="font-medium">
-              {/* role이 USER라면: "보호자 성함", role이 ADMIN이면: "관리자 이름" 등등 */}
-              {isUser ? "보호자 성함" : "관리자 이름"} : {userData.username}
-            </span>
+        {/* 상단 영역 (남색 배경) */}
+        <div className="bg-blue-500 px-4 py-6 text-white">
+          <div className="flex items-start justify-between">
+            {/* 왼쪽: 유저(보호자) 정보 */}
+            <div>
+              <p className="text-sm">성함: {userData.username}</p>
+              <p className="text-sm mt-1">연락처: {userData.phone}</p>
+              {isUser && userData.residentName && (
+                <div className="mt-2">
+                  <p className="text-sm">
+                    입소자 성함: {userData.residentName}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* 오른쪽: 환자 사진 자리 */}
+            <div>
+              <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                {/* 환자 사진: ROLE_USER이고 residentImage 있으면 사용, 아니면 기본이미지 */}
+                <img
+                  src={residentImage}
+                  alt="환자사진"
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* 보호자 연락처 (관리자라도 전화번호가 있으면 표시할 수 있음) */}
-          <div className="border-b pb-2">
-            <div className="flex justify-between">
-              <span className="font-medium">연락처 : {userData.phone}</span>
-            </div>
-            <p className="text-sm text-gray-500 mt-1">
-              (⁕ 응급 상황 발생 시 연락받으실 연락처)
-            </p>
+          {/* 비밀번호 변경 버튼 */}
+          <div className="mt-6">
+            <button
+              className="mt-4 bg-white text-blue-500 px-3 py-1 rounded font-medium cursor-pointer"
+              onClick={() => setIsModalOpen(true)} // 버튼 클릭 시 모달 열기
+            >
+              비밀번호 변경
+            </button>
           </div>
+          <PasswordChangeModal
+            isOpen={isModalOpen} // 모달 상태 전달
+            onClose={() => setIsModalOpen(false)} // 닫기 버튼 클릭 시 모달 닫기
+          />
         </div>
 
-        {/* 보호자가 관리하는 환자 정보 (ROLE_USER일 때만 표시) */}
-        {isUser && userData.residentName && (
-          <div className="mt-6 space-y-4">
-            <h3 className="text-lg font-semibold">입소자 정보</h3>
-            <div className="flex flex-col items-center">
-              <img
-                src={residentImage}
-                alt="Resident"
-                className="w-24 h-24 bg-gray-300 rounded-full mb-4 object-cover"
-              />
-              <p className="text-xl">{userData.residentName}</p>
+        {/* 아래 흰색 메뉴 영역 */}
+        <div className="bg-white">
+          {/* 서비스 이용약관 */}
+          <Link to="/agree">
+            <div className="py-3 px-4 flex items-center border-b border-gray-200">
+              <p className="text-gray-700 flex-1">
+                서비스이용약관 및 개인정보 처리방침
+              </p>
+              <span className="text-gray-400">&gt;</span>
             </div>
+          </Link>
+          {/* 로그아웃 */}
+          <div
+            className="py-3 px-4 flex items-center border-b border-gray-200 cursor-pointer"
+            onClick={() =>
+              alert("로그아웃 되었습니다. (로그인 기능 추가 후 구현)")
+            }
+          >
+            <p className="text-gray-700 flex-1">로그아웃</p>
+            <span className="text-gray-400">&gt;</span>
           </div>
-        )}
-
-        {/* 비밀번호 변경 버튼 */}
-        <div className="mt-6">
-          <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
-            비밀번호 변경
-          </button>
         </div>
       </div>
     </>
