@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import InputField from "../form/InputField";
 import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
+import TimePicker from "./TimePicker";
 
 const VisitForm = () => {
   //일단 guardId를 1로 설정
@@ -69,6 +70,9 @@ const VisitForm = () => {
             max="18:00"
             step="1800" //30분 단위로 설정
           />
+        </div>
+        <div className="mb-4">
+          <TimePicker />
         </div>
         <div className="mb-4">
           <label className="block mb-1">방문 유형</label>
