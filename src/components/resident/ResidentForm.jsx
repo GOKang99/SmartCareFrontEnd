@@ -1,8 +1,29 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ResidentForm = () => {
   const [image, setImage] = useState(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    gender: "",
+    birth: "",
+    phone: "",
+    grade: "",
+    disease: "",
+    location: "",
+    enterdate: "",
+    exitdate: "",
+    address: "",
+    schoolgrade: "",
+    systemcode: "",
+    longtermNo: "",
+    caregroup: "",
+    foodtype: "",
+    functiondis: "",
+    dementiaYn: false,
+  });
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -13,9 +34,49 @@ const ResidentForm = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+
+    data.append("resName", formData.name);
+    data.append("resGender", formData.gender);
+    data.append("resBirth", formData.birth);
+    data.append("resPhone=", formData.phone);
+    data.append("resGrade", formData.grade);
+    data.append("resDisease", formData.disease);
+    data.append("resLocation", formData.location);
+    data.append("resEnterDate", formData.enterdate);
+    data.append("resExitDate", formData.exitdate);
+    data.append("resAddress", formData.address);
+    data.append("resSchoolGrade", formData.schoolgrade);
+    data.append("systemResCode", formData.systemcode);
+    data.append("resLongTermCareNo", formData.longtermNo);
+    data.append("resCareGroup", formData.caregroup);
+    data.append("resFoodType", formData.foodtype);
+    data.append("resFunctionDis", formData.functiondis);
+    data.append("dementiaYn", formData.dementiaYn);
+    data.append("resImages", image);
+
+    const response = await axios.post(
+      "http://localhost:8080/api/resident/create",
+      data,
+      {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+        },
+      }
+    );
+    console.log(response);
+  };
+
   return (
     <div className="p-6 max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl">
-      <form>
+      <form onSubmit={onSubmit}>
         {/* 이미지 업로드 섹션 */}
         <div className="mb-6">
           <label
@@ -52,6 +113,8 @@ const ResidentForm = () => {
               placeholder="이름"
               type="text"
               name="name"
+              onChange={handleInputChange}
+              value={formData.name}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -66,6 +129,8 @@ const ResidentForm = () => {
               placeholder="성별"
               type="text"
               name="gender"
+              onChange={handleInputChange}
+              value={formData.gender}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -80,6 +145,8 @@ const ResidentForm = () => {
               placeholder="생년월일"
               type="date"
               name="birth"
+              onChange={handleInputChange}
+              value={formData.birth}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -96,6 +163,8 @@ const ResidentForm = () => {
               placeholder="전화번호"
               type="tel"
               name="phone"
+              onChange={handleInputChange}
+              value={formData.phone}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -110,6 +179,8 @@ const ResidentForm = () => {
               placeholder="등급"
               type="text"
               name="grade"
+              onChange={handleInputChange}
+              value={formData.grade}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -124,6 +195,8 @@ const ResidentForm = () => {
               placeholder="주요질환"
               type="text"
               name="disease"
+              onChange={handleInputChange}
+              value={formData.disease}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -140,6 +213,8 @@ const ResidentForm = () => {
               placeholder="생활실"
               type="text"
               name="location"
+              onChange={handleInputChange}
+              value={formData.location}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -153,6 +228,8 @@ const ResidentForm = () => {
               required
               type="date"
               name="enterdate"
+              onChange={handleInputChange}
+              value={formData.enterdate}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -165,9 +242,22 @@ const ResidentForm = () => {
             <input
               type="date"
               name="exitdate"
+              onChange={handleInputChange}
+              value={formData.exitdate}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+        </div>
+
+        <div>
+          <label className="block text-lg font-semibold text-gray-700 mb-2">
+            치매 유무
+          </label>
+          <input
+            type="checkbox"
+            name="dementiaYn"
+            className="border border-gray-300 p-3 rounded-lg"
+          />
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-6">
@@ -181,6 +271,8 @@ const ResidentForm = () => {
               placeholder="주소"
               type="text"
               name="address"
+              onChange={handleInputChange}
+              value={formData.address}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -195,6 +287,8 @@ const ResidentForm = () => {
               placeholder="최종학력"
               type="text"
               name="schoolgrade"
+              onChange={handleInputChange}
+              value={formData.schoolgrade}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -209,6 +303,8 @@ const ResidentForm = () => {
               placeholder="입소자 코드"
               type="text"
               name="systemcode"
+              onChange={handleInputChange}
+              value={formData.systemcode}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -225,6 +321,8 @@ const ResidentForm = () => {
               placeholder="장기요양인정번호"
               type="text"
               name="longtermNo"
+              onChange={handleInputChange}
+              value={formData.longtermNo}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -239,6 +337,8 @@ const ResidentForm = () => {
               placeholder="케어그룹"
               type="text"
               name="caregroup"
+              onChange={handleInputChange}
+              value={formData.caregroup}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -253,6 +353,8 @@ const ResidentForm = () => {
               placeholder="식사종류"
               type="text"
               name="foodtype"
+              onChange={handleInputChange}
+              value={formData.foodtype}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -269,6 +371,8 @@ const ResidentForm = () => {
               placeholder="기능장애"
               type="text"
               name="functiondis"
+              onChange={handleInputChange}
+              value={formData.functiondis}
               className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
