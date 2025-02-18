@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import VisitItem from "./VisitItem";
 import axios from "axios";
 import api from "../../services/api";
+import NoVisitsMessage from "./NoVisitsMessage";
 // 데이터를 받아오는 컴포넌트
 const VisitItemContainer = () => {
   const [visitData, setVisitData] = useState(null);
@@ -28,7 +29,7 @@ const VisitItemContainer = () => {
 
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
-      {visitData ? <VisitItem visit={visitData} /> : <p> 데이터 없음</p>}
+      {visitData ? <VisitItem visit={visitData} /> : <NoVisitsMessage />}
     </div>
   );
 };

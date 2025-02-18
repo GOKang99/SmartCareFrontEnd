@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
-import VisitItem from "./VisitItem";
 import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
+import VisitItem from "./VisitItem";
 import NoVisitsMessage from "./NoVisitsMessage";
 
-const VisitList = () => {
+const VisitLisitForGuard = () => {
   const [visits, setVisits] = useState([]);
   const [error, setError] = useState("");
+  //guardId ContextPath에서 받아오기
+  const [guardId, setGuardId] = useState(3);
 
   useEffect(() => {
     const fetchAllVisits = async () => {
       try {
-        const response = await api.get("/visit/all");
-        console.log(response);
+        const response = await api.get(`/visit/all/${guardId}`);
         setVisits(response.data);
       } catch (error) {
         console.error(error);
-        setError("모든 데이터 불러오기 중 오류 발생");
+        setError(guardId + "의 예약 데이터 불러오기 실패");
       }
     };
     fetchAllVisits();
   }, []);
 
-  // if (error) {
-  //   return <p className="text-red-500">{error}</p>;
-  // }
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}
@@ -37,4 +35,4 @@ const VisitList = () => {
   );
 };
 
-export default VisitList;
+export default VisitLisitForGuard;
