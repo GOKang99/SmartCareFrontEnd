@@ -3,19 +3,32 @@ import InputField from "../form/InputField";
 import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
 import TimePicker from "./TimePicker";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const VisitForm = () => {
-  //일단 guardId를 1로 설정
+  const navigate = useNavigate();
+
+  //기본 값 설정 useState
   const guardId = 1;
+
+  //  기본값 09:00 설정
+  const [selectedTime, setSelectedTime] = useState({
+    value: "09:00",
+    label: "09:00",
+  });
 
   const [error, setError] = useState("");
 
+  //오늘 날짜 가져오기
+  const today = new Date().toISOString().split("T")[0];
+
+  //폼 useState
   const [formData, setFormData] = useState({
-    visDate: "",
+    visDate: today,
     visTime: "",
-    visTp: "",
+    visTp: "visit",
     visRelation: "",
-    visCnt: 0,
+    visCnt: 1,
     visApply: "pending",
     visYn: false,
     remark: "",
@@ -31,10 +44,19 @@ const VisitForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // 기본 제출 메소드 초기화
+    // 기본 제출 메소드 초기화
+    e.preventDefault();
+
+    // visTime변환 메서드
+    //value가 있다면 value반환 없다면 빈 문자열
+    formData.visTime = selectedTime?.value || "";
+
+    console.log("서버로 보낼 데이터", formData);
+
     try {
       const response = await api.post(`/visit/create/${guardId}`, formData);
       console.log("Response", response.data);
+      navigate("/visits/my");
     } catch (error) {
       console.error(error);
       setError("예약 생성 중 오류 발생");
@@ -43,11 +65,13 @@ const VisitForm = () => {
 
   return (
     <div>
+      {/* 에러 창 */}
       {error && <ErrorMessage error={error} />}
       <form
         onSubmit={handleSubmit}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded"
       >
+        {/* 방문 날짜 선택 */}
         <div className="mb-4">
           <InputField
             label="방문 날짜"
@@ -56,24 +80,18 @@ const VisitForm = () => {
             value={formData.visDate}
             onChange={handleChange}
             required
+            min={today}
           />
         </div>
+        {/* 방문예약 시간 설정 */}
         <div className="mb-4">
-          <InputField
-            label="방문 시간"
-            type="time"
-            name="visTime"
-            value={formData.visTime}
-            onChange={handleChange}
-            required
-            min="09:00"
-            max="18:00"
-            step="1800" //30분 단위로 설정
+          <label className="block mb-1">방문 시간</label>
+          <TimePicker
+            setSelectedTime={setSelectedTime}
+            selectedTime={selectedTime}
           />
         </div>
-        <div className="mb-4">
-          <TimePicker />
-        </div>
+        {/* 직접방문 or 영상통화 */}
         <div className="mb-4">
           <label className="block mb-1">방문 유형</label>
           <select
@@ -106,6 +124,8 @@ const VisitForm = () => {
             value={formData.visCnt}
             onChange={handleChange}
             required
+            min={1}
+            max={10}
           />
         </div>
 
