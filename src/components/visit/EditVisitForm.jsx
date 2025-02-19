@@ -3,7 +3,7 @@ import InputField from "../form/InputField";
 import TimePicker from "./TimePicker";
 import api from "../../services/api";
 
-const EditVisitForm = ({ visit, onClose }) => {
+const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
   //  기본값 09:00 설정
   const [selectedTime, setSelectedTime] = useState({
     value: "09:00",
@@ -11,13 +11,21 @@ const EditVisitForm = ({ visit, onClose }) => {
   });
 
   const [formData, setFormData] = useState({
+    //방문 날짜
     visDate: visit.visDate,
+    // 방문시간
     visTime: visit.visTime,
+    //영상통화 or 방문
     visTp: visit.visTp,
+    //환자와의 관계
     visRelation: visit.visRelation,
+    //방문 인원
     visCnt: visit.visCnt,
+    //비고
     remark: visit.remark,
+    //승인 여부
     visApply: visit.visApply,
+    //방문 여부
     visYn: visit.visYn,
   });
 
@@ -35,11 +43,14 @@ const EditVisitForm = ({ visit, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //selectedTime이 존재한다면! value를 셋팅 없다면 빈 문자열
     formData.visTime = selectedTime?.value || "";
     console.log(formData);
     try {
       const response = await api.put(`/visit/update/${visit.visId}`, formData);
-      onUpdateSuccess(response.data);
+      if (typeof onUpdateSuccess === "function") {
+        onUpdateSuccess(response.data);
+      }
     } catch (err) {
       setError("예약 업데이트 중 오류 발생");
     }
@@ -118,6 +129,33 @@ const EditVisitForm = ({ visit, onClose }) => {
           />
         </div>
 
+        <div>
+          <label>방문 승인</label>
+          <select
+            name="visApply"
+            value={formData.visApply}
+            onChange={handleChange}
+            required
+          >
+            <option value="pending">대기</option>
+            <option value="permited">허가</option>
+            <option value="rejected">거절</option>
+          </select>
+        </div>
+
+        <div>
+          <label>방문여부</label>
+          <select
+            name="visYn"
+            value={formData.visYn}
+            onChange={handleChange}
+            required
+          >
+            <option value="">선택하세요</option>
+            <option value="true">방문</option>
+            <option value="false">미방문</option>
+          </select>
+        </div>
         <button
           className="mt-2 m-1 bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
           type="submit"

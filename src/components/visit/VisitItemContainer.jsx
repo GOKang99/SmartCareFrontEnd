@@ -24,13 +24,24 @@ const VisitItemContainer = () => {
     fetchVisit();
   }, []);
 
+  // 업데이트 성공 시 호출되는 콜백 함수
+  const handleUpdateSuccess = (updatedVisit) => {
+    console.log("업데이트 성공:", updatedVisit);
+    // 필요에 따라 상태를 업데이트할 수 있습니다.
+    setVisitData(updatedVisit);
+  };
+
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
 
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
-      {visitData ? <VisitItem visit={visitData} /> : <NoVisitsMessage />}
+      {visitData ? (
+        <VisitItem visit={visitData} onUpdateSuccess={handleUpdateSuccess} />
+      ) : (
+        <NoVisitsMessage />
+      )}
     </div>
   );
 };

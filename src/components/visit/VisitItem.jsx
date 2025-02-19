@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import VisitUpdateModal from "./VisitUpdateModal";
 
-const VisitItem = ({ visit }) => {
+const VisitItem = ({ visit, onUpdateSuccess }) => {
   // 토글을 위한 수정 모드 셋팅
   const [showModal, setShowModal] = useState(false);
 
@@ -20,14 +20,14 @@ const VisitItem = ({ visit }) => {
   }
   // visit 객체에서 추출
   const {
-    visApply,
-    visTp,
-    visDate,
-    visTime,
-    visRelation,
-    visCnt,
-    visYn,
-    remark,
+    visApply, //승인
+    visTp, //방문 or 영상통화
+    visDate, //방문 날짜
+    visTime, //방문시간
+    visRelation, //입소자와 관계
+    visCnt, //방문 인원
+    visYn, //방문 여부
+    remark, // 비고
   } = visit;
 
   // 예약 상태에 따라 표시할 색상을 구분
@@ -99,7 +99,12 @@ const VisitItem = ({ visit }) => {
       {/* EditVisitForm은 VisitItem의 정보 컨테이너 아래에 표시됨 */}
 
       <div className="mt-4">
-        <VisitUpdateModal show={showModal} onClose={closeModal} visit={visit} />
+        <VisitUpdateModal
+          show={showModal}
+          onClose={closeModal}
+          visit={visit}
+          onUpdateSuccess={onUpdateSuccess}
+        />
       </div>
     </>
   );
