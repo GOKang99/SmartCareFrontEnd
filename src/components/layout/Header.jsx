@@ -86,7 +86,7 @@ const Header = () => {
                       : "text-gray-900 hover:text-blue-700"
                   }`}
                 >
-                  예약하기
+                  방문예약
                 </Link>
               </li>
               <li>

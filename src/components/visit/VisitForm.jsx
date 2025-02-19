@@ -34,6 +34,7 @@ const VisitForm = () => {
     remark: "",
   });
 
+  //input창 입력시 실행되는
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -56,6 +57,8 @@ const VisitForm = () => {
     try {
       const response = await api.post(`/visit/create/${guardId}`, formData);
       console.log("Response", response.data);
+      alert(`${formData.visDate}일 ${formData.visTime}에 예약 완료`);
+      //내 예약으로 이동
       navigate("/visits/my");
     } catch (error) {
       console.error(error);
@@ -69,7 +72,7 @@ const VisitForm = () => {
       {error && <ErrorMessage error={error} />}
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto p-4 bg-white shadow-md rounded"
+        className="mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-md w-[500px]"
       >
         {/* 방문 날짜 선택 */}
         <div className="mb-4">
@@ -106,14 +109,16 @@ const VisitForm = () => {
             <option value="face">영상 통화</option>
           </select>
         </div>
+        {/* 환자와의 관계 */}
         <div className="mb-4">
           <InputField
-            label="관계"
+            label="환자와의 관계"
             type="text"
             name="visRelation"
             value={formData.visRelation}
             onChange={handleChange}
             required
+            placeholder="예:가족,친구,지인"
           />
         </div>
         <div className="mb-4">
