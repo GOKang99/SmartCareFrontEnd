@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import EditVisitForm from "./EditVisitForm";
-import Test from "./test";
+import VisitUpdateModal from "./VisitUpdateModal";
 
 const VisitItem = ({ visit }) => {
   // 토글을 위한 수정 모드 셋팅
-  const [isEditing, setIsEditing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  // 모달 열기/닫기 핸들러
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   // 수정하기
   const handleUpdate = (e) => {
@@ -78,7 +81,8 @@ const VisitItem = ({ visit }) => {
         </p>
         {/* 수정 하기 */}
         <button
-          onClick={handleUpdate}
+          onClick={openModal}
+          type="button"
           className="mt-2 bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
         >
           수정
@@ -93,11 +97,10 @@ const VisitItem = ({ visit }) => {
       </div>
 
       {/* EditVisitForm은 VisitItem의 정보 컨테이너 아래에 표시됨 */}
-      {isEditing && (
-        <div className="mt-4">
-          <EditVisitForm />
-        </div>
-      )}
+
+      <div className="mt-4">
+        <VisitUpdateModal show={showModal} onClose={closeModal} visit={visit} />
+      </div>
     </>
   );
 };
