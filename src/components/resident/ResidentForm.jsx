@@ -55,6 +55,11 @@ const ResidentForm = () => {
     });
   };
 
+  const checkPhoneNo = (phone) => {
+    const phoneRegex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+    return phoneRegex.test(phone);
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -83,6 +88,11 @@ const ResidentForm = () => {
 
     if (image) {
       data.append("resImages", file); // 파일 객체를 바로 추가
+    }
+
+    if (!checkPhoneNo(formData.phone)) {
+      alert("전화번호 형식이 올바르지 않습니다. (예:010-1234-5678)");
+      return;
     }
 
     try {
@@ -136,14 +146,16 @@ const ResidentForm = () => {
 
         <div>
           <label>성별</label>
-          <input
+          <select
             required
-            placeholder="성별"
-            type="text"
             name="gender"
             onChange={handleInputChange}
             value={formData.gender}
-          />
+          >
+            <option value="">성별을 선택하세요</option>
+            <option value="남자">남자</option>
+            <option value="여자">여자</option>
+          </select>
         </div>
 
         <div>
