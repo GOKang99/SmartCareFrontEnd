@@ -12,7 +12,7 @@ import Visits from "./pages/Visits";
 
 function App() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <Header />
         <Routes>

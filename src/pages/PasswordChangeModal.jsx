@@ -49,7 +49,7 @@ const PasswordChangeModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null; // 모달이 닫혀 있으면 렌더링 안 함
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-xs">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-xl font-semibold mb-4">비밀번호 변경</h2>
 
