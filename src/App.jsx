@@ -9,6 +9,7 @@ import Footer from "./components/layout/Footer";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
 import Visits from "./pages/Visits";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -20,9 +21,23 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/notice" element={<Notices />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route
+            path="/mypage"
+            element={
+              <ProtectedRoute>
+                <Mypage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/agree" element={<Agree />} />
-          <Route path="/visits/*" element={<Visits />} />
+          <Route
+            path="/visits/*"
+            element={
+              <ProtectedRoute>
+                <Visits />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
