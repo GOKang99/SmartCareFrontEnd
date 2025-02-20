@@ -97,7 +97,7 @@ const Home = () => {
                 생활현황
               </a>
               <Link
-                to="/reservation"
+                to="/visits"
                 className="text-gray-700 flex flex-col items-center"
               >
                 <img

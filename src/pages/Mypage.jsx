@@ -2,19 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import PasswordChangeModal from "./PasswordChangeModal";
+import { jwtDecode } from "jwt-decode";
+import { useMyContext } from "../ContextApi";
+import api from "../services/api";
 
 const Mypage = () => {
+  const { token } = useMyContext(); //컨텍스트에서 id 받아오기
   const { id } = useParams(); // URL에서 user id를 가져온다고 가정(/mypage/1)
   const [userData, setUserData] = useState(null); // 백엔드에서 받은 유저 정보
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
+  const dToken = jwtDecode(token);
+  // useEffect(() => {
+  //
+  //   console.log("커런트", dToken.userId);
+  // }, [token]);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/users/${id}`
-        );
-        setUserData(response.data);
+        const { data } = await api.get(`/users/${dToken.userId}`);
+        // console.log(data);
+        setUserData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
