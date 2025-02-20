@@ -12,6 +12,7 @@ import Login from "./auth/Login";
 import Signup from "./auth/Signup";
 import Visits from "./pages/Visits";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Residents from "./pages/Residents";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           />
           <Route path="/meal" element={<MealPage />} />
           <Route path="/admin/meal" element={<MealAdminPage />} />
+          <Route path="/resident/*" element={<Residents />} />
         </Routes>
         <Footer />
       </BrowserRouter>

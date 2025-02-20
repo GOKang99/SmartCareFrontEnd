@@ -85,6 +85,18 @@ const Header = () => {
               </li>
               <li>
                 <Link
+                  to="/resident"
+                  className={`block py-2 px-3 rounded-sm md:p-0 ${
+                    location.pathname === "/mypage"
+                      ? "text-blue-700"
+                      : "text-gray-900 hover:text-blue-700"
+                  }`}
+                >
+                  입소자 정보
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/meal"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/meal"
