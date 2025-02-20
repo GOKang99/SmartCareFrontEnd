@@ -2,6 +2,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import ResidentForm from "../components/resident/ResidentForm";
 import ResidentList from "../components/resident/ResidentList";
 import ResidentItem from "../components/resident/ResidentItem";
+import ResidentEdit from "../components/resident/ResidentEdit";
 
 const Residents = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 훅
@@ -46,6 +47,7 @@ const Residents = () => {
           <Route path="/form" element={<ResidentForm />} />
           <Route path="/list" element={<ResidentList />} />
           <Route path="/list/:id" element={<ResidentItem />} />
+          <Route path="/edit/:id" element={<ResidentEdit />} />
         </Routes>
       </div>
     </div>

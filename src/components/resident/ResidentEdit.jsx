@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
-const ResidentForm = () => {
+const ResidentEdit = () => {
+  const { id } = useParams();
   const [image, setImage] = useState(null); // 이미지 URL 상태
   const [file, setFile] = useState(null); // 실제 파일 객체 상태
-
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -60,15 +60,54 @@ const ResidentForm = () => {
     return phoneRegex.test(phone);
   };
 
+  const loadResident = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/resident/${id}`
+      );
+      const resident = response.data;
+      setFormData({
+        name: resident.resName,
+        gender: resident.resGender,
+        birth: resident.resBirth,
+        phone: resident.resPhone,
+        grade: resident.resGrade,
+        disease: resident.resDisease,
+        location: resident.resLocation,
+        enterdate: resident.resEnterDate,
+        exitdate: resident.resExitDate,
+        address: resident.resAddress,
+        schoolgrade: resident.resSchoolGrade,
+        systemcode: resident.systemResCode,
+        longtermNo: resident.resLongTermCareNo,
+        caregroup: resident.resCareGroup,
+        foodtype: resident.resFoodType,
+        functiondis: resident.resFunctionDis,
+        dementiaYn: resident.dementiaYn,
+        fallYn: resident.fallYn,
+        bedsoreYn: resident.bedsoreYn,
+        postureYn: resident.postureYn,
+      });
+      setImage(`http://localhost:8080/images/${resident.resImageAddress}`); // 이미지 경로 설정
+    } catch (error) {
+      console.error("Error fetching resident data:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadResident();
+  }, []);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
 
+    // 일반적인 데이터 추가
     data.append("giverId", "1");
     data.append("resName", formData.name);
     data.append("resGender", formData.gender);
     data.append("resBirth", formData.birth);
-    data.append("resPhone", formData.phone); // 수정된 부분
+    data.append("resPhone", formData.phone);
     data.append("resGrade", formData.grade);
     data.append("resDisease", formData.disease);
     data.append("resLocation", formData.location);
@@ -81,23 +120,28 @@ const ResidentForm = () => {
     data.append("resCareGroup", formData.caregroup);
     data.append("resFoodType", formData.foodtype);
     data.append("resFunctionDis", formData.functiondis);
-    data.append("dementiaYn", formData.dementiaYn);
-    data.append("fallYn", formData.fallYn);
-    data.append("bedsoreYn", formData.bedsoreYn);
-    data.append("postureYn", formData.postureYn);
 
-    if (image) {
-      data.append("resImages", file); // 파일 객체를 바로 추가
+    // boolean 값 처리: 서버에서 true/false를 string으로 처리한다고 가정
+    data.append("dementiaYn", formData.dementiaYn ? "true" : "false");
+    data.append("fallYn", formData.fallYn ? "true" : "false");
+    data.append("bedsoreYn", formData.bedsoreYn ? "true" : "false");
+    data.append("postureYn", formData.postureYn ? "true" : "false");
+
+    // 이미지 파일이 있을 경우, 파일 객체 추가
+    if (file) {
+      data.append("resImages", file);
     }
 
+    // 전화번호 형식 확인
     if (!checkPhoneNo(formData.phone)) {
       alert("전화번호 형식이 올바르지 않습니다. (예:010-1234-5678)");
       return;
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/resident/create",
+      // PUT 요청으로 데이터 전송
+      const response = await axios.put(
+        `http://localhost:8080/api/resident/${id}`,
         data,
         {
           headers: {
@@ -105,9 +149,13 @@ const ResidentForm = () => {
           },
         }
       );
-      console.log(response);
+
+      // 서버 응답 확인
+      console.log("Response:", response.data);
+      alert("수정이 완료되었습니다.");
     } catch (error) {
       console.error("Error:", error);
+      alert("서버와의 연결에 실패했습니다.");
     }
   };
 
@@ -381,4 +429,4 @@ const ResidentForm = () => {
   );
 };
 
-export default ResidentForm;
+export default ResidentEdit;
