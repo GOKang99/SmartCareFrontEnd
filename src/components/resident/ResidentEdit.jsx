@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import imageApi from "../../services/imageApi";
 
 const ResidentEdit = () => {
@@ -29,6 +29,8 @@ const ResidentEdit = () => {
     bedsoreYn: false,
     postureYn: false,
   });
+
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -158,6 +160,7 @@ const ResidentEdit = () => {
       // 서버 응답 확인
       console.log("Response:", response.data);
       alert("수정이 완료되었습니다.");
+      navigate("/resident/list");
     } catch (error) {
       console.error("Error:", error);
       alert("서버와의 연결에 실패했습니다.");
@@ -165,268 +168,315 @@ const ResidentEdit = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <form onSubmit={onSubmit} className="space-y-6">
         {/* 이미지 업로드 섹션 */}
         <div>
-          <label htmlFor="image-upload">이미지 업로드</label>
+          <label htmlFor="image-upload" className="font-semibold">
+            이미지 업로드
+          </label>
           <input
             id="image-upload"
             type="file"
             accept=".jpg, .png"
             onChange={handleImageChange}
+            className="mt-2"
           />
           {image && (
-            <div>
-              <img src={image} alt="preview" width="100" />
+            <div className="mt-2">
+              <img
+                src={image}
+                alt="preview"
+                width="100"
+                className="rounded-md"
+              />
             </div>
           )}
         </div>
 
-        {/* 폼 항목들을 3개씩 나열하는 부분 */}
-
-        <div>
-          <label>입소자 성명</label>
-          <input
-            required
-            placeholder="이름"
-            type="text"
-            name="name"
-            onChange={handleInputChange}
-            value={formData.name}
-          />
-        </div>
-
-        <div>
-          <label>성별</label>
-          <select
-            required
-            name="gender"
-            onChange={handleInputChange}
-            value={formData.gender}
-          >
-            <option value="">선택하세요</option>
-            <option value="남자">남자</option>
-            <option value="여자">여자</option>
-          </select>
-        </div>
-
-        <div>
-          <label>생년월일</label>
-          <input
-            required
-            placeholder="생년월일"
-            type="date"
-            name="birth"
-            onChange={handleInputChange}
-            value={formData.birth}
-          />
-        </div>
-
-        <div>
-          <label>전화번호</label>
-          <input
-            required
-            placeholder="전화번호"
-            type="text"
-            name="phone"
-            onChange={handleInputChange}
-            value={formData.phone}
-          />
-        </div>
-
-        <div>
-          <label>등급</label>
-          <input
-            required
-            placeholder="등급"
-            type="text"
-            name="grade"
-            onChange={handleInputChange}
-            value={formData.grade}
-          />
-        </div>
-
-        <div>
-          <label>주요질환</label>
-          <input
-            required
-            placeholder="주요질환"
-            type="text"
-            name="disease"
-            onChange={handleInputChange}
-            value={formData.disease}
-          />
-        </div>
-
-        <div>
-          <label>생활실</label>
-          <input
-            required
-            placeholder="생활실"
-            type="text"
-            name="location"
-            onChange={handleInputChange}
-            value={formData.location}
-          />
-        </div>
-
-        <div>
-          <label>입소일</label>
-          <input
-            required
-            type="date"
-            name="enterdate"
-            onChange={handleInputChange}
-            value={formData.enterdate}
-          />
-        </div>
-
-        <div>
-          <label>퇴소일</label>
-          <input
-            type="date"
-            name="exitdate"
-            onChange={handleInputChange}
-            value={formData.exitdate || ""}
-          />
-        </div>
-
-        <div>
+        {/* 폼 항목들 3개씩 나열 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* 첫 번째 열 */}
           <div>
-            <label>치매유무</label>
+            <label className="font-semibold">입소자 성명</label>
+            <input
+              required
+              placeholder="이름"
+              type="text"
+              name="name"
+              onChange={handleInputChange}
+              value={formData.name}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">성별</label>
+            <select
+              required
+              name="gender"
+              onChange={handleInputChange}
+              value={formData.gender}
+              className="w-full p-2 border rounded-md mt-2"
+            >
+              <option value="">선택하세요</option>
+              <option value="남자">남자</option>
+              <option value="여자">여자</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="font-semibold">생년월일</label>
+            <input
+              required
+              placeholder="생년월일"
+              type="date"
+              name="birth"
+              onChange={handleInputChange}
+              value={formData.birth}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          {/* 두 번째 열 */}
+          <div>
+            <label className="font-semibold">전화번호</label>
+            <input
+              required
+              placeholder="전화번호"
+              type="text"
+              name="phone"
+              onChange={handleInputChange}
+              value={formData.phone}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">등급</label>
+            <input
+              required
+              placeholder="등급"
+              type="text"
+              name="grade"
+              onChange={handleInputChange}
+              value={formData.grade}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">주요질환</label>
+            <input
+              required
+              placeholder="주요질환"
+              type="text"
+              name="disease"
+              onChange={handleInputChange}
+              value={formData.disease}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          {/* 세 번째 열 */}
+          <div>
+            <label className="font-semibold">생활실</label>
+            <input
+              required
+              placeholder="생활실"
+              type="text"
+              name="location"
+              onChange={handleInputChange}
+              value={formData.location}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">입소일</label>
+            <input
+              required
+              type="date"
+              name="enterdate"
+              onChange={handleInputChange}
+              value={formData.enterdate}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">퇴소일</label>
+            <input
+              type="date"
+              name="exitdate"
+              onChange={handleInputChange}
+              value={formData.exitdate || ""}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+        </div>
+
+        {/* 체크박스 그룹 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div>
+            <label className="font-semibold">치매유무</label>
             <input
               type="checkbox"
               name="dementiaYn"
               checked={formData.dementiaYn}
               onChange={handleInputChange}
+              className="mt-2"
             />
           </div>
 
           <div>
-            <label>낙상위험</label>
+            <label className="font-semibold">낙상위험</label>
             <input
               type="checkbox"
               name="fallYn"
               checked={formData.fallYn}
               onChange={handleInputChange}
+              className="mt-2"
             />
           </div>
 
           <div>
-            <label>욕창위험</label>
+            <label className="font-semibold">욕창위험</label>
             <input
               type="checkbox"
               name="bedsoreYn"
               checked={formData.bedsoreYn}
               onChange={handleInputChange}
+              className="mt-2"
             />
           </div>
+
           <div>
-            <label>자세변경</label>
+            <label className="font-semibold">자세변경</label>
             <input
               type="checkbox"
               name="postureYn"
               checked={formData.postureYn}
               onChange={handleInputChange}
+              className="mt-2"
             />
           </div>
         </div>
 
-        <div>
-          <label>주소</label>
-          <input
-            required
-            placeholder="주소"
-            type="text"
-            name="address"
-            onChange={handleInputChange}
-            value={formData.address}
-          />
+        {/* 추가 정보 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="font-semibold">주소</label>
+            <input
+              required
+              placeholder="주소"
+              type="text"
+              name="address"
+              onChange={handleInputChange}
+              value={formData.address}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">최종학력</label>
+            <select
+              required
+              name="schoolgrade"
+              onChange={handleInputChange}
+              value={formData.schoolgrade}
+              className="w-full p-2 border rounded-md mt-2"
+            >
+              <option value="">선택하세요</option>
+              <option value="초졸">초졸</option>
+              <option value="중졸">중졸</option>
+              <option value="고졸">고졸</option>
+              <option value="대졸">대졸</option>
+              <option value="알수없음">알수없음</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="font-semibold">요양시스템 입소자 코드</label>
+            <input
+              required
+              placeholder="입소자 코드"
+              type="text"
+              name="systemcode"
+              onChange={handleInputChange}
+              value={formData.systemcode}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">장기요양인정번호</label>
+            <input
+              required
+              placeholder="장기요양인정번호"
+              type="text"
+              name="longtermNo"
+              onChange={handleInputChange}
+              value={formData.longtermNo}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">케어그룹</label>
+            <input
+              required
+              placeholder="케어그룹"
+              type="text"
+              name="caregroup"
+              onChange={handleInputChange}
+              value={formData.caregroup}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">식사종류</label>
+            <input
+              required
+              placeholder="식사종류"
+              type="text"
+              name="foodtype"
+              onChange={handleInputChange}
+              value={formData.foodtype}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">기능장애</label>
+            <input
+              required
+              placeholder="기능장애"
+              type="text"
+              name="functiondis"
+              onChange={handleInputChange}
+              value={formData.functiondis}
+              className="w-full p-2 border rounded-md mt-2"
+            />
+          </div>
         </div>
 
-        <div>
-          <label>최종학력</label>
-          <select
-            required
-            name="schoolgrade"
-            onChange={handleInputChange}
-            value={formData.schoolgrade}
+        {/* 제출 및 취소 버튼 */}
+        <div className="flex justify-between items-center">
+          <button
+            type="submit"
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
-            <option value="">선택하세요</option>
-            <option value="초졸">초졸</option>
-            <option value="중졸">중졸</option>
-            <option value="고졸">고졸</option>
-            <option value="대졸">대졸</option>
-            <option value="알수없음">알수없음</option>
-          </select>
-        </div>
-
-        <div>
-          <label>요양시스템 입소자 코드</label>
-          <input
-            required
-            placeholder="입소자 코드"
-            type="text"
-            name="systemcode"
-            onChange={handleInputChange}
-            value={formData.systemcode}
-          />
-        </div>
-
-        <div>
-          <label>장기요양인정번호</label>
-          <input
-            required
-            placeholder="장기요양인정번호"
-            type="text"
-            name="longtermNo"
-            onChange={handleInputChange}
-            value={formData.longtermNo}
-          />
-        </div>
-
-        <div>
-          <label>케어그룹</label>
-          <input
-            required
-            placeholder="케어그룹"
-            type="text"
-            name="caregroup"
-            onChange={handleInputChange}
-            value={formData.caregroup}
-          />
-        </div>
-
-        <div>
-          <label>식사종류</label>
-          <input
-            required
-            placeholder="식사종류"
-            type="text"
-            name="foodtype"
-            onChange={handleInputChange}
-            value={formData.foodtype}
-          />
-        </div>
-
-        <div>
-          <label>기능장애</label>
-          <input
-            required
-            placeholder="기능장애"
-            type="text"
-            name="functiondis"
-            onChange={handleInputChange}
-            value={formData.functiondis}
-          />
-        </div>
-
-        {/* 제출 버튼과 취소 버튼을 양옆으로 배치하면서 가운데 정렬 */}
-        <div>
-          <button type="submit">제출</button>
+            제출
+          </button>
           <Link to="/resident">
-            <button type="button">취소</button>
+            <button
+              type="button"
+              className="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+            >
+              취소
+            </button>
           </Link>
         </div>
       </form>

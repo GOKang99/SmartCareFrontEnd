@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -43,35 +42,42 @@ const ResidentList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-white text-blue-900 p-6">
       {residents.length === 0 ? (
-        <p>입소자 목록이 없습니다.</p>
+        <p className="text-center text-xl font-semibold">
+          입소자 목록이 없습니다.
+        </p>
       ) : (
-        <table className="border-collapse border border-amber-600">
+        <table className="min-w-full table-auto border-collapse">
           <thead>
             <tr>
-              <th className="border border-amber-600">이름</th>
-              <th className="border border-amber-600">성별</th>
-              <th className="border border-amber-600">생년월일</th>
-              <th className="border border-amber-600">상세보기</th>
+              <th className="border-b-2 border-blue-300 px-4 py-2">이름</th>
+              <th className="border-b-2 border-blue-300 px-4 py-2">성별</th>
+              <th className="border-b-2 border-blue-300 px-4 py-2">생년월일</th>
+              <th className="border-b-2 border-blue-300 px-4 py-2">상세보기</th>
             </tr>
           </thead>
           <tbody>
             {residents.map((resident) => (
-              <tr key={resident.resId}>
-                <td className="border border-amber-600">{resident.resName}</td>
-                <td className="border border-amber-600">
-                  {resident.resGender}
-                </td>
-                <td className="border border-amber-600">{resident.resBirth}</td>
-                <td className="border border-amber-600">
+              <tr key={resident.resId} className="hover:bg-blue-50">
+                <td className="border-b px-4 py-2">{resident.resName}</td>
+                <td className="border-b px-4 py-2">{resident.resGender}</td>
+                <td className="border-b px-4 py-2">{resident.resBirth}</td>
+                <td className="border-b px-4 py-2">
                   <Link to={`/resident/list/${resident.resId}`}>
-                    <button>보기</button>
+                    <button className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300 mr-2">
+                      보기
+                    </button>
                   </Link>
                   <Link to={`/resident/edit/${resident.resId}`}>
-                    <button>수정</button>
+                    <button className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300 mr-2">
+                      수정
+                    </button>
                   </Link>
-                  <button onClick={() => deleteResident(resident.resId)}>
+                  <button
+                    onClick={() => deleteResident(resident.resId)}
+                    className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300"
+                  >
                     삭제
                   </button>
                 </td>
