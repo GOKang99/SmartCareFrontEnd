@@ -6,8 +6,8 @@ import api from "../../services/api";
 const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
   //  기본값 09:00 설정
   const [selectedTime, setSelectedTime] = useState({
-    value: "09:00",
-    label: "09:00",
+    value: visit.visTime,
+    label: visit.visTime,
   });
 
   const [formData, setFormData] = useState({
@@ -41,7 +41,7 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
 
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     //selectedTime이 존재한다면! value를 셋팅 없다면 빈 문자열
     formData.visTime = selectedTime?.value || "";
@@ -51,6 +51,9 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
       if (typeof onUpdateSuccess === "function") {
         onUpdateSuccess(response.data);
       }
+      //모달 창 닫고 새로 고침
+      onClose();
+      window.location.reload();
     } catch (err) {
       setError("예약 업데이트 중 오류 발생");
     }
@@ -58,7 +61,7 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUpdate}>
         {error && <p>{error}</p>}
 
         <div>
@@ -80,13 +83,16 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
           />
         </div>
 
-        <div>
-          <label>방문 유형</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium m-1">
+            방문 유형
+          </label>
           <select
             name="visTp"
             value={formData.visTp}
             onChange={handleChange}
             required
+            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
           >
             <option value="">선택하세요</option>
             <option value="visit">직접 방문</option>
@@ -129,13 +135,16 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
           />
         </div>
 
-        <div>
-          <label>방문 승인</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-1">
+            방문 승인
+          </label>
           <select
             name="visApply"
             value={formData.visApply}
             onChange={handleChange}
             required
+            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
           >
             <option value="pending">대기</option>
             <option value="permited">허가</option>
@@ -143,13 +152,16 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
           </select>
         </div>
 
-        <div>
-          <label>방문여부</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-1">
+            방문여부
+          </label>
           <select
             name="visYn"
             value={formData.visYn}
             onChange={handleChange}
             required
+            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
           >
             <option value="">선택하세요</option>
             <option value="true">방문</option>

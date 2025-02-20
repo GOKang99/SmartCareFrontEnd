@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import VisitUpdateModal from "./VisitUpdateModal";
+import api from "../../services/api";
 
 const VisitItem = ({ visit, onUpdateSuccess }) => {
   // 토글을 위한 수정 모드 셋팅
@@ -13,6 +14,20 @@ const VisitItem = ({ visit, onUpdateSuccess }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
     setIsEditing((prev) => !prev);
+  };
+
+  //삭제하기
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.delete(`/visit/delete/${visit.visId}`);
+      // 삭제후 작업 수행 기능 들어갈 자리
+      window.location.reload();
+      console.log("삭제 성공:", response.data);
+    } catch (error) {
+      console.error("삭제 중 오류 발생", error);
+      // 에러 처리 로직 추가 (예: 사용자에게 에러 메시지 표시)
+    }
   };
 
   if (!visit) {
@@ -87,9 +102,10 @@ const VisitItem = ({ visit, onUpdateSuccess }) => {
         >
           수정
         </button>
+
         {/* 삭제 하기 */}
         <button
-          onClick={handleUpdate}
+          onClick={handleDelete}
           className="mt-2 m-1 bg-orange-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
         >
           삭제
