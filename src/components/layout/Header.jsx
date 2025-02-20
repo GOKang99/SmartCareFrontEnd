@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation(); // 현재 URL 가져오기
+  const user = { id: 1 };
 
   return (
     <>
@@ -91,7 +92,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="/mypage"
+                  to={`/mypage/${user.id}`}
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/mypage"
                       ? "text-blue-700"

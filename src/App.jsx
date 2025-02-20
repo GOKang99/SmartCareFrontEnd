@@ -7,19 +7,23 @@ import Mypage from "./pages/Mypage";
 import Reservations from "./pages/Reservations";
 import Agree from "./pages/Agree";
 import Footer from "./components/layout/Footer";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/notice" element={<Notices />} />
-          <Route path="/mypage/:id" element={<Mypage />} />
-          <Route path="/reservation" element={<Reservations />} />
-          <Route path="/agree" element={<Agree />} />
-        </Routes>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/notice" element={<Notices />} />
+            <Route path="/mypage/:id" element={<Mypage />} />
+            <Route path="/reservation" element={<Reservations />} />
+            <Route path="/agree" element={<Agree />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>
