@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
+import imageApi from "../../services/imageApi";
 
 const ResidentForm = () => {
   const [image, setImage] = useState(null); // 이미지 URL 상태
@@ -96,18 +98,10 @@ const ResidentForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/resident/create",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await imageApi.post("/resident/create", data);
       console.log(response);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("에러:", error);
     }
   };
 
