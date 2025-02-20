@@ -9,6 +9,7 @@ import Agree from "./pages/Agree";
 import Footer from "./components/layout/Footer";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
+import Visits from "./pages/Visits";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/mypage/:id" element={<Mypage />} />
           <Route path="/reservation" element={<Reservations />} />
           <Route path="/agree" element={<Agree />} />
+          <Route path="/visits/*" element={<Visits />} />
         </Routes>
         <Footer />
       </BrowserRouter>
