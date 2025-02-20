@@ -2,19 +2,13 @@ import React, { useState } from "react";
 import VisitUpdateModal from "./VisitUpdateModal";
 import api from "../../services/api";
 
-const VisitItem = ({ visit, onUpdateSuccess }) => {
+const VisitItem = ({ visit }) => {
   // 토글을 위한 수정 모드 셋팅
   const [showModal, setShowModal] = useState(false);
 
   // 모달 열기/닫기 핸들러
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-
-  // 수정하기
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    setIsEditing((prev) => !prev);
-  };
 
   //삭제하기
   const handleDelete = async (e) => {
@@ -45,7 +39,7 @@ const VisitItem = ({ visit, onUpdateSuccess }) => {
     remark, // 비고
   } = visit;
 
-  // 예약 상태에 따라 표시할 색상을 구분
+  // 예약 상태에 따라 표시되는 색상
   const applyColor =
     visApply === "permited"
       ? "text-green-600"
@@ -115,12 +109,7 @@ const VisitItem = ({ visit, onUpdateSuccess }) => {
       {/* EditVisitForm은 VisitItem의 정보 컨테이너 아래에 표시됨 */}
 
       <div className="mt-4">
-        <VisitUpdateModal
-          show={showModal}
-          onClose={closeModal}
-          visit={visit}
-          onUpdateSuccess={onUpdateSuccess}
-        />
+        <VisitUpdateModal show={showModal} onClose={closeModal} visit={visit} />
       </div>
     </>
   );

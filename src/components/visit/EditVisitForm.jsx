@@ -3,7 +3,7 @@ import InputField from "../form/InputField";
 import TimePicker from "./TimePicker";
 import api from "../../services/api";
 
-const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
+const EditVisitForm = ({ visit, onClose }) => {
   //  기본값 09:00 설정
   const [selectedTime, setSelectedTime] = useState({
     value: visit.visTime,
@@ -48,9 +48,7 @@ const EditVisitForm = ({ visit, onClose, onUpdateSuccess }) => {
     console.log(formData);
     try {
       const response = await api.put(`/visit/update/${visit.visId}`, formData);
-      if (typeof onUpdateSuccess === "function") {
-        onUpdateSuccess(response.data);
-      }
+
       //모달 창 닫고 새로 고침
       onClose();
       window.location.reload();
