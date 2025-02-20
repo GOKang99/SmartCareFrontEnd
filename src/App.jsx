@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Header from "./components/layout/Header";
 import Notices from "./pages/Notices";
 import Mypage from "./pages/Mypage";
+import Reservations from "./pages/Reservations";
+import MealPage from "./components/meal/MealPage";
+import MealAdminPage from "./components/meal/MealAdminPage";
 import Agree from "./pages/Agree";
 import Footer from "./components/layout/Footer";
 import Login from "./auth/Login";
@@ -38,6 +41,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/meal" element={<MealPage />} />
+          <Route path="/admin/meal" element={<MealAdminPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
