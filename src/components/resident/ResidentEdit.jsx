@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import imageApi from "../../services/imageApi";
 
 const ResidentEdit = () => {
   const { id } = useParams();
@@ -62,7 +63,7 @@ const ResidentEdit = () => {
 
   const loadResident = async () => {
     try {
-      const response = await axios.get(
+      const response = await imageApi.get(
         `http://localhost:8080/api/resident/${id}`
       );
       const resident = response.data;
@@ -140,7 +141,7 @@ const ResidentEdit = () => {
 
     try {
       // PUT 요청으로 데이터 전송
-      const response = await axios.put(
+      const response = await imageApi.put(
         `http://localhost:8080/api/resident/${id}`,
         data,
         {

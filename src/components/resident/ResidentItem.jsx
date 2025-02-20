@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import imageApi from "../../services/imageApi";
 
 const ResidentItem = () => {
   const { id } = useParams();
@@ -34,7 +34,7 @@ const ResidentItem = () => {
 
   const loadResident = async () => {
     try {
-      const result = await axios.get(
+      const result = await imageApi.get(
         `http://localhost:8080/api/resident/${id}`
       );
       setResident(result.data);
