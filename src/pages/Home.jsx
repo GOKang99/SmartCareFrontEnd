@@ -108,7 +108,7 @@ const Home = () => {
                 예약하기
               </Link>
               <Link
-                to={`/mypage/${user.id}`}
+                to={`/mypage`}
                 className="text-gray-700 flex flex-col items-center"
               >
                 <img
