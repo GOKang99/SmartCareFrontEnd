@@ -70,11 +70,11 @@ const MealPage = () => {
                 <div className="bg-green-500 text-white p-4 rounded-lg shadow-md text-center mb-6">
                     <h2 className="text-lg font-semibold">{meals[meals.length-1].meaDt}</h2>
                     <div className="grid grid-cols-3 gap-2 mt-2">
-                        <span>🍽 아침: {meals[0].breQty}</span>
-                        <span>🍱 점심: {meals[0].lunQty}</span>
-                        <span>🍛 저녁: {meals[0].dinQty}</span>
-                        <span>☕ 오전 간식: {meals[0].morSnackQty}</span>
-                        <span>🍪 오후 간식: {meals[0].aftSnackQty}</span>
+                        <span>🍽 아침: {meals[meals.length-1].breQty}</span>
+                        <span>🍱 점심: {meals[meals.length-1].lunQty}</span>
+                        <span>🍛 저녁: {meals[meals.length-1].dinQty}</span>
+                        <span>☕ 오전 간식: {meals[meals.length-1].morSnackQty}</span>
+                        <span>🍪 오후 간식: {meals[meals.length-1].aftSnackQty}</span>
                     </div>
                 </div>
             )}
