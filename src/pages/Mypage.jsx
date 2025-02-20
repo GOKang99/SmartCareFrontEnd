@@ -12,11 +12,17 @@ const Mypage = () => {
   const [userData, setUserData] = useState(null); // 백엔드에서 받은 유저 정보
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
-  const dToken = jwtDecode(token);
-  // useEffect(() => {
-  //
-  //   console.log("커런트", dToken.userId);
-  // }, [token]);
+  let dToken = null;
+
+  if (token) {
+    try {
+      dToken = jwtDecode(token);
+    } catch (error) {
+      console.error("토큰 해독 중 오류 발생:", error);
+    }
+  } else {
+    console.warn("토큰이 없습니다.");
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
