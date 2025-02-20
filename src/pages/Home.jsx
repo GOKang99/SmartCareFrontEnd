@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useMyContext } from "../ContextApi";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
+  const { token } = useMyContext();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,7 +17,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
-          로그인
+          홈 화면입니다
         </h2>
 
         <form onSubmit={handleLogin}>

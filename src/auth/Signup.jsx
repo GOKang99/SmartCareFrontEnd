@@ -1,8 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import Popup from "./Popup";
+import Popup from "../pages/Popup";
+import { useMyContext } from "../ContextApi";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
+  const apiUrl = import.meta.env.VITE_API_URL; //백엔드 주소
+  const { token } = useMyContext(); //컨텍스트에서 토큰변수 가져오기
+  const navigate = useNavigate(); //이동객체
+
+  //리액트 훅 폼
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+    mode: "onTouched",
+  });
+
+  const onSubmitHandler = async (data) => {
+    const { username, email, password } = data;
+    const sendData = {
+      username,
+      email,
+      password,
+      role: [role],
+    };
+  };
+
   const [role, setRole] = useState(""); // 역할 선택 (1: 요양사, 2: 보호자)
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
@@ -20,7 +53,9 @@ const Signup = () => {
   const handleCheckDuplicate = () => {
     alert("아이디 중복 확인 기능은 나중에 구현됩니다.");
   };
-
+  useEffect(() => {
+    console.log(role);
+  }, [role]);
   const openPopup = (e) => {
     e.preventDefault();
     const newWindow = window.open(
@@ -74,7 +109,7 @@ const Signup = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96 max-h-[95vh] overflow-auto">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96 overflow-auto">
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
           회원가입
         </h2>

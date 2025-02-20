@@ -7,6 +7,8 @@ import Mypage from "./pages/Mypage";
 import Reservations from "./pages/Reservations";
 import Agree from "./pages/Agree";
 import Footer from "./components/layout/Footer";
+import Login from "./auth/Login";
+import Signup from "./auth/Signup";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/notice" element={<Notices />} />
           <Route path="/mypage/:id" element={<Mypage />} />
           <Route path="/reservation" element={<Reservations />} />

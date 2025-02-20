@@ -1,9 +1,27 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMyContext } from "../../ContextApi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation(); // 현재 URL 가져오기
+  const navigate = useNavigate(); //이동객체
+
+  //컨텍스트에서 유저 관련 변수 가져오기
+  const { token, setToken, setCurrentUser, isAdmin, setIsAdmin, setDeToken } =
+    useMyContext();
+
+  const handleLogout = () => {
+    //로그아웃시 로컬스토리지와 유저 관련 변수 초기화, 메인화면으로 이동
+    localStorage.removeItem("JWT_TOKEN");
+    localStorage.removeItem("USER");
+    localStorage.removeItem("IS_ADMIN");
+    setToken(null);
+    setCurrentUser(null);
+    setIsAdmin(null);
+    setDeToken(null);
+    navigate("/");
+  };
 
   return (
     <>
@@ -101,6 +119,20 @@ const Header = () => {
                   마이페이지
                 </Link>
               </li>
+              {!token && (
+                <li>
+                  <Link to={"/signup"}>회원가입</Link>
+                </li>
+              )}
+              {token ? (
+                <li onClick={handleLogout} className="cursor-pointer">
+                  로그아웃
+                </li>
+              ) : (
+                <li>
+                  <Link to={"/login"}>로그인</Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
