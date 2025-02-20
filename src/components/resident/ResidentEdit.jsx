@@ -113,7 +113,11 @@ const ResidentEdit = () => {
     data.append("resDisease", formData.disease);
     data.append("resLocation", formData.location);
     data.append("resEnterDate", formData.enterdate);
-    data.append("resExitDate", formData.exitdate);
+
+    if (formData.exitdate) {
+      data.append("resExitDate", formData.exitdate);
+    }
+
     data.append("resAddress", formData.address);
     data.append("resSchoolGrade", formData.schoolgrade);
     data.append("systemResCode", formData.systemcode);
@@ -284,7 +288,7 @@ const ResidentEdit = () => {
             type="date"
             name="exitdate"
             onChange={handleInputChange}
-            value={formData.exitdate}
+            value={formData.exitdate || ""}
           />
         </div>
 
