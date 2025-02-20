@@ -36,7 +36,7 @@ const ResidentForm = () => {
 
     if (
       selectedFile &&
-      (selectedFile.type === "image/png" || selectedFile.type === "image/jpg")
+      (selectedFile.type === "image/png" || selectedFile.type === "image/jpeg")
     ) {
       // 미리보기용 URL 설정
       setImage(URL.createObjectURL(selectedFile));
