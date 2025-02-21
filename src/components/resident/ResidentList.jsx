@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import imageApi from "../../services/imageApi";
 
 const ResidentList = () => {
   const [residents, setResidents] = useState([]);
 
   const loadResident = async () => {
     try {
-      const result = await axios.get("http://localhost:8080/api/resident");
+      const result = await imageApi.get("http://localhost:8080/api/resident");
       setResidents(result.data);
     } catch (error) {
       console.log("에러발생", error);

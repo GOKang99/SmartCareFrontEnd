@@ -41,9 +41,30 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/meal" element={<MealPage />} />
-          <Route path="/admin/meal" element={<MealAdminPage />} />
-          <Route path="/resident/*" element={<Residents />} />
+          <Route
+            path="/meal"
+            element={
+              <ProtectedRoute>
+                <MealPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/meal"
+            element={
+              <ProtectedRoute>
+                <MealAdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/resident/*"
+            element={
+              <ProtectedRoute>
+                <Residents />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
