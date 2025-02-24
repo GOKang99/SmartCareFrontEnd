@@ -18,7 +18,6 @@ const ResidentForm = () => {
     exitdate: "",
     address: "",
     schoolgrade: "",
-    systemcode: "",
     longtermNo: "",
     caregroup: "",
     foodtype: "",
@@ -80,7 +79,6 @@ const ResidentForm = () => {
     data.append("resExitDate", formData.exitdate);
     data.append("resAddress", formData.address);
     data.append("resSchoolGrade", formData.schoolgrade);
-    data.append("systemResCode", formData.systemcode);
     data.append("resLongTermCareNo", formData.longtermNo);
     data.append("resCareGroup", formData.caregroup);
     data.append("resFoodType", formData.foodtype);
@@ -343,7 +341,7 @@ const ResidentForm = () => {
             </select>
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <label className="font-semibold">요양시스템 입소자 코드</label>
             <input
               required
@@ -354,7 +352,7 @@ const ResidentForm = () => {
               value={formData.systemcode}
               className="w-full border border-gray-300 rounded p-2"
             />
-          </div>
+          </div> */}
 
           <div className="space-y-2">
             <label className="font-semibold">장기요양인정번호</label>
