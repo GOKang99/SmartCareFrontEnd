@@ -2,22 +2,24 @@ import React, { useEffect, useState, useCallback } from "react";
 import { getAllMealsForAdmin, addMeal, updateMeal, deleteMeal } from "../../services/MealService";
 import MealTable from "./MealTable";
 import MealForm from "./MealForm";
+import MealEditModal from "./MealEditModal";  // 모달 컴포넌트 임포트
 
 const MealAdminPage = () => {
     const [meals, setMeals] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [latestDate, setLatestDate] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);  // 모달 열기 상태
+    const [mealToEdit, setMealToEdit] = useState(null);  // 수정할 식사 데이터
 
-    // ✅ 데이터 불러오기 (최신 날짜 설정 포함)
+    // ✅ 데이터 불러오기
     const fetchMeals = useCallback(async () => {
         try {
             setIsLoading(true);
             const data = await getAllMealsForAdmin();
             const sortedMeals = (data || []).sort((a, b) => new Date(b.meaDt) - new Date(a.meaDt));
             setMeals(sortedMeals);
-
             if (sortedMeals.length > 0) {
-                setLatestDate(sortedMeals[0].meaDt); // ✅ 최신 날짜 반영
+                setLatestDate(sortedMeals[0].meaDt); // 최신 날짜 반영
             }
         } catch (error) {
             console.error("❌ 식사 일지를 불러오는 중 오류 발생:", error);
@@ -30,38 +32,45 @@ const MealAdminPage = () => {
         fetchMeals();
     }, [fetchMeals]);
 
-    // ✅ 식사 추가
+    // 식사 추가
     const handleAddMeal = async (newMeal) => {
         try {
-            console.log("📢 추가 요청 데이터:", newMeal);
             await addMeal(newMeal);
-            await fetchMeals(); // ✅ 추가 후 최신 데이터 반영
+            await fetchMeals();  // 데이터 새로고침
         } catch (error) {
             console.error("❌ 식사 추가 오류:", error);
-            alert("식사 추가 중 오류가 발생했습니다.");
         }
     };
 
-    // ✅ 식사 수정
-    const handleUpdateMeal = async (mealId, updatedMeal) => {
-        if (!mealId) {
-            console.error("❌ mealId가 유효하지 않습니다.");
-            return;
-        }
+    // 식사 수정
+    const handleUpdateMeal = async (mealId) => {
+        const meal = meals.find((m) => m.medId === mealId);
+        if (!meal) return;  // 방어 코드 추가
+    
+        // 깊은 복사하여 원본 데이터 보호
+        const copiedMeal = JSON.parse(JSON.stringify(meal));
+    
+        setMealToEdit(copiedMeal);
+        setIsModalOpen(true);
+    };
+
+    // 수정된 식사 저장
+    const handleSaveMeal = async (updatedMeal) => {
         try {
-            await updateMeal(mealId, updatedMeal);
-            await fetchMeals(); // ✅ 수정 후 데이터 새로고침
+            await updateMeal(updatedMeal.medId, updatedMeal);
+            await fetchMeals();  // 데이터 새로고침
+            setIsModalOpen(false);  // 모달 닫기
         } catch (error) {
             console.error("❌ 식사 수정 오류:", error);
         }
     };
 
-    // ✅ 식사 삭제
+    // 식사 삭제
     const handleDeleteMeal = async (mealId) => {
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
         try {
             await deleteMeal(mealId);
-            await fetchMeals(); // ✅ 삭제 후 데이터 새로고침
+            await fetchMeals();
         } catch (error) {
             console.error("❌ 식사 삭제 오류:", error);
         }
@@ -74,9 +83,17 @@ const MealAdminPage = () => {
                 <p className="text-center">⏳ 데이터를 불러오는 중...</p>
             ) : (
                 <>
-                    <MealForm onAddMeal={handleAddMeal} meals={meals} latestDate={latestDate}/>
+                    <MealForm onAddMeal={handleAddMeal} meals={meals} latestDate={latestDate} />
                     <MealTable meals={meals} isAdmin={true} onUpdate={handleUpdateMeal} onDelete={handleDeleteMeal} />
                 </>
+            )}
+            
+            {isModalOpen && mealToEdit && (
+                <MealEditModal 
+                    meal={mealToEdit} 
+                    onClose={() => setIsModalOpen(false)} 
+                    onSave={handleSaveMeal} 
+                />
             )}
         </div>
     );
