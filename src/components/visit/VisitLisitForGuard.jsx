@@ -4,12 +4,11 @@ import ErrorMessage from "../form/ErrorMessage";
 import VisitItem from "./VisitItem";
 import NoVisitsMessage from "./NoVisitsMessage";
 
-const VisitLisitForGuard = ({}) => {
+const VisitLisitForGuard = ({ guardId }) => {
   const [visits, setVisits] = useState([]);
   const [error, setError] = useState("");
 
   //guardId ContextPath에서 받아오기
-  const guardId = 1;
 
   useEffect(() => {
     const fetchAllVisits = async () => {
