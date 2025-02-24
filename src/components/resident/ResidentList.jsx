@@ -5,6 +5,7 @@ import imageApi from "../../services/imageApi";
 
 const ResidentList = () => {
   const [residents, setResidents] = useState([]);
+  const [searchResidents, setSearchResidents] = useState("");
 
   const loadResident = async () => {
     try {
@@ -37,16 +38,27 @@ const ResidentList = () => {
     }
   };
 
+  const filterResidents = residents.filter((resident) =>
+    resident.resName.toLowerCase().includes(searchResidents.toLowerCase())
+  );
+
   useEffect(() => {
     loadResident();
   }, []);
 
   return (
     <div className="min-h-screen bg-white text-blue-900 p-6">
-      {residents.length === 0 ? (
-        <p className="text-center text-xl font-semibold">
-          입소자 목록이 없습니다.
-        </p>
+      <div className="mb-4 flex items-center justify-center">
+        <input
+          type="text"
+          placeholder="검색"
+          value={searchResidents}
+          onChange={(e) => setSearchResidents(e.target.value)} // 검색어 상태 변경
+          className="border border-blue-300 px-4 py-2 rounded-md"
+        />
+      </div>
+      {filterResidents.length === 0 ? (
+        <p className="text-center text-xl font-semibold">입소자가 없습니다.</p>
       ) : (
         <table className="min-w-full table-auto border-collapse">
           <thead>
@@ -58,7 +70,7 @@ const ResidentList = () => {
             </tr>
           </thead>
           <tbody>
-            {residents.map((resident) => (
+            {filterResidents.map((resident) => (
               <tr key={resident.resId} className="hover:bg-blue-50">
                 <td className="border-b px-4 py-2">{resident.resName}</td>
                 <td className="border-b px-4 py-2">{resident.resGender}</td>
