@@ -4,12 +4,15 @@ import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
 import TimePicker from "./TimePicker";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useMyContext } from "../../ContextApi";
+import { Input } from "react-select/animated";
 
-const VisitForm = () => {
+const VisitForm = ({ guardId }) => {
   const navigate = useNavigate();
 
+  const { isAdmin } = useMyContext();
+
   //기본 값 설정 useState
-  const guardId = 1;
 
   //  기본값 09:00 설정
   const [selectedTime, setSelectedTime] = useState({
@@ -143,6 +146,20 @@ const VisitForm = () => {
             onChange={handleChange}
           />
         </div>
+
+        {!isAdmin && (
+          <div className="mb-4">
+            {/* 일반 사용자는 guardId 바꿀 수 없게 안내 문구 정도만 */}
+            <label>내 보호자 ID (자동 설정)</label>
+            <input
+              type="text"
+              className="w-full border rounded p-2"
+              value={guardId}
+              disabled
+            />
+          </div>
+        )}
+
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"

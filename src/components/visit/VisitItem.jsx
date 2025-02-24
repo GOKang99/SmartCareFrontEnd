@@ -3,6 +3,8 @@ import VisitUpdateModal from "./VisitUpdateModal";
 import api from "../../services/api";
 
 const VisitItem = ({ visit }) => {
+  //컨텍스트 Path에서 유저 정보 받아오기.
+
   // 토글을 위한 수정 모드 셋팅
   const [showModal, setShowModal] = useState(false);
 
