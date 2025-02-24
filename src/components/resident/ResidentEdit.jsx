@@ -19,7 +19,6 @@ const ResidentEdit = ({ giverId }) => {
     exitdate: "",
     address: "",
     schoolgrade: "",
-    systemcode: "",
     longtermNo: "",
     caregroup: "",
     foodtype: "",
@@ -83,7 +82,6 @@ const ResidentEdit = ({ giverId }) => {
         exitdate: resident.resExitDate,
         address: resident.resAddress,
         schoolgrade: resident.resSchoolGrade,
-        systemcode: resident.systemResCode,
         longtermNo: resident.resLongTermCareNo,
         caregroup: resident.resCareGroup,
         foodtype: resident.resFoodType,
@@ -404,21 +402,8 @@ const ResidentEdit = ({ giverId }) => {
               <option value="중졸">중졸</option>
               <option value="고졸">고졸</option>
               <option value="대졸">대졸</option>
-              <option value="알수없음">알수없음</option>
+              <option value="미상">미상</option>
             </select>
-          </div>
-
-          <div>
-            <label className="font-semibold">요양시스템 입소자 코드</label>
-            <input
-              required
-              placeholder="입소자 코드"
-              type="text"
-              name="systemcode"
-              onChange={handleInputChange}
-              value={formData.systemcode}
-              className="w-full p-2 border rounded-md mt-2"
-            />
           </div>
 
           <div>
@@ -449,15 +434,19 @@ const ResidentEdit = ({ giverId }) => {
 
           <div>
             <label className="font-semibold">식사종류</label>
-            <input
+            <select
               required
-              placeholder="식사종류"
-              type="text"
               name="foodtype"
               onChange={handleInputChange}
               value={formData.foodtype}
               className="w-full p-2 border rounded-md mt-2"
-            />
+            >
+              <option value="">선택하세요</option>
+              <option value="일반식">일반식</option>
+              <option value="연식">연식</option>
+              <option value="죽식">죽식</option>
+              <option value="특수식">특수식</option>
+            </select>
           </div>
 
           <div>

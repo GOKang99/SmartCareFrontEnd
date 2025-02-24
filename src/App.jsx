@@ -43,7 +43,14 @@ function App() {
           />
           <Route path="/meal" element={<MealPage />} />
           <Route path="/admin/meal" element={<MealAdminPage />} />
-          <Route path="/resident/*" element={<Residents />} />
+          <Route
+            path="/resident/*"
+            element={
+              <ProtectedRoute>
+                <Residents />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
