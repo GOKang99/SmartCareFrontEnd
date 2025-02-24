@@ -37,7 +37,9 @@ const ResidentEdit = () => {
 
     if (
       selectedFile &&
-      (selectedFile.type === "image/png" || selectedFile.type === "image/jpg")
+      (selectedFile.type === "image/png" ||
+        selectedFile.type === "image/jpeg" ||
+        selectedFile.type === "image/jpg")
     ) {
       // 미리보기용 URL 설정
       setImage(URL.createObjectURL(selectedFile));
@@ -171,24 +173,34 @@ const ResidentEdit = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <form onSubmit={onSubmit} className="space-y-6">
         {/* 이미지 업로드 섹션 */}
-        <div>
+        <div className="space-y-2">
           <label htmlFor="image-upload" className="font-semibold">
             이미지 업로드
           </label>
+          {/* file input 요소는 화면에 표시되지 않게 */}
           <input
             id="image-upload"
             type="file"
             accept=".jpg, .png"
             onChange={handleImageChange}
-            className="mt-2"
+            className="hidden" // 기본 텍스트 숨기기
           />
+          {/* custom 버튼 또는 스타일링 */}
+          <button
+            type="button"
+            className="border border-gray-300 rounded p-2 cursor-pointer" // cursor-pointer 추가
+            onClick={() => document.getElementById("image-upload").click()}
+          >
+            파일 선택
+          </button>
+
+          {/* 이미지 미리보기 */}
           {image && (
-            <div className="mt-2">
+            <div className="mt-2 w-45 h-45 overflow-hidden">
               <img
                 src={image}
                 alt="preview"
-                width="100"
-                className="rounded-md"
+                className="w-full h-full object-cover"
               />
             </div>
           )}
@@ -463,7 +475,7 @@ const ResidentEdit = () => {
         </div>
 
         {/* 제출 및 취소 버튼 */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-end items-center space-x-4">
           <button
             type="submit"
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"

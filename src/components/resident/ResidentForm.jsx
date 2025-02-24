@@ -36,7 +36,9 @@ const ResidentForm = () => {
 
     if (
       selectedFile &&
-      (selectedFile.type === "image/png" || selectedFile.type === "image/jpeg")
+      (selectedFile.type === "image/png" ||
+        selectedFile.type === "image/jpeg" ||
+        selectedFile.type === "image/jpg")
     ) {
       // 미리보기용 URL 설정
       setImage(URL.createObjectURL(selectedFile));
@@ -114,16 +116,31 @@ const ResidentForm = () => {
           <label htmlFor="image-upload" className="font-semibold">
             이미지 업로드
           </label>
+          {/* file input 요소는 화면에 표시되지 않게 */}
           <input
             id="image-upload"
             type="file"
             accept=".jpg, .png"
             onChange={handleImageChange}
-            className="border border-gray-300 rounded p-2"
+            className="hidden" // 기본 텍스트 숨기기
           />
+          {/* custom 버튼 또는 스타일링 */}
+          <button
+            type="button"
+            className="border border-gray-300 rounded p-2 cursor-pointer" // cursor-pointer 추가
+            onClick={() => document.getElementById("image-upload").click()}
+          >
+            파일 선택
+          </button>
+
+          {/* 이미지 미리보기 */}
           {image && (
-            <div className="mt-2">
-              <img src={image} alt="preview" width="100" />
+            <div className="mt-2 w-45 h-45 overflow-hidden">
+              <img
+                src={image}
+                alt="preview"
+                className="w-full h-full object-cover"
+              />
             </div>
           )}
         </div>
@@ -393,17 +410,17 @@ const ResidentForm = () => {
         </div>
 
         {/* 제출 버튼과 취소 버튼을 양옆으로 배치하면서 가운데 정렬 */}
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-end items-center space-x-4">
           <button
             type="submit"
-            className="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300"
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             제출
           </button>
           <Link to="/resident">
             <button
               type="button"
-              className="bg-gray-300 text-blue-900 font-bold py-2 px-6 rounded-full shadow-md transition duration-300"
+              className="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
             >
               취소
             </button>
