@@ -35,6 +35,14 @@ const MealAdminPage = () => {
     // 식사 추가
     const handleAddMeal = async (newMeal) => {
         try {
+            // 동일한 날짜의 식사가 있는지 확인
+            const isDuplicate = meals.some(meal => meal.meaDt === newMeal.meaDt);
+            if (isDuplicate) {
+                alert("이 날짜의 식사는 이미 추가되어 있습니다.");
+                return;
+            }
+    
+            // 중복이 없으면 식사 추가
             await addMeal(newMeal);
             await fetchMeals();  // 데이터 새로고침
         } catch (error) {
