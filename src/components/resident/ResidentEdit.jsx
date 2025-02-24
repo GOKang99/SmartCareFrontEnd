@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import imageApi from "../../services/imageApi";
 
-const ResidentEdit = () => {
+const ResidentEdit = ({ giverId }) => {
   const { id } = useParams();
   const [image, setImage] = useState(null); // 이미지 URL 상태
   const [file, setFile] = useState(null); // 실제 파일 객체 상태
@@ -108,7 +108,7 @@ const ResidentEdit = () => {
     const data = new FormData();
 
     // 일반적인 데이터 추가
-    data.append("giverId", "1");
+    data.append("giverId", giverId);
     data.append("resName", formData.name);
     data.append("resGender", formData.gender);
     data.append("resBirth", formData.birth);

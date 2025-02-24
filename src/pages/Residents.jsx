@@ -3,10 +3,18 @@ import ResidentForm from "../components/resident/ResidentForm";
 import ResidentList from "../components/resident/ResidentList";
 import ResidentItem from "../components/resident/ResidentItem";
 import ResidentEdit from "../components/resident/ResidentEdit";
+import { useMyContext } from "../ContextApi";
+import { jwtDecode } from "jwt-decode";
 
 const Residents = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 훅
   const location = useLocation();
+
+  const { token } = useMyContext();
+
+  const detoken = jwtDecode(token);
+
+  const giverId = detoken.partId;
 
   const createResident = () => {
     if (location.pathname === "/resident/form") {
@@ -44,10 +52,13 @@ const Residents = () => {
         </div>
 
         <Routes>
-          <Route path="/form" element={<ResidentForm />} />
+          <Route path="/form" element={<ResidentForm giverId={giverId} />} />
           <Route path="/list" element={<ResidentList />} />
           <Route path="/list/:id" element={<ResidentItem />} />
-          <Route path="/edit/:id" element={<ResidentEdit />} />
+          <Route
+            path="/edit/:id"
+            element={<ResidentEdit giverId={giverId} />}
+          />
         </Routes>
       </div>
     </div>
