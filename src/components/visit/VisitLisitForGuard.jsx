@@ -3,12 +3,15 @@ import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
 import VisitItem from "./VisitItem";
 import NoVisitsMessage from "./NoVisitsMessage";
+import { useMyContext } from "../../ContextApi";
 
-const VisitLisitForGuard = ({ guardId }) => {
+const VisitLisitForGuard = () => {
   const [visits, setVisits] = useState([]);
   const [error, setError] = useState("");
 
   //guardId ContextPath에서 받아오기
+  const { guardId } = useMyContext();
+
   console.log(guardId);
   useEffect(() => {
     const fetchAllVisits = async () => {

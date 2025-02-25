@@ -48,6 +48,7 @@ const EditVisitForm = ({ visit, onClose, onUpdate }) => {
     console.log(formData);
     try {
       const response = await api.put(`/visit/update/${visit.visId}`, formData);
+      // response데이터 전달
       onUpdate(response.data);
       //모달 창 닫고 새로 고침
       onClose();
