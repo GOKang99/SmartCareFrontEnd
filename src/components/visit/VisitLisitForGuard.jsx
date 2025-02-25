@@ -13,6 +13,8 @@ const VisitLisitForGuard = () => {
   const { guardId } = useMyContext();
 
   console.log(guardId);
+
+  // 보호자 예약 데이터 불러오기
   useEffect(() => {
     const fetchAllVisits = async () => {
       try {
@@ -23,8 +25,12 @@ const VisitLisitForGuard = () => {
         setError(guardId + "의 예약 데이터 불러오기 실패");
       }
     };
-    fetchAllVisits();
-  }, []);
+    const timeoutId = setTimeout(() => {
+      fetchAllVisits();
+    }, 100); // 1초 (1000ms)
+
+    return () => clearTimeout(timeoutId); // 컴포넌트 언마운트 시 타이머 정리
+  }, [guardId]); // guardId가 변경될 때마다 실행되도록 의존성 배열에 추가
 
   const handleVisitUpdate = (updatedVisit) => {
     setVisits((prevVisits) =>

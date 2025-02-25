@@ -77,7 +77,6 @@ export const ContextProvider = ({ children }) => {
     if (token) {
       const decoded = jwtDecode(token);
       setDeToken(decoded);
-      console.log("해독된 토큰", decoded);
     }
   }, [token]);
 
