@@ -39,6 +39,7 @@ const VisitItem = ({ visit, onUpdate }) => {
     visCnt, //방문 인원
     visYn, //방문 여부
     remark, // 비고
+    resName, //환자 이름
   } = visit;
 
   // 예약 상태에 따라 표시되는 색상
@@ -85,7 +86,7 @@ const VisitItem = ({ visit, onUpdate }) => {
           {/* 비고  */}
           <span className="font-semibold">비고: </span> {remark}
           {/* 환자 이름 */}
-          <span className="font-semibold">환자 이름: </span>
+          <span className="font-semibold">환자 이름: </span> {visit.resName}
         </div>
 
         {/* 승인 상태 */}

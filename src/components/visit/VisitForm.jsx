@@ -3,15 +3,15 @@ import InputField from "../form/InputField";
 import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
 import TimePicker from "./TimePicker";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
-import { Input } from "react-select/animated";
 
-const VisitForm = ({ guardId }) => {
+const VisitForm = () => {
   const navigate = useNavigate();
 
-  //기본 값 설정 useState
+  const { guardId } = useMyContext();
 
+  //기본 값 설정 useState
   //  기본값 09:00 설정
   const [selectedTime, setSelectedTime] = useState({
     value: "09:00",
