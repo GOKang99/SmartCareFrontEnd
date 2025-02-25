@@ -84,6 +84,8 @@ const VisitItem = ({ visit, onUpdate }) => {
           <span className="font-semibold">방문 여부: </span> {vistedText}
           {/* 비고  */}
           <span className="font-semibold">비고: </span> {remark}
+          {/* 환자 이름 */}
+          <span className="font-semibold">환자 이름: </span>
         </div>
 
         {/* 승인 상태 */}
