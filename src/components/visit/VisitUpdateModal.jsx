@@ -1,7 +1,7 @@
 import React from "react";
 import EditVisitForm from "./EditVisitForm";
 
-const VisitUpdateModal = ({ visit, show, onClose, onUpdateSuccess }) => {
+const VisitUpdateModal = ({ visit, show, onClose, onUpdate }) => {
   if (!show) return null;
 
   return (
@@ -17,11 +17,7 @@ const VisitUpdateModal = ({ visit, show, onClose, onUpdateSuccess }) => {
         <h3 id="modal-title" className="text-xl font-bold mb-4">
           예약 수정
         </h3>
-        <EditVisitForm
-          visit={visit}
-          onClose={onClose}
-          onUpdateSuccess={onUpdateSuccess}
-        />
+        <EditVisitForm visit={visit} onClose={onClose} onUpdate={onUpdate} />
       </div>
     </div>
   );

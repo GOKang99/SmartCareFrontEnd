@@ -9,7 +9,7 @@ const VisitLisitForGuard = ({ guardId }) => {
   const [error, setError] = useState("");
 
   //guardId ContextPath에서 받아오기
-
+  console.log(guardId);
   useEffect(() => {
     const fetchAllVisits = async () => {
       try {
@@ -23,11 +23,24 @@ const VisitLisitForGuard = ({ guardId }) => {
     fetchAllVisits();
   }, []);
 
+  const handleVisitUpdate = (updatedVisit) => {
+    setVisits((prevVisits) =>
+      prevVisits.map((visit) =>
+        visit.visId === updatedVisit.visId ? updatedVisit : visit
+      )
+    );
+  };
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}
       {visits.length > 0 ? (
-        visits.map((visit) => <VisitItem key={visit.visId} visit={visit} />)
+        visits.map((visit) => (
+          <VisitItem
+            key={visit.visId}
+            visit={visit}
+            onUpdate={handleVisitUpdate}
+          />
+        ))
       ) : (
         <NoVisitsMessage />
       )}

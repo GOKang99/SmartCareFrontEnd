@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import VisitUpdateModal from "./VisitUpdateModal";
 import api from "../../services/api";
 
-const VisitItem = ({ visit }) => {
+const VisitItem = ({ visit, onUpdate }) => {
   //컨텍스트 Path에서 유저 정보 받아오기.
 
   // 토글을 위한 수정 모드 셋팅
@@ -111,7 +111,12 @@ const VisitItem = ({ visit }) => {
       {/* EditVisitForm은 VisitItem의 정보 컨테이너 아래에 표시됨 */}
 
       <div className="mt-4">
-        <VisitUpdateModal show={showModal} onClose={closeModal} visit={visit} />
+        <VisitUpdateModal
+          show={showModal}
+          onClose={closeModal}
+          visit={visit}
+          onUpdate={onUpdate}
+        />
       </div>
     </>
   );

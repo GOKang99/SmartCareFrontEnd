@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link, Route, Routes } from "react-router-dom";
 import VisitItemContainer from "../components/visit/VisitItemContainer";
@@ -11,25 +11,24 @@ import { jwtDecode } from "jwt-decode";
 const Visits = () => {
   //컨텍스트 패스에서 토큰, 어드민인지 불러오기
   const { token, isAdmin } = useMyContext();
+  const [guardId, setGuardId] = useState(null);
+  const [giverId, setGiverId] = useState(null);
 
   //토큰 해독하기
   const detoken = jwtDecode(token);
   console.log(detoken);
 
-  //If문 바깥에서 사용하기 위해 먼저 선언
-  let giverId = null;
-  let guardId = null;
-
   //어드민 = giver 유저 = guard
-  if (isAdmin) {
-    console.log("요양보호사 입니다." + isAdmin);
-    const giverId = detoken.partId;
-    console.log("요양보호사 아이디는 " + giverId);
-  } else {
-    console.log("어드민이 아닙니다." + isAdmin);
-    const guardId = detoken.partId;
-    console.log("보호자 아이디는" + guardId);
-  }
+  //set실행시 컴포넌트 리 랜더링
+  useEffect(() => {
+    if (isAdmin) {
+      console.log("요양보호사 입니다." + isAdmin);
+      setGiverId(detoken.partId);
+    } else {
+      console.log("어드민이 아닙니다." + isAdmin);
+      setGuardId(detoken.partId);
+    }
+  }, [isAdmin, detoken.partId]);
 
   return (
     <div>
@@ -39,12 +38,12 @@ const Visits = () => {
           <Link to="/visits/form">방문 예약하기</Link> |
           <Link to="/visits/my">보호자 예약 내역 보기</Link> |
           {isAdmin && <Link to="/visits/list">모든 예약 보기 |</Link>}
-          <Link to="/visits/container">한 예약 보기</Link>
+          {/* <Link to="/visits/container">한 예약 보기</Link> */}
         </nav>
       </div>
       {/* 하위 라우트가 렌더링되는 부분 */}
       <Routes>
-        <Route path="container" element={<VisitItemContainer />} />
+        {/* 사용 안함 <Route path="container" element={<VisitItemContainer />} /> */}
         <Route path="list" element={<VisitList />} />
         {/* GuardId 넘겨주어야만 볼수있음. */}
         <Route path="my" element={<VisitLisitForGuard guardId={guardId} />} />
