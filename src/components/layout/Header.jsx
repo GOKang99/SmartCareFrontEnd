@@ -99,7 +99,7 @@ const Header = () => {
                 <Link
                   to="/resident"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/mypage"
+                    location.pathname === "/resident"
                       ? "text-blue-700"
                       : "text-gray-900 hover:text-blue-700"
                   }`}

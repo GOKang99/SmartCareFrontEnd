@@ -13,6 +13,9 @@ import Signup from "./auth/Signup";
 import Visits from "./pages/Visits";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Residents from "./pages/Residents";
+import NoticeList from "./components/notice/NoticeList";
+import NoticeCreateForm from "./components/notice/NoticeCreateForm";
+import NoticeDetail from "./components/notice/NoticeDetail";
 
 function App() {
   return (
@@ -23,7 +26,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/notice" element={<Notices />} />
+          <Route path="/notice" element={<NoticeList />} />
+          <Route
+            path="/notice/create"
+            element={
+              <ProtectedRoute>
+                <NoticeCreateForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/notice/:noticeId" element={<NoticeDetail />} />
           <Route
             path="/mypage"
             element={
