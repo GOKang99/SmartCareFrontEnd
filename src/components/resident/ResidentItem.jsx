@@ -9,6 +9,7 @@ const ResidentItem = () => {
     relation: "", // 관계
     phone: "", // 전화번호
   });
+  const [submittedGuardData, setSubmittedGuardData] = useState(null);
 
   // 입력 값이 변경될 때마다 guardData 업데이트 및 콘솔 출력
   const handleInputChange = (e) => {
@@ -33,6 +34,7 @@ const ResidentItem = () => {
         relation: "",
         phone: "",
       });
+      setSubmittedGuardData(response.data); // 응답 데이터 화면에 출력
       setIsFormVisible(false); // 폼 숨기기
     } catch (error) {
       console.error("서버 오류:", error);
@@ -85,9 +87,7 @@ const ResidentItem = () => {
   return (
     <div className="min-h-screen bg-white py-8">
       <div className="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-xl">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-          입소자 정보
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-8">입소자 정보</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* 입소자 이미지 */}
@@ -106,84 +106,86 @@ const ResidentItem = () => {
           <div className="col-span-2 space-y-6">
             <div className="grid grid-cols-2 gap-x-8 gap-y-4">
               <div>
-                <strong className="text-black">성별:</strong>{" "}
-                {resident.resGender}
+                <strong>성별:</strong> {resident.resGender}
               </div>
               <div>
-                <strong className="text-black">생년월일:</strong>{" "}
-                {resident.resBirth}
+                <strong>생년월일:</strong> {resident.resBirth}
               </div>
               <div>
-                <strong className="text-black">전화번호:</strong>{" "}
-                {resident.resPhone}
+                <strong>전화번호:</strong> {resident.resPhone}
               </div>
               <div>
-                <strong className="text-black">주소:</strong>{" "}
-                {resident.resAddress}
+                <strong>주소:</strong> {resident.resAddress}
               </div>
               <div>
-                <strong className="text-black">등급:</strong>{" "}
-                {resident.resGrade}
+                <strong>등급:</strong> {resident.resGrade}
               </div>
               <div>
-                <strong className="text-black">생활실:</strong>{" "}
-                {resident.resLocation}
+                <strong>생활실:</strong> {resident.resLocation}
               </div>
               <div>
-                <strong className="text-black">케어그룹:</strong>{" "}
-                {resident.resCareGroup}
+                <strong>케어그룹:</strong> {resident.resCareGroup}
               </div>
               <div>
-                <strong className="text-black">최종학력:</strong>{" "}
-                {resident.resSchoolGrade}
+                <strong>최종학력:</strong> {resident.resSchoolGrade}
               </div>
               <div>
-                <strong className="text-black">식사종류:</strong>{" "}
-                {resident.resFoodType}
+                <strong>식사종류:</strong> {resident.resFoodType}
               </div>
               <div>
-                <strong className="text-black">주요질환:</strong>{" "}
-                {resident.resDisease}
+                <strong>주요질환:</strong> {resident.resDisease}
               </div>
               <div>
-                <strong className="text-black">기능장애:</strong>{" "}
-                {resident.resFunctionDis}
+                <strong>기능장애:</strong> {resident.resFunctionDis}
               </div>
               <div>
-                <strong className="text-black">욕창위험:</strong>{" "}
+                <strong>욕창위험:</strong>{" "}
                 {resident.bedsoreYn ? "있음" : "없음"}
               </div>
               <div>
-                <strong className="text-black">낙상위험:</strong>{" "}
-                {resident.fallYn ? "있음" : "없음"}
+                <strong>낙상위험:</strong> {resident.fallYn ? "있음" : "없음"}
               </div>
               <div>
-                <strong className="text-black">치매유무:</strong>{" "}
+                <strong>치매유무:</strong>{" "}
                 {resident.dementiaYn ? "있음" : "없음"}
               </div>
               <div>
-                <strong className="text-black">자세변경:</strong>{" "}
+                <strong>자세변경:</strong>{" "}
                 {resident.postureYn ? "있음" : "없음"}
               </div>
               <div>
-                <strong className="text-black">입소자 코드:</strong>{" "}
-                {resident.systemResCode}
+                <strong>입소자 코드:</strong> {resident.systemResCode}
               </div>
               <div>
-                <strong className="text-black">장기요양인정번호:</strong>{" "}
-                {resident.resLongTermCareNo}
+                <strong>장기요양인정번호:</strong> {resident.resLongTermCareNo}
               </div>
               <div>
-                <strong className="text-black">입소일:</strong>{" "}
-                {resident.resEnterDate}
+                <strong>입소일:</strong> {resident.resEnterDate}
               </div>
               <div>
-                <strong className="text-black">퇴소일:</strong>{" "}
+                <strong>퇴소일:</strong>{" "}
                 {resident.resExitDate ? resident.resExitDate : "미정"}
               </div>
             </div>
           </div>
         </div>
+
+        {submittedGuardData && (
+          <div className="mt-6">
+            <h3 className="text-xl font-semibold">보호자 정보</h3>
+            <ul>
+              <li>
+                <strong>주민번호:</strong> {submittedGuardData.ssn}
+              </li>
+              <li>
+                <strong>관계:</strong> {submittedGuardData.relation}
+              </li>
+              <li>
+                <strong>전화번호:</strong> {submittedGuardData.phone}
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* 추가 버튼 */}
         <div className="flex justify-end mt-6">
@@ -255,7 +257,7 @@ const ResidentItem = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
               >
                 등록
               </button>
