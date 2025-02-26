@@ -125,7 +125,7 @@ const Signup = () => {
   const openPopup = (e) => {
     e.preventDefault();
     const newWindow = window.open(
-      "",
+      "http://localhost:5173/popup/terms",
       "_blank",
       "width=500,height=600,left=300,top=200,resizable=yes,scrollbars=yes"
     );
@@ -147,6 +147,12 @@ const Signup = () => {
       root.render(<Popup popupWindow={newWindow} />);
     }
   };
+
+  useEffect(() => {
+    window.setAgreement = (value) => {
+      setAgree(value);
+    };
+  }, []);
 
   // // 회원가입 버튼 클릭
   // const handleRegister = (e) => {
