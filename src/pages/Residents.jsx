@@ -40,7 +40,7 @@ const Residents = () => {
             onClick={createResident}
             className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300"
           >
-            입소자 입력
+            입소자 등록
           </button>
 
           <button

@@ -83,105 +83,128 @@ const ResidentItem = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* 첫 번째 열 */}
-        <div>
-          <div>
-            <strong>이름:</strong> {resident.resName}
-          </div>
-          <div>
-            <strong>사진:</strong>
+    <div className="min-h-screen bg-white py-8">
+      <div className="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+          입소자 정보
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* 입소자 이미지 */}
+          <div className="flex flex-col items-center justify-center p-7">
             <img
               src={`http://localhost:8080/images/${resident.resImageAddress}`}
               alt={`${resident.resName}의 사진`}
-              style={{ maxWidth: "300px", maxHeight: "300px" }}
+              className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
             />
+            <p className="text-lg font-medium text-gray-800">
+              {resident.resName}
+            </p>
           </div>
-          <div>
-            <strong>성별:</strong> {resident.resGender}
-          </div>
-          <div>
-            <strong>생년월일:</strong> {resident.resBirth}
-          </div>
-          <div>
-            <strong>전화번호:</strong> {resident.resPhone}
+
+          {/* 입소자 정보 */}
+          <div className="col-span-2 space-y-6">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+              <div>
+                <strong className="text-black">성별:</strong>{" "}
+                {resident.resGender}
+              </div>
+              <div>
+                <strong className="text-black">생년월일:</strong>{" "}
+                {resident.resBirth}
+              </div>
+              <div>
+                <strong className="text-black">전화번호:</strong>{" "}
+                {resident.resPhone}
+              </div>
+              <div>
+                <strong className="text-black">주소:</strong>{" "}
+                {resident.resAddress}
+              </div>
+              <div>
+                <strong className="text-black">등급:</strong>{" "}
+                {resident.resGrade}
+              </div>
+              <div>
+                <strong className="text-black">생활실:</strong>{" "}
+                {resident.resLocation}
+              </div>
+              <div>
+                <strong className="text-black">케어그룹:</strong>{" "}
+                {resident.resCareGroup}
+              </div>
+              <div>
+                <strong className="text-black">최종학력:</strong>{" "}
+                {resident.resSchoolGrade}
+              </div>
+              <div>
+                <strong className="text-black">식사종류:</strong>{" "}
+                {resident.resFoodType}
+              </div>
+              <div>
+                <strong className="text-black">주요질환:</strong>{" "}
+                {resident.resDisease}
+              </div>
+              <div>
+                <strong className="text-black">기능장애:</strong>{" "}
+                {resident.resFunctionDis}
+              </div>
+              <div>
+                <strong className="text-black">욕창위험:</strong>{" "}
+                {resident.bedsoreYn ? "있음" : "없음"}
+              </div>
+              <div>
+                <strong className="text-black">낙상위험:</strong>{" "}
+                {resident.fallYn ? "있음" : "없음"}
+              </div>
+              <div>
+                <strong className="text-black">치매유무:</strong>{" "}
+                {resident.dementiaYn ? "있음" : "없음"}
+              </div>
+              <div>
+                <strong className="text-black">자세변경:</strong>{" "}
+                {resident.postureYn ? "있음" : "없음"}
+              </div>
+              <div>
+                <strong className="text-black">입소자 코드:</strong>{" "}
+                {resident.systemResCode}
+              </div>
+              <div>
+                <strong className="text-black">장기요양인정번호:</strong>{" "}
+                {resident.resLongTermCareNo}
+              </div>
+              <div>
+                <strong className="text-black">입소일:</strong>{" "}
+                {resident.resEnterDate}
+              </div>
+              <div>
+                <strong className="text-black">퇴소일:</strong>{" "}
+                {resident.resExitDate ? resident.resExitDate : "미정"}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* 두 번째 열 */}
-        <div>
-          <div>
-            <strong>주소:</strong> {resident.resAddress}
-          </div>
-          <div>
-            <strong>등급:</strong> {resident.resGrade}
-          </div>
-          <div>
-            <strong>생활실:</strong> {resident.resLocation}
-          </div>
-          <div>
-            <strong>케어그룹:</strong> {resident.resCareGroup}
-          </div>
-          <div>
-            <strong>최종학력:</strong> {resident.resSchoolGrade}
-          </div>
+        {/* 추가 버튼 */}
+        <div className="flex justify-end mt-6">
+          <button
+            onClick={() => setIsFormVisible(!isFormVisible)}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          >
+            {isFormVisible ? "취소" : "보호자 등록"}
+          </button>
         </div>
 
-        {/* 세 번째 열 */}
-        <div>
-          <div>
-            <strong>식사종류:</strong> {resident.resFoodType}
-          </div>
-          <div>
-            <strong>주요질환:</strong> {resident.resDisease}
-          </div>
-          <div>
-            <strong>기능장애:</strong> {resident.resFunctionDis}
-          </div>
-          <div>
-            <strong>욕창위험:</strong> {resident.bedsoreYn ? "있음" : "없음"}
-          </div>
-          <div>
-            <strong>낙상위험:</strong> {resident.fallYn ? "있음" : "없음"}
-          </div>
-        </div>
-
-        {/* 추가 열 */}
-        <div>
-          <div>
-            <strong>치매유무:</strong> {resident.dementiaYn ? "있음" : "없음"}
-          </div>
-          <div>
-            <strong>자세변경:</strong> {resident.postureYn ? "있음" : "없음"}
-          </div>
-          <div>
-            <strong>입소자 코드:</strong> {resident.systemResCode}
-          </div>
-          <div>
-            <strong>장기요양인정번호:</strong> {resident.resLongTermCareNo}
-          </div>
-          <div>
-            <strong>입소일:</strong> {resident.resEnterDate}
-          </div>
-          <div>
-            <strong>퇴소일:</strong>{" "}
-            {resident.resExitDate ? resident.resExitDate : "미정"}
-          </div>
-        </div>
-      </div>
-
-      <br />
-
-      <div>
-        <button onClick={() => setIsFormVisible(!isFormVisible)}>
-          {isFormVisible ? "취소" : "추가"}
-        </button>
-
+        {/* 폼 영역 */}
         {isFormVisible && (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             <div>
-              <label htmlFor="ssn">주민번호:</label>
+              <label
+                htmlFor="ssn"
+                className="block text-sm font-medium text-gray-800"
+              >
+                주민번호:
+              </label>
               <input
                 type="text"
                 id="ssn"
@@ -189,11 +212,17 @@ const ResidentItem = () => {
                 value={guardData.ssn}
                 onChange={handleInputChange}
                 placeholder="주민번호 입력"
+                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label htmlFor="relation">관계:</label>
+              <label
+                htmlFor="relation"
+                className="block text-sm font-medium text-gray-800"
+              >
+                관계:
+              </label>
               <input
                 type="text"
                 id="relation"
@@ -201,11 +230,17 @@ const ResidentItem = () => {
                 value={guardData.relation}
                 onChange={handleInputChange}
                 placeholder="관계 입력"
+                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label htmlFor="phone">전화번호:</label>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-800"
+              >
+                전화번호:
+              </label>
               <input
                 type="text"
                 id="phone"
@@ -213,10 +248,18 @@ const ResidentItem = () => {
                 value={guardData.phone}
                 onChange={handleInputChange}
                 placeholder="전화번호 입력"
+                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            <button type="submit">등록</button>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
+              >
+                등록
+              </button>
+            </div>
           </form>
         )}
       </div>
