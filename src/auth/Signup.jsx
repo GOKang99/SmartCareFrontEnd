@@ -119,7 +119,7 @@ const Signup = () => {
   const openPopup = (e) => {
     e.preventDefault();
     const newWindow = window.open(
-      "",
+      "http://localhost:5173/popup/terms",
       "_blank",
       "width=500,height=600,left=300,top=200,resizable=yes,scrollbars=yes"
     );
@@ -141,6 +141,37 @@ const Signup = () => {
       root.render(<Popup popupWindow={newWindow} />);
     }
   };
+
+  useEffect(() => {
+    window.setAgreement = (value) => {
+      setAgree(value);
+    };
+  }, []);
+
+  // // 회원가입 버튼 클릭
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+
+  //   if (!agree) {
+  //     alert("약관에 동의해야 가입할 수 있습니다.");
+  //     return;
+  //   }
+
+  //   console.log("회원가입 요청:", {
+  //     role,
+  //     username,
+  //     userId,
+  //     password,
+  //     email,
+  //     phone,
+  //     address,
+  //     ssn,
+  //     relation,
+  //     code,
+  //   });
+
+  //   alert("회원가입 기능은 나중에 구현됩니다.");
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 ">

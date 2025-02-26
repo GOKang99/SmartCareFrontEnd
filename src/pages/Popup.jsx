@@ -11,15 +11,18 @@ const Popup = ({ popupWindow }) => {
   // 확인 버튼 클릭 시 부모창의 setAgreement(true) 실행
   const handleConfirm = () => {
     if (window.opener && typeof window.opener.setAgreement === "function") {
+      console.log("부모 창의 setAgreement 호출됨");
       window.opener.setAgreement(true); // 부모 창의 체크박스 활성화
+    } else {
+      console.log("부모 창의 setAgreement 함수를 찾을 수 없습니다.");
     }
-    popupWindow.close();
+    window.close();
   };
 
   // ✅ 팝업 닫기
   const handleClose = () => {
-    if (popupWindow) {
-      popupWindow.close();
+    if (window) {
+      window.close();
     } else {
       alert("이 창은 닫을 수 없습니다!");
     }
