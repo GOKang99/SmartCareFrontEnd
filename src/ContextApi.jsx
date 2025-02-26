@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "./services/api";
+import { toast } from "react-toastify";
 
 //컨텍스트 생성
 const ContextApi = createContext();
@@ -55,6 +56,7 @@ export const ContextProvider = ({ children }) => {
         setCurrentUser(data);
       } catch (error) {
         //오류시
+        toast.error("현재 유저정보를 업데이트하는데 실패했습니다");
         console.error(error);
       }
     }
@@ -67,6 +69,18 @@ export const ContextProvider = ({ children }) => {
       fetchUser();
     }
   }, [token]);
+
+  const handleLogout = () => {
+    //로그아웃시 로컬스토리지와 유저 관련 변수 초기화, 메인화면으로 이동
+    localStorage.removeItem("JWT_TOKEN");
+    localStorage.removeItem("USER");
+    localStorage.removeItem("IS_ADMIN");
+    setToken(null);
+    setCurrentUser(null);
+    setIsAdmin(null);
+    setDeToken(null);
+    navigate("/");
+  };
 
   //컨텍스트 프로바이더 설정(value에 객체형태로 담기)
   return (
