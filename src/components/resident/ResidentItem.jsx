@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import imageApi from "../../services/imageApi";
 
 const ResidentItem = () => {
+  const { id } = useParams();
+  console.log("아이디는", id);
   const [isFormVisible, setIsFormVisible] = useState(false); // 폼 보이기/숨기기
   const [guardData, setGuardData] = useState({
     ssn: "", // 주민번호
     relation: "", // 관계
     phone: "", // 전화번호
+    resId: id,
   });
   const [submittedGuardData, setSubmittedGuardData] = useState(null);
 
@@ -44,7 +47,6 @@ const ResidentItem = () => {
     }
   };
 
-  const { id } = useParams();
   const [resident, setResident] = useState({
     resName: "",
     resGender: "",
