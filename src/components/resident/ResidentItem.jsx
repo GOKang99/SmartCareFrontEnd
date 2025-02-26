@@ -3,6 +3,45 @@ import { useState, useEffect } from "react";
 import imageApi from "../../services/imageApi";
 
 const ResidentItem = () => {
+  const [isFormVisible, setIsFormVisible] = useState(false); // 폼 보이기/숨기기
+  const [guardData, setGuardData] = useState({
+    ssn: "", // 주민번호
+    relation: "", // 관계
+    phone: "", // 전화번호
+  });
+
+  // 입력 값이 변경될 때마다 guardData 업데이트 및 콘솔 출력
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setGuardData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+      return updatedData;
+    });
+  };
+
+  // 폼 제출 시 데이터 확인
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // guardData 객체를 그대로 전송
+      const response = await imageApi.put("/resident/guard", guardData);
+      console.log("응답:", response.data);
+      // 폼 제출 후 guardData 초기화
+      setGuardData({
+        ssn: "",
+        relation: "",
+        phone: "",
+      });
+      setIsFormVisible(false); // 폼 숨기기
+    } catch (error) {
+      console.error("서버 오류:", error);
+      if (error.response && error.response.status === 401) {
+        alert("등록실패");
+      }
+    }
+  };
+
   const { id } = useParams();
   const [resident, setResident] = useState({
     resName: "",
@@ -130,6 +169,56 @@ const ResidentItem = () => {
             {resident.resExitDate ? resident.resExitDate : "미정"}
           </div>
         </div>
+      </div>
+
+      <br />
+
+      <div>
+        <button onClick={() => setIsFormVisible(!isFormVisible)}>
+          {isFormVisible ? "취소" : "추가"}
+        </button>
+
+        {isFormVisible && (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="ssn">주민번호:</label>
+              <input
+                type="text"
+                id="ssn"
+                name="ssn"
+                value={guardData.ssn}
+                onChange={handleInputChange}
+                placeholder="주민번호 입력"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="relation">관계:</label>
+              <input
+                type="text"
+                id="relation"
+                name="relation"
+                value={guardData.relation}
+                onChange={handleInputChange}
+                placeholder="관계 입력"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phone">전화번호:</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                value={guardData.phone}
+                onChange={handleInputChange}
+                placeholder="전화번호 입력"
+              />
+            </div>
+
+            <button type="submit">등록</button>
+          </form>
+        )}
       </div>
     </div>
   );

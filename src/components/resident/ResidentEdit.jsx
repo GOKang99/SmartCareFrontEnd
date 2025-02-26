@@ -168,7 +168,7 @@ const ResidentEdit = ({ giverId }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen p-6">
       <form onSubmit={onSubmit} className="space-y-6">
         {/* 이미지 업로드 섹션 */}
         <div className="space-y-2">
@@ -469,7 +469,7 @@ const ResidentEdit = ({ giverId }) => {
             type="submit"
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
-            제출
+            등록
           </button>
           <Link to="/resident">
             <button
