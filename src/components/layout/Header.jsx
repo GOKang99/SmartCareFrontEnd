@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation(); // 현재 URL 가져오기
   const navigate = useNavigate(); //이동객체
+  // const { handleLogout, navigate } = useMyContext();
 
   //컨텍스트에서 유저 관련 변수 가져오기
   const { token, setToken, setCurrentUser, isAdmin, setIsAdmin, setDeToken } =
@@ -20,7 +22,8 @@ const Header = () => {
     setCurrentUser(null);
     setIsAdmin(null);
     setDeToken(null);
-    navigate("/");
+    navigate("/login");
+    toast.error("로그아웃 되었습니다");
   };
 
   return (

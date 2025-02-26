@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PasswordChangeModal from "./PasswordChangeModal";
 import { jwtDecode } from "jwt-decode";
 import { useMyContext } from "../ContextApi";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 const Mypage = () => {
-  const { token } = useMyContext(); //컨텍스트에서 id 받아오기
+  const { token, setToken, setCurrentUser, setIsAdmin, setDeToken } =
+    useMyContext(); //컨텍스트에서 id 받아오기
   const { id } = useParams(); // URL에서 user id를 가져온다고 가정(/mypage/1)
   const [userData, setUserData] = useState(null); // 백엔드에서 받은 유저 정보
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
+  const navigate = useNavigate();
   let dToken = null;
+
+  const handleLogout = () => {
+    //로그아웃시 로컬스토리지와 유저 관련 변수 초기화, 메인화면으로 이동
+    localStorage.removeItem("JWT_TOKEN");
+    localStorage.removeItem("USER");
+    localStorage.removeItem("IS_ADMIN");
+    setToken(null);
+    setCurrentUser(null);
+    setIsAdmin(null);
+    setDeToken(null);
+    navigate("/login");
+    toast.error("로그아웃 되었습니다");
+  };
 
   if (token) {
     try {
@@ -28,7 +43,6 @@ const Mypage = () => {
     const fetchUserData = async () => {
       try {
         const { data } = await api.get(`/users/${dToken.userId}`);
-        // console.log(data);
         setUserData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -45,7 +59,7 @@ const Mypage = () => {
   // userData.username, userData.phone, userData.roleName, userData.residentName, userData.residentImage 등
 
   // 역할(Role)에 따라 구분
-  const isAdmin = userData.roleName === "ROLE_ADMIN";
+  const isAd = userData.roleName === "ROLE_ADMIN";
   const isUser = userData.roleName === "ROLE_USER";
 
   // 환자 이미지 표시 (없으면 기본 이미지)
@@ -121,9 +135,7 @@ const Mypage = () => {
           {/* 로그아웃 */}
           <div
             className="py-3 px-4 flex items-center border-b border-gray-200 cursor-pointer"
-            onClick={() =>
-              alert("로그아웃 되었습니다. (로그인 기능 추가 후 구현)")
-            }
+            onClick={() => handleLogout()}
           >
             <p className="text-gray-700 flex-1">로그아웃</p>
             <span className="text-gray-400">&gt;</span>

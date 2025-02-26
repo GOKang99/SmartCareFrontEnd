@@ -13,6 +13,7 @@ import Signup from "./auth/Signup";
 import Visits from "./pages/Visits";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Residents from "./pages/Residents";
+import { ToastContainer } from "react-toastify";
 import NoticeList from "./components/notice/NoticeList";
 import NoticeCreateForm from "./components/notice/NoticeCreateForm";
 import NoticeDetail from "./components/notice/NoticeDetail";
@@ -22,6 +23,8 @@ function App() {
     <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <Header />
+        {/* 토스트 메시지 출력 컨테이너, 라우트 밖에 놔둬서 모든 페이지에서 출력하도록 한다 */}
+        <ToastContainer position="bottom-right" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

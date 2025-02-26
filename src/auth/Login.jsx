@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import api from "../services/api";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const Login = () => {
   //jwt토큰 스테이트
@@ -12,6 +13,8 @@ const Login = () => {
   const { setToken, token, deToken, setDeToken } = useMyContext();
   //이동객체
   const navigate = useNavigate();
+  const { handleLogout } = useMyContext();
+  const [loginError, setLoginError] = useState(false);
 
   //리액트 훅 폼 사용
   const {
@@ -53,18 +56,24 @@ const Login = () => {
   const onLoginHandler = async (data) => {
     try {
       const response = await api.post("/auth/public/signin", data);
+      setLoginError(false);
       reset(); //입력창 리셋
       if (response.status === 200 && response.data.jwtToken) {
         setJwtToken(response.data.jwtToken);
         const decodedToken = jwtDecode(response.data.jwtToken);
         console.log("여기서 찾자", decodedToken);
         handleSuccessfulLogin(response.data.jwtToken, decodedToken);
+        toast.success("로그인 성공, 반갑습니다!");
         console.log("로그인 성공");
       } else {
+        toast.error("로그인 정보가 일치하지 않습니다");
+        setLoginError(true);
         console.log("로그인 실패");
       }
     } catch (error) {
       if (error) {
+        toast.error("로그인 정보가 일치하지 않습니다");
+        setLoginError(true);
         console.log("로그인 실패");
       }
     }
@@ -150,6 +159,12 @@ const Login = () => {
           </button>
         </form>
 
+        {loginError && (
+          <p className="text-sm font-semibold text-red-500 mt-0">
+            로그인 정보를 확인해주세요
+          </p>
+        )}
+
         {/* 하단 링크 */}
         <div className="mt-4 text-center">
           <a href="#" className="text-sm text-blue-500 hover:underline">
@@ -158,9 +173,9 @@ const Login = () => {
         </div>
         <div className="mt-4 text-center text-sm">
           계정이 없으신가요? &nbsp;
-          <a href="#" className="text-sm text-blue-500 hover:underline">
+          <Link to="/signup" className="text-sm text-blue-500 hover:underline">
             회원가입
-          </a>
+          </Link>
         </div>
       </div>
     </div>
