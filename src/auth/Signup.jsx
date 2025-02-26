@@ -8,15 +8,24 @@ import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate(); //이동객체
-
-  const [username, setUsername] = useState("");
-  const [usernameValid, setUsernameValid] = useState(false);
+  const [role, setRole] = useState(""); // 역할 선택 (1: 요양사, 2: 보호자)
+  const [code, setCode] = useState(""); // 보호자 코드
+  const [agree, setAgree] = useState(false); // 약관 동의
+  const [username, setUsername] = useState(""); //유저네임 스테이트
+  const [usernameValid, setUsernameValid] = useState(false); //유저네임 중복확인 가능 스테이트
+  const [usernameConfirm, setUserNameConfirm] = useState(false); //중복확인 여부 스테이트
+  const [submitValid, setSubmitValid] = useState(true); //회원가입 제출 가능 스테이트
 
   //username에 4글자 이상 입력 시 중복검사 버튼 활성화
   useEffect(() => {
     console.log(usernameValid);
     setUsernameValid(username.length >= 4);
   }, [username]);
+
+  //중복확인 통과, 약관 동의 시 제출 가능
+  useEffect(() => {
+    setSubmitValid(usernameConfirm && agree);
+  }, [usernameConfirm, agree]);
 
   //리액트 훅 폼
   const {
@@ -76,25 +85,6 @@ const Signup = () => {
     }
   };
 
-  const [role, setRole] = useState(""); // 역할 선택 (1: 요양사, 2: 보호자)
-  const [code, setCode] = useState(""); // 보호자 코드
-  const [agree, setAgree] = useState(false); // 약관 동의
-
-  // const [username, setUsername] = useState("");
-  // const [userId, setUserId] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [ssn, setSsn] = useState(""); // 주민등록번호
-  // const [relation, setRelation] = useState(""); // 보호자 관계
-
-  // // 아이디 중복 확인 (나중에 백엔드 연동)
-  // const handleCheckDuplicate = () => {
-  //   alert("아이디 중복 확인 기능은 나중에 구현됩니다.");
-  // };
-
   useEffect(() => {
     console.log(role);
   }, [role]);
@@ -110,14 +100,18 @@ const Signup = () => {
   //아이디 중복확인 백엔드 요청
   const sendUsername = async (data) => {
     try {
+      setUserNameConfirm(false);
       const response = await api.post("/auth/public/checkuser", data);
       console.log("레스", response);
       if (response.status == 200) {
+        setUserNameConfirm(true);
         toast.success("사용가능한 유저네임입니다");
       } else {
+        setUserNameConfirm(false);
         toast.error("이미 존재하는 유저네임입니다");
       }
     } catch (error) {
+      setUserNameConfirm(false);
       toast.error("이미 존재하는 유저네임입니다");
     }
   };
@@ -147,31 +141,6 @@ const Signup = () => {
       root.render(<Popup popupWindow={newWindow} />);
     }
   };
-
-  // // 회원가입 버튼 클릭
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-
-  //   if (!agree) {
-  //     alert("약관에 동의해야 가입할 수 있습니다.");
-  //     return;
-  //   }
-
-  //   console.log("회원가입 요청:", {
-  //     role,
-  //     username,
-  //     userId,
-  //     password,
-  //     email,
-  //     phone,
-  //     address,
-  //     ssn,
-  //     relation,
-  //     code,
-  //   });
-
-  //   alert("회원가입 기능은 나중에 구현됩니다.");
-  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
@@ -431,7 +400,10 @@ const Signup = () => {
             <input
               type="checkbox"
               checked={agree}
-              onChange={() => setAgree(!agree)}
+              onChange={() => {
+                setAgree(!agree);
+                console.log("어그리", agree);
+              }}
               className="mr-2"
             />
             <span className="text-sm text-gray-700">
@@ -445,7 +417,12 @@ const Signup = () => {
           {/* 회원가입 버튼 */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg mt-4 cursor-pointer"
+            className={`w-full text-white py-2 rounded-lg mt-4 ${
+              submitValid
+                ? "bg-blue-500  cursor-pointer "
+                : "bg-blue-500 text-white py-2 rounded-lg mt-4 opacity-50"
+            }`}
+            disabled={!submitValid}
           >
             가입하기
           </button>
