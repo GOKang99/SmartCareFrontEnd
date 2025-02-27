@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "./services/api";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 //컨텍스트 생성
 const ContextApi = createContext();
@@ -23,11 +25,14 @@ export const ContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(IsAdmin);
   //해석된 토큰 스테이트
   const [deToken, setDeToken] = useState(null);
+  //보호자 아이디 저장 스테이트
+  const [guardId, setGuardId] = useState(null);
+  //요양 보호사 아이디 저장 스테이트
+  const [giverId, setGiverId] = useState(null);
 
   const fetchUser = async () => {
     //로컬스토리지에서 USER라는 키에 저장된 데이터를 JSON에서 자바스크립트 객체로 변환
     const user = JSON.parse(localStorage.getItem("USER"));
-
     if (user?.username) {
       try {
         //서버로부터 받은 응답은 data라는 변수에 할당
@@ -55,6 +60,7 @@ export const ContextProvider = ({ children }) => {
         setCurrentUser(data);
       } catch (error) {
         //오류시
+        toast.error("현재 유저정보를 업데이트하는데 실패했습니다");
         console.error(error);
       }
     }
@@ -68,6 +74,40 @@ export const ContextProvider = ({ children }) => {
     }
   }, [token]);
 
+  const handleLogout = () => {
+    //로그아웃시 로컬스토리지와 유저 관련 변수 초기화, 메인화면으로 이동
+    localStorage.removeItem("JWT_TOKEN");
+    localStorage.removeItem("USER");
+    localStorage.removeItem("IS_ADMIN");
+    setToken(null);
+    setCurrentUser(null);
+    setIsAdmin(null);
+    setDeToken(null);
+    navigate("/");
+  };
+
+  //토큰 해독하기
+  useEffect(() => {
+    if (token) {
+      const decoded = jwtDecode(token);
+      setDeToken(decoded);
+    }
+  }, [token]);
+
+  //역할에 따라 저장하기
+
+  useEffect(() => {
+    if (isAdmin) {
+      console.log("요양보호사 입니다." + isAdmin);
+      setGiverId(deToken?.partId);
+      console.log("요양보호사 아이디는", giverId);
+    } else {
+      console.log("어드민이 아닙니다." + isAdmin);
+      setGuardId(deToken?.partId);
+      console.log("보호자 아이디는", guardId);
+    }
+  }, [isAdmin, deToken?.partId]);
+
   //컨텍스트 프로바이더 설정(value에 객체형태로 담기)
   return (
     <ContextApi.Provider
@@ -80,6 +120,8 @@ export const ContextProvider = ({ children }) => {
         setIsAdmin,
         deToken,
         setDeToken,
+        guardId,
+        giverId,
       }}
     >
       {children}

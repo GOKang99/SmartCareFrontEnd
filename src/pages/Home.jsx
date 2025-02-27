@@ -195,6 +195,22 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      {/* 영상 부분 */}
+      <div className="w-full p-0 bg-gray-100 rounded-xl shadow-lg flex flex-col items-center justify-center ">
+        <h2 className="text-3xl font-bold text-center mt-10 mb-10 text-gray-800">
+          자동 재생되는 유튜브 영상
+        </h2>
+        <div className="relative w-[90%] p-0 mb-15 max-w-5xl h-[600px] bg-black rounded-lg overflow-hidden">
+          <iframe
+            className="absolute top-0 left-0 w-full h-full border-none"
+            src="https://www.youtube.com/embed/QuzN_LLoWEo?autoplay=1&mute=1"
+            title="YouTube video player"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
     </>
   );
 };
