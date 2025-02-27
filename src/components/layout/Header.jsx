@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation(); // 현재 URL 가져오기
   const navigate = useNavigate(); //이동객체
+  // const { handleLogout, navigate } = useMyContext();
 
   //컨텍스트에서 유저 관련 변수 가져오기
   const { token, setToken, setCurrentUser, isAdmin, setIsAdmin, setDeToken } =
@@ -20,7 +22,8 @@ const Header = () => {
     setCurrentUser(null);
     setIsAdmin(null);
     setDeToken(null);
-    navigate("/");
+    navigate("/login");
+    toast.error("로그아웃 되었습니다");
   };
 
   return (
@@ -73,6 +76,18 @@ const Header = () => {
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
+                  to="/"
+                  className={`block py-2 px-3 rounded-sm md:p-0 ${
+                    location.pathname === "/"
+                      ? "text-blue-700"
+                      : "text-gray-900 hover:text-blue-700"
+                  }`}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/notice"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/notice"
@@ -87,7 +102,7 @@ const Header = () => {
                 <Link
                   to="/resident"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/mypage"
+                    location.pathname === "/resident"
                       ? "text-blue-700"
                       : "text-gray-900 hover:text-blue-700"
                   }`}
@@ -133,7 +148,16 @@ const Header = () => {
               </li>
               {!token && (
                 <li>
-                  <Link to={"/signup"}>회원가입</Link>
+                  <Link
+                    to={"/signup"}
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/signup"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    회원가입
+                  </Link>
                 </li>
               )}
               {token ? (
@@ -142,7 +166,16 @@ const Header = () => {
                 </li>
               ) : (
                 <li>
-                  <Link to={"/login"}>로그인</Link>
+                  <Link
+                    to={"/login"}
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/login"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    로그인
+                  </Link>
                 </li>
               )}
             </ul>
