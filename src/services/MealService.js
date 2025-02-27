@@ -16,6 +16,18 @@ export const getAllMealsForAdmin = async () => {
     return response.data || [];
 };
 
+// ✅ 환자 선택옴
+export const getResidents = async () => {
+    try {
+        const response = await api.get("/meals/admin/residents");
+        return response.data;
+    } catch (error) {
+        console.error("❌ 환자 불러오기 오류:", error);
+        throw error;
+    }
+};
+
+
 // ✅ 식사 추가 (관리자만 가능)
 export const addMeal = async (mealData) => {
     try {
@@ -27,16 +39,6 @@ export const addMeal = async (mealData) => {
     }
 };
 
-// 환자 검색
-// export const getPatientsByName = async (name) => {
-//     try {
-//         const response = await fetch(`/api/patients/search?name=${name}`);
-//         return await response.json();
-//     } catch (error) {
-//         console.error("❌ 환자 검색 API 오류:", error);
-//         throw error;
-//     }
-// }
 
 // ✅ 식사 수정 (관리자만 가능)
 export const updateMeal = async (medId, mealData) => {

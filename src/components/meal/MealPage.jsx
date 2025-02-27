@@ -3,12 +3,20 @@ import { getMealsForResident } from '../../services/MealService';
 import MealTable from './MealTable';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";  // 날짜 선택 UI 스타일
+import { jwtDecode } from 'jwt-decode';
+import { useMyContext } from '../../ContextApi';
 
 const MealPage = () => {
     const [meals, setMeals] = useState([]);
     const [todayMeals, setTodayMeals] = useState(null);  // 초기값을 null로 설정
     const [selectedWeek, setSelectedWeek] = useState({ start: null, end: null });
     const [filteredMeals, setFilteredMeals] = useState([]);  // 필터링된 식사 데이터
+    
+    //유저당 아이디를 가져오기  
+    const{token}=useMyContext();
+    const dToken=jwtDecode(token);
+    //console.log(dToken.partId);
+    const part=dToken.partId; //가드아이디
 
     // 오늘 날짜를 "YYYY-MM-DD" 형식으로 반환하는 함수
     const todayString = () => {
@@ -23,7 +31,7 @@ const MealPage = () => {
     // ✅ useCallback을 사용하여 fetchMeals를 외부에서도 호출 가능하게 변경
     const fetchMeals = useCallback(async () => {
         try {
-            const data = await getMealsForResident(1); // 특정 환자의 ID
+            const data = await getMealsForResident(part); // 로그인한 유저의 ID
             setMeals(data || []);
             
             // 오늘 날짜를 가져오기
@@ -64,7 +72,9 @@ const MealPage = () => {
     const handleDateChange = (date) => {
         // 시작 날짜 설정: 선택한 날짜의 일요일로 설정
         const startOfWeek = new Date(date);
+        const dday = new Date(date);
         const dayOfWeek = startOfWeek.getDay();  // 일요일부터 0~6까지 (일:0, 월:1, ..., 토:6)
+        dday.setDate(dday.getDate());
         startOfWeek.setDate(startOfWeek.getDate() - dayOfWeek);  // 선택한 날짜 기준으로 일요일로 설정
         startOfWeek.setHours(0, 0, 0, 0);  // 시간은 00:00:00으로 설정
     
@@ -73,7 +83,7 @@ const MealPage = () => {
         endOfWeek.setDate(startOfWeek.getDate() + 6);  // 정확히 일주일을 계산하여 토요일까지 포함되도록 설정
         endOfWeek.setHours(23, 59, 59, 999);  // 시간은 23:59:59로 설정하여 토요일 끝까지 포함되게 함
     
-        setSelectedWeek({ start: startOfWeek, end: endOfWeek });
+        setSelectedWeek({ start: startOfWeek, end: endOfWeek ,today:dday});
     
         // 선택한 날짜 범위에 맞는 식사 데이터 필터링
         const filtered = meals.filter(meal => {
@@ -111,7 +121,7 @@ const MealPage = () => {
             <h2 className="text-xl font-semibold text-green-600 text-center mb-3">날짜 선택</h2>
             <div className="text-center mb-6">
                 <DatePicker
-                    selected={selectedWeek.start || new Date(today)}  // selected 값 설정 (오늘 날짜가 기본값)
+                    selected={selectedWeek.today || new Date(today)}  // selected 값 설정 (오늘 날짜가 기본값)
                     onChange={handleDateChange}
                     dateFormat="yyyy/MM/dd"
                     placeholderText="시작 날짜를 선택하세요"

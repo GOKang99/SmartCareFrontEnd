@@ -13,6 +13,7 @@ const MealTable = ({ meals, isAdmin, onUpdate, onDelete }) => {
             <table className="min-w-full border border-black">
                 <thead>
                     <tr className="bg-green-500 text-white">
+                    <th rowSpan="2" className="p-2 border border-black">성명</th>
                         <th rowSpan="2" className="p-2 border border-black">일자(요일)</th>
                         <th colSpan="3" className="p-2 border border-black">식사</th>
                         <th colSpan="2" className="p-2 border border-black">간식</th>
@@ -30,6 +31,7 @@ const MealTable = ({ meals, isAdmin, onUpdate, onDelete }) => {
                     {meals.length > 0 ? (
                         meals.map((meal) => (
                             <tr key={meal.medId} className="text-center odd:bg-gray-100 even:bg-white">
+                                 <td className="p-2 border border-black">{meal.resName}</td>
                                 <td className="p-2 border border-black">{meal.meaDt} ({getDayOfWeek(meal.meaDt)})</td>
                                 <td className="p-2 border border-black">{meal.breQty}</td>
                                 <td className="p-2 border border-black">{meal.lunQty}</td>
