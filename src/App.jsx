@@ -37,7 +37,7 @@ function Layout() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/notice" element={<NoticeList />} />
         <Route
-          path="/compositions"
+          path="/composition/*"
           element={
             <ProtectedRoute>
               <Compositions />

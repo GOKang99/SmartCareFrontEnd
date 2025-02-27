@@ -17,12 +17,10 @@ const Compositions = () => {
         </nav>
       </div>
 
-      <div>
-        <Routes>
-          <Route path="/composition/my" element={<CompositionList />} />
-          <Route path="/composition/form" element={<CompositionForm />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/my" element={<CompositionList />} />
+        <Route path="/form" element={<CompositionForm />} />
+      </Routes>
     </div>
   );
 };
