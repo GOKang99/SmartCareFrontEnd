@@ -1,9 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import imageApi from "../../services/imageApi";
 
-const ResidentEdit = ({ giverId }) => {
+const ResidentEdit = ({ giverId, handleEditResident }) => {
   const { id } = useParams();
   const [image, setImage] = useState(null); // 이미지 URL 상태
   const [file, setFile] = useState(null); // 실제 파일 객체 상태
@@ -158,7 +157,7 @@ const ResidentEdit = ({ giverId }) => {
       );
 
       // 서버 응답 확인
-      console.log("Response:", response.data);
+      handleEditResident(response.data);
       alert("수정이 완료되었습니다.");
       navigate("/resident/list");
     } catch (error) {
