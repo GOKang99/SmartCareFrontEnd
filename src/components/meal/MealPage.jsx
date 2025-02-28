@@ -15,8 +15,8 @@ const MealPage = () => {
     //유저당 아이디를 가져오기  
     const{token}=useMyContext();
     const dToken=jwtDecode(token);
-    //console.log(dToken.partId);
     const part=dToken.partId; //가드아이디
+    // console.log(dToken.partId);
 
     // 오늘 날짜를 "YYYY-MM-DD" 형식으로 반환하는 함수
     const todayString = () => {
@@ -36,15 +36,13 @@ const MealPage = () => {
             
             // 오늘 날짜를 가져오기
             const today = todayString();
-            
             // meals에서 오늘 날짜의 식사를 찾아서 todayMeals에 설정
             const todayMeal = data.find(meal => meal.meaDt === today);
             setTodayMeals(todayMeal || null);  // 오늘 날짜의 식사가 없으면 null 설정
-            
         } catch (error) {
             console.error("❌ 식사 데이터를 불러오는 중 오류 발생:", error);
         }
-    }, []);
+    }, [part]);
 
     useEffect(() => {
         fetchMeals(); // 컴포넌트 마운트 시 초기 데이터 로드
