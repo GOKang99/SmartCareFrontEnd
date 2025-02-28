@@ -53,7 +53,7 @@ const ResidentItem = () => {
     } catch (error) {
       console.error("서버 오류:", error);
       if (error.response && error.response.status === 401) {
-        alert("등록실패");
+        alert("등록 실패");
       }
     }
   };
