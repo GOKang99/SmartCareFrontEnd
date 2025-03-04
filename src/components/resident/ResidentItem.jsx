@@ -4,7 +4,6 @@ import imageApi from "../../services/imageApi";
 
 const ResidentItem = () => {
   const { id } = useParams();
-  console.log("아이디는", id);
   const [isFormVisible, setIsFormVisible] = useState(false); // 폼 보이기/숨기기
   const [guardData, setGuardData] = useState({
     ssn: "", // 주민번호
@@ -12,7 +11,15 @@ const ResidentItem = () => {
     phone: "", // 전화번호
     resId: id,
   });
-  const [submittedGuardData, setSubmittedGuardData] = useState(null);
+  const [guardInfo, setGuardInfo] = useState(null); // 보호자 정보 상태
+
+  // 컴포넌트가 처음 렌더링될 때, id가 변경될 때마다 로컬 스토리지에서 보호자 정보 불러오기
+  useEffect(() => {
+    const storedGuardInfo = localStorage.getItem(`guardInfo_${id}`); // 입소자 ID로 로컬 스토리지에서 보호자 정보 가져오기
+    if (storedGuardInfo) {
+      setGuardInfo(JSON.parse(storedGuardInfo)); // 로컬 스토리지에서 가져온 데이터로 상태 업데이트
+    }
+  }, [id]); // id가 바뀔 때마다 실행
 
   // 입력 값이 변경될 때마다 guardData 업데이트 및 콘솔 출력
   const handleInputChange = (e) => {
@@ -30,19 +37,23 @@ const ResidentItem = () => {
     try {
       // guardData 객체를 그대로 전송
       const response = await imageApi.put("/resident/guard", guardData);
-      console.log("응답:", response.data);
+      // 로컬 스토리지에 해당 입소자 ID에 대한 보호자 정보 저장
+      localStorage.setItem(
+        `guardInfo_${guardData.resId}`,
+        JSON.stringify(response.data)
+      );
       // 폼 제출 후 guardData 초기화
       setGuardData({
         ssn: "",
         relation: "",
         phone: "",
       });
-      setSubmittedGuardData(response.data); // 응답 데이터 화면에 출력
+      setGuardInfo(response.data); // 응답 데이터 화면에 출력
       setIsFormVisible(false); // 폼 숨기기
     } catch (error) {
       console.error("서버 오류:", error);
       if (error.response && error.response.status === 401) {
-        alert("등록실패");
+        alert("등록 실패");
       }
     }
   };
@@ -172,18 +183,18 @@ const ResidentItem = () => {
           </div>
         </div>
 
-        {submittedGuardData && (
+        {guardInfo && (
           <div className="mt-6">
             <h3 className="text-xl font-semibold">보호자 정보</h3>
             <ul>
               <li>
-                <strong>주민번호:</strong> {submittedGuardData.ssn}
+                <strong>주민번호:</strong> {guardInfo.ssn}
               </li>
               <li>
-                <strong>관계:</strong> {submittedGuardData.relation}
+                <strong>관계:</strong> {guardInfo.relation}
               </li>
               <li>
-                <strong>전화번호:</strong> {submittedGuardData.phone}
+                <strong>전화번호:</strong> {guardInfo.phone}
               </li>
             </ul>
           </div>

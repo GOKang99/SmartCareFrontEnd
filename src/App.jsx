@@ -18,6 +18,7 @@ import NoticeCreateForm from "./components/notice/NoticeCreateForm";
 import NoticeDetail from "./components/notice/NoticeDetail";
 import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
+import Givers from "./pages/Givers";
 import NoticeEdit from "./components/notice/NoticeEdit";
 
 function Layout() {
@@ -36,6 +37,7 @@ function Layout() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/notice" element={<NoticeList />} />
+        <Route path="givers" element={<Givers />} />
         <Route
           path="/notice/create"
           element={
