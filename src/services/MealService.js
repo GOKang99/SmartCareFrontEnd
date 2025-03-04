@@ -1,7 +1,4 @@
-import axios from "axios";
 import api from "./api";
-
-const API_URL = "http://localhost:8080/api/meals"; // 백엔드 URL 확인
 
 
 // ✅ 환자 식사 일지 조회
