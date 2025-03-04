@@ -121,7 +121,7 @@ const Signup = () => {
     const newWindow = window.open(
       "http://localhost:5173/popup/terms",
       "_blank",
-      "width=500,height=600,left=300,top=200,resizable=yes,scrollbars=yes"
+      "width=1000,height=1000,left=300,top=200,resizable=yes,scrollbars=yes"
     );
 
     if (newWindow) {

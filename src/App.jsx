@@ -18,6 +18,7 @@ import NoticeCreateForm from "./components/notice/NoticeCreateForm";
 import NoticeDetail from "./components/notice/NoticeDetail";
 import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
+import NoticeEdit from "./components/notice/NoticeEdit";
 
 function Layout() {
   const location = useLocation(); // 현재 URL 가져오기
@@ -38,8 +39,16 @@ function Layout() {
         <Route
           path="/notice/create"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminPage={true}>
               <NoticeCreateForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/notice/edit/:noticeId"
+          element={
+            <ProtectedRoute adminPage={true}>
+              <NoticeEdit />
             </ProtectedRoute>
           }
         />
@@ -52,7 +61,14 @@ function Layout() {
             </ProtectedRoute>
           }
         />
-        <Route path="/agree" element={<Agree />} />
+        <Route
+          path="/agree"
+          element={
+            <ProtectedRoute>
+              <Agree />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/visits/*"
           element={

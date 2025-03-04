@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
 import { useMyContext } from "../../ContextApi";
+import { toast } from "react-toastify";
+import { set } from "react-hook-form";
 
 const NoticeDetail = () => {
   const { noticeId } = useParams(); // URL에서 공지사항 ID 가져오기
@@ -25,6 +27,23 @@ const NoticeDetail = () => {
     };
     fetchNotice();
   }, [noticeId]);
+
+  // 🔥 공지사항 삭제 함수
+  const handleDelete = async () => {
+    if (!window.confirm("정말로 이 공지사항을 삭제하시겠습니까?")) return;
+
+    try {
+      setLoading(false);
+      await api.delete(`/notice/${noticeId}`);
+      toast.success("공지사항이 삭제되었습니다.");
+      navigate("/notice"); // 목록 페이지로 이동
+    } catch (error) {
+      console.error("삭제 중 오류 발생", error);
+      toast.error("공지사항 삭제에 실패했습니다.");
+    } finally {
+      setLoading(true);
+    }
+  };
 
   return (
     <div className="w-full h-screen p-20 bg-white shadow-xl rounded-xl">
@@ -61,7 +80,7 @@ const NoticeDetail = () => {
       <div className="flex justify-between mt-6">
         <button
           className="px-6 py-3 bg-gray-600 text-white text-lg rounded-lg hover:bg-gray-700"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/notice")}
         >
           뒤로 가기
         </button>
@@ -76,7 +95,7 @@ const NoticeDetail = () => {
             </button>
             <button
               className="px-6 py-3 bg-red-600 text-white text-lg rounded-lg hover:bg-red-700"
-              onClick={() => console.log("삭제 기능 추가 예정")}
+              onClick={handleDelete}
             >
               삭제하기
             </button>
