@@ -29,6 +29,8 @@ export const ContextProvider = ({ children }) => {
   const [guardId, setGuardId] = useState(null);
   //요양 보호사 아이디 저장 스테이트
   const [giverId, setGiverId] = useState(null);
+  //유저데이터(환자 포함)
+  const [userData, setUserData] = useState(null);
 
   const fetchUser = async () => {
     //로컬스토리지에서 USER라는 키에 저장된 데이터를 JSON에서 자바스크립트 객체로 변환
@@ -108,6 +110,23 @@ export const ContextProvider = ({ children }) => {
     }
   }, [isAdmin, deToken?.partId]);
 
+  //유저데이터 컨텍스트 패스에 저장하기
+  //환자 아이디 가지고 오려면 userData.residentId
+  //deToken이 있고, userId가 있다면 실행
+  useEffect(() => {
+    if (deToken && deToken?.userId) {
+      const fetchUserData = async () => {
+        try {
+          const { data } = await api.get(`/users/${deToken.userId}`);
+          setUserData(data);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchUserData();
+    }
+  }, [deToken?.userId]);
+
   //컨텍스트 프로바이더 설정(value에 객체형태로 담기)
   return (
     <ContextApi.Provider
@@ -122,6 +141,7 @@ export const ContextProvider = ({ children }) => {
         setDeToken,
         guardId,
         giverId,
+        userData,
       }}
     >
       {children}
