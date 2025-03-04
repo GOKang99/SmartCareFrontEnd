@@ -47,54 +47,6 @@ const Givers = () => {
               </>
             );
           })}
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
-          <GiverCard
-            userImage={`http://localhost:8080/userimage/anyuser.png`}
-            name={"신짱구"}
-            email={"이메일"}
-            phone={"폰번호"}
-          />
         </div>
       </div>
     );
