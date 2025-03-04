@@ -72,9 +72,8 @@ const Login = () => {
       }
     } catch (error) {
       if (error) {
-        toast.error("로그인 정보가 일치하지 않습니다");
+        toast.error(error.response.data.message);
         setLoginError(true);
-        console.log("로그인 실패");
       }
     }
   };
@@ -153,7 +152,7 @@ const Login = () => {
           {/* 로그인 버튼 */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
           >
             로그인
           </button>

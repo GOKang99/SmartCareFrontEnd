@@ -23,7 +23,7 @@ const Header = () => {
     setIsAdmin(null);
     setDeToken(null);
     navigate("/login");
-    toast.error("로그아웃 되었습니다");
+    toast.success("로그아웃 되었습니다");
   };
 
   return (
@@ -84,6 +84,18 @@ const Header = () => {
                   }`}
                 >
                   Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/givers"
+                  className={`block py-2 px-3 rounded-sm md:p-0 ${
+                    location.pathname === "/givers"
+                      ? "text-blue-700"
+                      : "text-gray-900 hover:text-blue-700"
+                  }`}
+                >
+                  요양사 소개
                 </Link>
               </li>
               <li>
