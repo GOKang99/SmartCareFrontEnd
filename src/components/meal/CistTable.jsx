@@ -4,7 +4,7 @@ import CistDetailModal from "./CistDetailModal";
 const CistTable = ({ data }) => {
     const [selectedCistId, setSelectedCistId] = useState(null);
 
-    // 날짜 형변환
+    // 날짜 형변환1
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear(); // 연도(YYYY)

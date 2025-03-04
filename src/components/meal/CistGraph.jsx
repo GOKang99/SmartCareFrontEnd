@@ -20,7 +20,7 @@ const CistGraph = ({ data }) => {
                 <LineChart data={sortedDate} className="">
                     <XAxis
                         dataKey="date"
-                        tickFormatter={formatDate} // X축 날짜 형식 지정
+                        tickFormatter={formatDate} // X축 날짜 형식 지정1
                     />
                     <YAxis />
                     <Tooltip />
