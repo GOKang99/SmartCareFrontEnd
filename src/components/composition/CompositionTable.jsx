@@ -1,6 +1,19 @@
 import React from "react";
+import api from "../../services/api";
 
-const CompositionTable = ({ compositions, showActions = false }) => {
+const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
+  // 개별 항목 삭제 함수
+  const handleDelete = async (comId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return; // 삭제 확인
+    try {
+      await api.delete(`/composition/delete/${comId}`);
+      console.log("삭제 성공:", comId);
+      onDelete(comId); // 부모 컴포넌트에서 상태 업데이트
+    } catch (error) {
+      console.error("삭제 중 오류 발생", error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center p-3">
       <table className="w-300 border-collapse border border-gray-300">
@@ -61,7 +74,10 @@ const CompositionTable = ({ compositions, showActions = false }) => {
                     </button>
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    <button className="bg-red-500 text-white px-2 py-1 rounded">
+                    <button
+                      className="bg-red-500 text-white px-2 py-1 rounded"
+                      onClick={() => handleDelete(item.comId)}
+                    >
                       삭제
                     </button>
                   </td>
