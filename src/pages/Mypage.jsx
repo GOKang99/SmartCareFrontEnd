@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { useMyContext } from "../ContextApi";
 import api from "../services/api";
 import { toast } from "react-toastify";
+import UserExitModal from "./UserExitModal";
 
 const Mypage = () => {
   const { token, setToken, setCurrentUser, setIsAdmin, setDeToken } =
@@ -12,10 +13,11 @@ const Mypage = () => {
   const { id } = useParams(); // URL에서 user id를 가져온다고 가정(/mypage/1)
   const [userData, setUserData] = useState(null); // 백엔드에서 받은 유저 정보
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [ExitModalOpen, setExitModalOpen] = useState(false); // 회원탈퇴 모달 상태 관리
+  const navigate = useNavigate(); //이동객체
+  let dToken = null; //변경가능한 변수로 비어있는 해독된 토큰의 공간을 정의
 
-  const navigate = useNavigate();
-  let dToken = null;
-
+  //로그아웃함수
   const handleLogout = () => {
     //로그아웃시 로컬스토리지와 유저 관련 변수 초기화, 메인화면으로 이동
     localStorage.removeItem("JWT_TOKEN");
@@ -26,7 +28,7 @@ const Mypage = () => {
     setIsAdmin(null);
     setDeToken(null);
     navigate("/login");
-    toast.error("로그아웃 되었습니다");
+    toast.success("로그아웃 되었습니다");
   };
 
   if (token) {
@@ -44,6 +46,7 @@ const Mypage = () => {
       try {
         const { data } = await api.get(`/users/${dToken.userId}`);
         setUserData(data);
+        console.log("유저데이터", userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -55,18 +58,15 @@ const Mypage = () => {
     return <p>Loading...</p>;
   }
 
-  // userData의 필드 (예시)
-  // userData.username, userData.phone, userData.roleName, userData.residentName, userData.residentImage 등
-
   // 역할(Role)에 따라 구분
   const isAd = userData.roleName === "ROLE_ADMIN";
   const isUser = userData.roleName === "ROLE_USER";
 
   // 환자 이미지 표시 (없으면 기본 이미지)
-  const residentImage =
-    isUser && userData.residentImage
-      ? userData.residentImage
-      : "https://picsum.photos/200";
+  const residentImage = `http://localhost:8080/userimage/${userData.userimage}`;
+  // isUser && userData.residentImage
+  //   ? userData.residentImage
+  //   : "https://picsum.photos/200";
 
   return (
     <>
@@ -82,7 +82,7 @@ const Mypage = () => {
           <div className="flex items-start justify-between">
             {/* 왼쪽: 유저(보호자) 정보 */}
             <div>
-              <p className="text-sm">성함: {userData.username}</p>
+              <p className="text-sm">성함: {userData.realname}</p>
               <p className="text-sm mt-1">연락처: {userData.phone}</p>
               {isUser && userData.residentName && (
                 <div className="mt-2">
@@ -140,6 +140,18 @@ const Mypage = () => {
             <p className="text-gray-700 flex-1">로그아웃</p>
             <span className="text-gray-400">&gt;</span>
           </div>
+          {/* 회원탈퇴 */}
+          <div
+            className="py-3 px-4 flex items-center border-b border-gray-200 cursor-pointer"
+            onClick={() => setExitModalOpen(true)} // 버튼 클릭 시 모달 열기
+          >
+            <p className="text-gray-700 flex-1">회원탈퇴</p>
+            <span className="text-gray-400">&gt;</span>
+          </div>
+          <UserExitModal
+            isOpen={ExitModalOpen} // 모달 상태 전달
+            onClose={() => setExitModalOpen(false)} //닫기 버튼 클릭 시 모달 닫기
+          />
         </div>
       </div>
     </>

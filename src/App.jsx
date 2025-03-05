@@ -18,6 +18,8 @@ import NoticeCreateForm from "./components/notice/NoticeCreateForm";
 import NoticeDetail from "./components/notice/NoticeDetail";
 import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
+import Givers from "./pages/Givers";
+import NoticeEdit from "./components/notice/NoticeEdit";
 import Compositions from "./pages/Compositions";
 
 function Layout() {
@@ -36,6 +38,7 @@ function Layout() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/notice" element={<NoticeList />} />
+        <Route path="givers" element={<Givers />} />
         <Route
           path="/composition/*"
           element={
@@ -47,8 +50,16 @@ function Layout() {
         <Route
           path="/notice/create"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminPage={true}>
               <NoticeCreateForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/notice/edit/:noticeId"
+          element={
+            <ProtectedRoute adminPage={true}>
+              <NoticeEdit />
             </ProtectedRoute>
           }
         />
@@ -61,7 +72,14 @@ function Layout() {
             </ProtectedRoute>
           }
         />
-        <Route path="/agree" element={<Agree />} />
+        <Route
+          path="/agree"
+          element={
+            <ProtectedRoute>
+              <Agree />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/visits/*"
           element={

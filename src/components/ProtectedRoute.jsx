@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children, adminPage }) => {
 
   //2. 인증이 된 유저이지만 관리자권한없이 관리자페이지 요청시 디나이
   if (token && adminPage && !isAdmin) {
-    return <Navigate to="/access-denied" />;
+    return <Navigate to="/" />;
   }
   return children;
 };

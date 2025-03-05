@@ -1,16 +1,38 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 
-const NoticeCreateForm = () => {
-  const [noticeType, setNoticeType] = useState("공지"); // 공지유형
-  const [noticeTitle, setNoticeTitle] = useState(""); // 공지제목
-  const [noticeContent, setNoticeContent] = useState(""); // 공지내용
-  const [loading, setLoading] = useState(false); // 로딩상태
+const NoticeEdit = () => {
+  const { noticeId } = useParams(); //URL 에서 공지사항 ID 가져오기
+  const navigate = useNavigate();
+  const [noticeType, setNoticeType] = useState("공지");
+  const [noticeTitle, setNoticeTitle] = useState("");
+  const [noticeContent, setNoticeContent] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // 글쓰기 후 리디렉션
 
+  // 기존 공지사항 불러오기
+  useEffect(() => {
+    const fetchNotice = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get(`/notice/${noticeId}`);
+        const data = response.data;
+        setNoticeType(data.noticeType);
+        setNoticeTitle(data.noticeTitle);
+        setNoticeContent(data.noticeContent);
+      } catch (error) {
+        console.error("공지사항을 불러오는 중 오류 발생", error);
+        setError("공지사항을 불러오는 데 실패했습니다");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNotice();
+  }, [noticeId]);
+
+  //수정된 내용 저장
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -23,13 +45,13 @@ const NoticeCreateForm = () => {
         noticeContent,
       };
 
-      // 글쓰기 Post 요청
-      await api.post("/notice/create", data);
-      toast.success("공지사항이 성공적으로 작성되었습니다.");
-      navigate("/notice"); // 글 작성 후 공지사항 목록 페이지로 이동
+      //수정 요청
+      await api.put(`/notice/edit/${noticeId}`, data);
+      toast.success("공지사항이 성공적으로 수정되었습니다!");
+      navigate(`/notice/${noticeId}`); // 수정 후 상세 페이지로 이동
     } catch (error) {
-      console.error("공지사항 작성 중 오류가 발생했습니다.", error);
-      setError("공지사항을 작성하는 동안 문제가 발생했습니다.");
+      console.error("공지사항 수정 중 오류가 발생했습니다", error);
+      setError("공지사항을 수정하는 동안 문제가 발생했습니다");
     } finally {
       setLoading(false);
     }
@@ -38,8 +60,9 @@ const NoticeCreateForm = () => {
   return (
     <div className="w-full max-w-lg mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-        공지사항 글쓰기
+        공지사항 수정
       </h2>
+
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
       <form onSubmit={handleSubmit}>
@@ -95,7 +118,7 @@ const NoticeCreateForm = () => {
           <button
             type="button"
             className="px-6 py-2 bg-gray-500 text-white text-lg rounded-lg hover:bg-gray-600"
-            onClick={() => navigate("/notice")} // 취소 버튼 클릭 시 이동
+            onClick={() => navigate(-1)} // 취소 버튼 클릭 시 이전 페이지로 이동
           >
             취소
           </button>
@@ -112,4 +135,4 @@ const NoticeCreateForm = () => {
   );
 };
 
-export default NoticeCreateForm;
+export default NoticeEdit;

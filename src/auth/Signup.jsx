@@ -3,29 +3,21 @@ import ReactDOM from "react-dom/client";
 import Popup from "../pages/Popup";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import imageApi from "../services/imageApi";
 import api from "../services/api";
 import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate(); //이동객체
-  const [role, setRole] = useState(""); // 역할 선택 (1: 요양사, 2: 보호자)
-  const [code, setCode] = useState(""); // 보호자 코드
+  const [role, setRole] = useState(""); // 역할 선택 (요양사, 보호자)
   const [agree, setAgree] = useState(false); // 약관 동의
   const [username, setUsername] = useState(""); //유저네임 스테이트
   const [usernameValid, setUsernameValid] = useState(false); //유저네임 중복확인 가능 스테이트
   const [usernameConfirm, setUserNameConfirm] = useState(false); //중복확인 여부 스테이트
+  const [confirmPwd, setConfirmPwd] = useState(false); //비밀번호 일치 확인 스테이트
   const [submitValid, setSubmitValid] = useState(true); //회원가입 제출 가능 스테이트
-
-  //username에 4글자 이상 입력 시 중복검사 버튼 활성화
-  useEffect(() => {
-    console.log(usernameValid);
-    setUsernameValid(username.length >= 4);
-  }, [username]);
-
-  //중복확인 통과, 약관 동의 시 제출 가능
-  useEffect(() => {
-    setSubmitValid(usernameConfirm && agree);
-  }, [usernameConfirm, agree]);
+  const [userImage, setUserImage] = useState();
+  // const [code, setCode] = useState(""); // 보호자 코드
 
   //리액트 훅 폼
   const {
@@ -34,10 +26,13 @@ const Signup = () => {
     reset,
     setError,
     getValues,
+    watch,
+    clearErrors,
     formState: { errors },
   } = useForm({
     defaultValues: {
       username: "",
+      realname: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -51,12 +46,14 @@ const Signup = () => {
     mode: "onTouched",
   });
 
+  //회원가입 제출 핸들러
   const onSubmitHandler = async (data) => {
     const {
       username,
       email,
       password,
       confirmPassword,
+      realname,
       phone,
       address,
       ssn,
@@ -64,26 +61,71 @@ const Signup = () => {
       agree,
       code,
     } = data;
-    const sendData = {
-      username,
-      email,
-      password,
-      confirmPassword,
-      phone,
-      address,
-      ssn,
-      relation,
-      agree,
-      code,
-      role: [role],
-    };
-    console.log("sendData:", JSON.stringify(sendData, null, 2));
-    const response = await api.post("/auth/public/signup", sendData);
-    reset();
-    if (response.data) {
-      navigate("/login");
+
+    // 이미지가 포함된 요청 데이터 정의
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("realname", realname);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("ssn", ssn);
+    formData.append("relation", relation);
+    formData.append("agree", agree);
+    //배열로 넘겨주기 위해서 2번 추가
+    formData.append("role", role);
+    formData.append("role", role);
+
+    //이미지파일이 있다면 추가
+    if (userImage) {
+      formData.append("userimage", userImage);
+    }
+
+    console.log("sendData:", JSON.stringify(formData, null, 2));
+
+    //백엔드로 회원가입 요청 전송
+    try {
+      const response = await imageApi.post("/auth/public/signup", formData);
+      reset();
+      if (response.data) {
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
+
+  //리액트 훅 폼의 getValues는 값을 실시간으로 가져오지 않아서 watch 함수로 변경
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+
+  //username에 4글자 이상 입력 시 중복검사 버튼 활성화
+  useEffect(() => {
+    console.log(usernameValid);
+    setUsernameValid(username.length >= 4);
+  }, [username]);
+
+  //중복확인 통과, 약관 동의 시 제출 가능
+  useEffect(() => {
+    console.log("비밀번호", password);
+    console.log("비확인", confirmPassword);
+    if (password && confirmPassword) {
+      if (password !== confirmPassword) {
+        clearErrors("confirmPassword"); // 일치하는 경우 에러 메시지 제거
+        setConfirmPwd(true); // 비밀번호 일치 상태로 설정
+      } else {
+        setConfirmPwd(false); // 비밀번호 불일치 상태로 설정
+      }
+    }
+  }, [password, confirmPassword]); // 비밀번호 또는 비밀번호 확인 값이 변경될 때마다 실행
+
+  //비밀번호 비교
+  useEffect(() => {
+    setConfirmPwd(false);
+    setConfirmPwd(password == confirmPassword);
+  }, [password, confirmPassword]);
 
   useEffect(() => {
     console.log(role);
@@ -116,12 +158,21 @@ const Signup = () => {
     }
   };
 
+  //가입버튼 활성화 이펙트
+  useEffect(() => {
+    setSubmitValid(false);
+    if (agree && confirmPwd && usernameConfirm) {
+      setSubmitValid(true);
+    }
+  }, [agree, confirmPwd, usernameConfirm]);
+
+  //팝업창
   const openPopup = (e) => {
     e.preventDefault();
     const newWindow = window.open(
       "http://localhost:5173/popup/terms",
       "_blank",
-      "width=500,height=600,left=300,top=200,resizable=yes,scrollbars=yes"
+      "width=1000,height=1000,left=300,top=200,resizable=yes,scrollbars=yes"
     );
 
     if (newWindow) {
@@ -148,30 +199,12 @@ const Signup = () => {
     };
   }, []);
 
-  // // 회원가입 버튼 클릭
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-
-  //   if (!agree) {
-  //     alert("약관에 동의해야 가입할 수 있습니다.");
-  //     return;
-  //   }
-
-  //   console.log("회원가입 요청:", {
-  //     role,
-  //     username,
-  //     userId,
-  //     password,
-  //     email,
-  //     phone,
-  //     address,
-  //     ssn,
-  //     relation,
-  //     code,
-  //   });
-
-  //   alert("회원가입 기능은 나중에 구현됩니다.");
-  // };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUserImage(file);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
@@ -300,6 +333,27 @@ const Signup = () => {
             )}
           </div>
 
+          {/* 이름 입력 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              성함
+            </label>
+            <input
+              type="text"
+              id="realname"
+              className="w-full p-2 border rounded-md mb-3"
+              placeholder="성함 입력"
+              {...register("realname", {
+                required: { value: true, message: "성함을 적어주세요" },
+              })}
+            />
+            {errors.realname?.message && (
+              <p className="text-sm font-semibold text-red-500 mt-0">
+                {errors.realname.message}
+              </p>
+            )}
+          </div>
+
           {/* 이메일 입력 */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -321,6 +375,7 @@ const Signup = () => {
             )}
           </div>
 
+          {/* 휴대폰 번호 입력 */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               휴대폰 번호
@@ -344,6 +399,7 @@ const Signup = () => {
             )}
           </div>
 
+          {/* 주소 입력 */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               주소
@@ -364,6 +420,7 @@ const Signup = () => {
             )}
           </div>
 
+          {/* 주민등록번호 입력 */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               주민등록번호
@@ -387,7 +444,7 @@ const Signup = () => {
             )}
           </div>
 
-          {/* 보호자 선택 시 추가 입력 필드 */}
+          {/* 보호자 선택 시 환자와의 관계 입력 */}
           {role === "user" && (
             <>
               <div>
@@ -412,19 +469,24 @@ const Signup = () => {
                   </p>
                 )}
               </div>
-
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                보호자 코드
-              </label>
-              <input
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                className="w-full p-2 border rounded-md mb-3"
-                placeholder="보호자 코드 입력"
-              />
             </>
           )}
+
+          {/* 사진 입력 */}
+          <div>
+            <label
+              htmlFor="userimage"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              사진 등록
+            </label>
+            <input
+              type="file"
+              id="userimage"
+              onChange={handleImageChange}
+              className="w-full p-2 border rounded-md mb-3"
+            />
+          </div>
 
           {/* 약관 동의 체크 */}
           <div className="flex items-center mt-4">
@@ -464,3 +526,16 @@ const Signup = () => {
 };
 
 export default Signup;
+
+{
+  /* <label className="block text-sm font-medium text-gray-700 mb-1">
+                보호자 코드
+              </label>
+              <input
+                type="text"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                className="w-full p-2 border rounded-md mb-3"
+                placeholder="보호자 코드 입력"
+              /> */
+}
