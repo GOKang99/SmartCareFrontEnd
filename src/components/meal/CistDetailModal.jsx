@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 
-// 모달 스타일 설정1
+// 모달 스타일 설정
 const customStyles = {
     content: {
         top: "50%",

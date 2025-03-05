@@ -3,6 +3,7 @@ import CistDetailModal from "./CistDetailModal";
 
 const CistTable = ({ data }) => {
     const [selectedCistId, setSelectedCistId] = useState(null);
+    console.log("데이터 정보는", data)
 
     // 날짜 형변환1
     const formatDate = (dateString) => {

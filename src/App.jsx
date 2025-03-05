@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Header from "./components/layout/Header";
-import Notices from "./pages/Notices";
 import Mypage from "./pages/Mypage";
 import MealPage from "./components/meal/MealPage";
 import MealAdminPage from "./components/meal/MealAdminPage";
@@ -19,6 +18,7 @@ import NoticeDetail from "./components/notice/NoticeDetail";
 import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
 import CistPage from "./components/meal/CistPage";
+import CistAdminPage from "./components/meal/CistAdminPage";
 
 function Layout() {
   const location = useLocation(); // 현재 URL 가져오기
@@ -83,6 +83,14 @@ function Layout() {
           element={
             <ProtectedRoute>
               <CistPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/cist"
+          element={
+            <ProtectedRoute>
+              <CistAdminPage />
             </ProtectedRoute>
           }
         />
