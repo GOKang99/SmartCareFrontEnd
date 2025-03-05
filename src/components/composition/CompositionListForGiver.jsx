@@ -11,7 +11,6 @@ const CompositionListForGiver = () => {
     const fetchAllCompositions = async () => {
       try {
         const response = await api.get(`/composition/all/${resId}`);
-        console.log(response);
         setCompositions(response.data);
       } catch (error) {
         console.error(error);
@@ -35,6 +34,14 @@ const CompositionListForGiver = () => {
     setResId(value ? parseInt(value, 10) : ""); // 숫자로 변환, 빈 값 처리
   };
 
+  //수정시 반영
+  const handleUpdateComposition = (updatedComposition) => {
+    setCompositions((prevCompositions) =>
+      prevCompositions.map((comp) =>
+        comp.comId === updatedComposition.comId ? updatedComposition : comp
+      )
+    );
+  };
   return (
     <>
       <h1 className="text-6xl flex justify-center items-center">
@@ -54,6 +61,7 @@ const CompositionListForGiver = () => {
         compositions={compositions}
         showActions={true}
         onDelete={handleDeleteComposition}
+        onUpdate={handleUpdateComposition} // 수정 반영
       />
     </>
   );

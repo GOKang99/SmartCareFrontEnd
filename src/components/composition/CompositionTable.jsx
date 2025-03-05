@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "../../services/api";
+import EditCompositionForm from "./EditCompositionForm";
 
-const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
-  console.log("onDelete props 값:", onDelete); //  onDelete가 함수인지 확인
+const CompositionTable = ({
+  compositions,
+  showActions = false,
+  onDelete,
+  onUpdate,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedComposition, setSelectedComposition] = useState(null);
   // 개별 항목 삭제 함수
   const handleDelete = async (comId) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return; // 삭제 확인
@@ -13,6 +20,12 @@ const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
     } catch (error) {
       console.error("삭제 중 오류 발생", error);
     }
+  };
+
+  // 수정 버튼 클릭 시 선택된 Composition 설정 및 모달 열기
+  const handleEdit = (composition) => {
+    setSelectedComposition(composition);
+    setIsModalOpen(true);
   };
 
   return (
@@ -70,7 +83,10 @@ const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
               {showActions && (
                 <>
                   <td className="border border-gray-300 px-4 py-2">
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                    <button
+                      className="bg-blue-500 text-white px-2 py-1 rounded"
+                      onClick={() => handleEdit(item)}
+                    >
                       수정
                     </button>
                   </td>
@@ -88,6 +104,26 @@ const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
           ))}
         </tbody>
       </table>
+
+      {/* 수정 모달 */}
+      {isModalOpen && selectedComposition && (
+        <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-3/4 max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="float-right bg-red-500 text-white px-3 py-1 rounded"
+            >
+              닫기
+            </button>
+            <h2 className="text-2xl text-center mb-4">체성분 수정</h2>
+            <EditCompositionForm
+              composition={selectedComposition}
+              closeModal={() => setIsModalOpen(false)}
+              onUpdate={onUpdate}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
