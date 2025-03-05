@@ -2,6 +2,7 @@ import React from "react";
 import api from "../../services/api";
 
 const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
+  console.log("onDelete props 값:", onDelete); //  onDelete가 함수인지 확인
   // 개별 항목 삭제 함수
   const handleDelete = async (comId) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return; // 삭제 확인
@@ -37,8 +38,8 @@ const CompositionTable = ({ compositions, showActions = false, onDelete }) => {
           </tr>
         </thead>
         <tbody>
-          {compositions.map((item, index) => (
-            <tr key={index} className="hover:bg-gray-100">
+          {compositions.map((item) => (
+            <tr key={item.comId} className="hover:bg-gray-100">
               <td className="border border-gray-300 px-4 py-2">
                 {item.comResName}
               </td>

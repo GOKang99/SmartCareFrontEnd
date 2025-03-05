@@ -21,6 +21,14 @@ const CompositionListForGiver = () => {
     fetchAllCompositions();
   }, [resId]);
 
+  //삭제 후 상태 업데이트 함수 추가
+  const handleDeleteComposition = (comId) => {
+    setCompositions((prevCompositions) =>
+      prevCompositions.filter((item) => item.comId !== comId)
+    );
+    console.log(`삭제 완료: ${comId}`);
+  };
+
   // 입력값 변경 시 resId 업데이트
   const handleChange = (event) => {
     const value = event.target.value;
@@ -42,7 +50,11 @@ const CompositionListForGiver = () => {
         />
       </div>
       {error && <p className="text-red-500 text-center">{error}</p>}
-      <CompositionTable compositions={compositions} showActions={true} />
+      <CompositionTable
+        compositions={compositions}
+        showActions={true}
+        onDelete={handleDeleteComposition}
+      />
     </>
   );
 };

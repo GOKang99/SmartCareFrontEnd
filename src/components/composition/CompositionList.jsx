@@ -40,13 +40,6 @@ const CompositionList = () => {
     fetchAllCompositions();
   }, [resId]);
 
-  // 삭제 후 상태 업데이트 함수
-  const handleDeleteComposition = (comId) => {
-    setCompositions((prevCompositions) =>
-      prevCompositions.filter((item) => item.comId !== comId)
-    );
-  };
-
   return (
     <>
       <h1 className="text-4xl flex justify-center items-center">
@@ -66,10 +59,7 @@ const CompositionList = () => {
       {error && <p className="text-red-500 text-center">{error}</p>}
       {compositions.length > 0 ? (
         <>
-          <CompositionTable
-            compositions={compositions}
-            onDelete={handleDeleteComposition}
-          />
+          <CompositionTable compositions={compositions} />
         </>
       ) : (
         !error && (
