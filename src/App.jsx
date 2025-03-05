@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Header from "./components/layout/Header";
-import Notices from "./pages/Notices";
 import Mypage from "./pages/Mypage";
 import MealPage from "./components/meal/MealPage";
 import MealAdminPage from "./components/meal/MealAdminPage";
@@ -18,6 +17,8 @@ import NoticeCreateForm from "./components/notice/NoticeCreateForm";
 import NoticeDetail from "./components/notice/NoticeDetail";
 import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
+import CistPage from "./components/meal/CistPage";
+import CistAdminPage from "./components/meal/CistAdminPage";
 import Givers from "./pages/Givers";
 import NoticeEdit from "./components/notice/NoticeEdit";
 import Compositions from "./pages/Compositions";
@@ -101,6 +102,22 @@ function Layout() {
           element={
             <ProtectedRoute>
               <MealAdminPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cist/:residentId"
+          element={
+            <ProtectedRoute>
+              <CistPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/cist"
+          element={
+            <ProtectedRoute>
+              <CistAdminPage />
             </ProtectedRoute>
           }
         />

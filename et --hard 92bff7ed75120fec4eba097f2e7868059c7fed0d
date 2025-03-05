@@ -1,0 +1,262 @@
+[33mcommit 92bff7ed75120fec4eba097f2e7868059c7fed0d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32myk1[m[33m, [m[1;31morigin/yk1[m[33m)[m
+Merge: 1168e8b 7efb0c1
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Thu Feb 27 14:31:58 2025 +0900
+
+    Merge branch 'hong_test' of https://github.com/GOKang99/SmartCareFrontEnd into yk1
+
+[33mcommit 1168e8bc0a6fd65e8df051cae9927cf96ad829ff[m
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Thu Feb 27 14:16:46 2025 +0900
+
+    밀관리자페이지 수정
+
+[33mcommit 7efb0c112f57836cf132098c15af1cd7d969bc38[m[33m ([m[1;31morigin/hrok[m[33m, [m[1;31morigin/hong_test[m[33m)[m
+Merge: e5548da ccaa081
+Author: JH <wlgud5632@naver.com>
+Date:   Wed Feb 26 15:51:21 2025 +0900
+
+    Merge branch 'test-hrok' into hong_test
+
+[33mcommit ccaa0813f1b56894f9a204fc7a8dc2a2ef76e107[m[33m ([m[1;31morigin/test-hrok[m[33m)[m
+Author: JH <wlgud5632@naver.com>
+Date:   Wed Feb 26 15:49:34 2025 +0900
+
+    회원가입 약관 창 정리
+
+[33mcommit e5548dacab31108375fd6814653d01dda1433426[m
+Merge: 27cdb5d deb7fb5
+Author: JS <smart317@naver.com>
+Date:   Wed Feb 26 15:23:49 2025 +0900
+
+    Merge branch 'jinsu' into hong_test
+
+[33mcommit deb7fb51a8678ca20ddc498a543a5e4c038d2c6f[m[33m ([m[1;31morigin/jinsu[m[33m)[m
+Author: JS <smart317@naver.com>
+Date:   Wed Feb 26 15:20:22 2025 +0900
+
+    보호자 등록
+
+[33mcommit 27cdb5dde88cf912a02f1bf7e91b99300beb6bd8[m
+Author: rok <rok@gmail.com>
+Date:   Wed Feb 26 15:19:23 2025 +0900
+
+    회원가입 제출버튼 알고리즘
+
+[33mcommit 47b6250219288e42c97f9b14c89387233e7f27cc[m
+Merge: 5b2230a f7bd0da
+Author: omer <justletomer@gmail.com>
+Date:   Wed Feb 26 14:46:51 2025 +0900
+
+    Merge branch 'kminseok' into hong_test
+
+[33mcommit d68fada91524558801dcaaac5e5080eb3a99c03a[m
+Author: JS <smart317@naver.com>
+Date:   Wed Feb 26 14:06:33 2025 +0900
+
+    css 임시수정
+
+[33mcommit bec3b28792d141ddc8f79b27acdbe05bcc989770[m
+Author: JS <smart317@naver.com>
+Date:   Wed Feb 26 13:42:24 2025 +0900
+
+    언어 수정
+
+[33mcommit 5b2230aeb857f4e2e63b9102ba451e272f4f8d56[m
+Merge: b70f7ab 30a22a8
+Author: JH <wlgud5632@naver.com>
+Date:   Wed Feb 26 12:35:09 2025 +0900
+
+    Merge remote-tracking branch 'origin/hrok' into hong_test
+
+[33mcommit b70f7abff39441913e27f4e8c323fba87da814e3[m[33m ([m[1;31morigin/hong[m[33m)[m
+Author: JH <wlgud5632@naver.com>
+Date:   Wed Feb 26 12:30:25 2025 +0900
+
+    공지사항 전체 및 부분 오류 수정
+
+[33mcommit 30a22a8f698daab1b21c8b49583ebdc9ee306d08[m
+Author: rok <rok@gmail.com>
+Date:   Wed Feb 26 12:28:53 2025 +0900
+
+    마이페이지 로그아웃, 비밀번호 변경 구현
+    
+    회원가입시 아이디중복 체크
+    
+    토스트 메시지 구현
+
+[33mcommit afaeb5666d08a5710950ab5bffe86b9d47676d40[m
+Author: JS <smart317@naver.com>
+Date:   Wed Feb 26 12:02:02 2025 +0900
+
+    보호자 등록 임시
+
+[33mcommit f7bd0da00330fde330582fd9f86e85010070640a[m[33m ([m[1;31morigin/kminseok[m[33m)[m
+Author: omer <justletomer@gmail.com>
+Date:   Tue Feb 25 16:05:17 2025 +0900
+
+    예약 필터 추가
+
+[33mcommit 408e2d84e08005a8e89b9aabe89cd8c8878d532e[m
+Author: omer <justletomer@gmail.com>
+Date:   Tue Feb 25 14:39:06 2025 +0900
+
+    환자 이름 받아오기, 예약 생성시 guardId자동 입력
+
+[33mcommit 0197ac8ea2bb831a0d1f56c3c63e7190283fe16a[m
+Author: omer <justletomer@gmail.com>
+Date:   Tue Feb 25 13:53:21 2025 +0900
+
+    visitItem 환자이름 추가
+
+[33mcommit 1d592f4218a86fd4a3ae8368df31be1256b5324c[m
+Author: omer <justletomer@gmail.com>
+Date:   Tue Feb 25 12:35:21 2025 +0900
+
+    새로고침시 contextPath 초기화 해결
+
+[33mcommit dacb018acaaf7933003988372e23437143d60c8a[m
+Author: omer <justletomer@gmail.com>
+Date:   Tue Feb 25 11:38:31 2025 +0900
+
+    컨텍스트 패스에 보호자,요양보호사 아이디 저장
+
+[33mcommit 7f0935318096e1fa8f03ada400de5b5f9fe45aa0[m
+Author: omer <justletomer@gmail.com>
+Date:   Tue Feb 25 09:57:18 2025 +0900
+
+    예약 변경시 guardId날라가는거 수정
+
+[33mcommit 7a0affe1b9d4685f6f8350425fe56924a803a295[m
+Author: MacOmer <justletomer@gmail.com>
+Date:   Mon Feb 24 17:13:34 2025 +0900
+
+    보호자,요양보호사 예약하기 구분완료
+
+[33mcommit aff301e826a82a556b5acf44c7c7f8493af127bd[m
+Author: omer <justletomer@gmail.com>
+Date:   Mon Feb 24 16:38:01 2025 +0900
+
+    일반 사용자, 어드민 구분중
+
+[33mcommit e2f23509246782ada611c12c3661803b64de2f7a[m
+Author: JS <smart317@naver.com>
+Date:   Mon Feb 24 16:04:42 2025 +0900
+
+    검색기능 추가
+
+[33mcommit a315ec6bb63d27891261bf2067903f6dd7f877c1[m
+Author: JS <smart317@naver.com>
+Date:   Mon Feb 24 14:07:37 2025 +0900
+
+    수정
+
+[33mcommit 88188a56f9d41f41488248e02e08a59ca356d20e[m
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Mon Feb 24 13:43:00 2025 +0900
+
+    식사일지 같은날짜 중복방지 및 빈값이 alert 추가
+
+[33mcommit 41496bc9c02383ad0811ef41afa1edc5eb839103[m
+Author: JS <smart317@naver.com>
+Date:   Mon Feb 24 12:31:32 2025 +0900
+
+    giverId 프롭스 설정
+
+[33mcommit ab05039bad78e236ac66903ea328088dd465151f[m
+Author: JS <smart317@naver.com>
+Date:   Mon Feb 24 12:04:58 2025 +0900
+
+    입소자 번호 자동생성 임시
+
+[33mcommit 4234474c621dce47edc9687fe9abbb5edcfb441d[m
+Author: JS <smart317@naver.com>
+Date:   Mon Feb 24 11:15:51 2025 +0900
+
+    css 및 사진 임시수정
+
+[33mcommit 3a8fbc3a3f5dad93c5c16fb0ce0246c653ad5e04[m
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Mon Feb 24 09:45:19 2025 +0900
+
+    식사 조회 수정,날짜(일주일 검색)완료
+
+[33mcommit ab5cc01586a0c0eaabd40bfc2cee3a03bedac9fd[m
+Author: JH <wlgud5632@naver.com>
+Date:   Fri Feb 21 10:29:46 2025 +0900
+
+    생활현황페이지 protectedRoute, 홈페이지 동영상 추가, 공지 UI만 작성
+
+[33mcommit 19f7d74568cc7a455c43ca541f095eb37d921edd[m
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 16:42:37 2025 +0900
+
+    임시 저장
+
+[33mcommit 786425ed3abb4d4e4ddb1b451acb3a0ad4a43774[m
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 16:37:03 2025 +0900
+
+    css 임시 저장
+
+[33mcommit 6e994661c59df4c7775f674181b91e4e09c66496[m
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 16:13:56 2025 +0900
+
+    퇴소일 수정 가능
+
+[33mcommit b2983680081df22c35b69d9cd9bef5ea65352d9f[m
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 15:12:00 2025 +0900
+
+    수정중
+
+[33mcommit 5323a31ed192dda7eb28358ec863f1a35dd33594[m[33m ([m[1;31morigin/rok_test[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 14:55:05 2025 +0900
+
+    입소자 머지 후 엑시오스 에러 해결, 이미지 엑시오스 api 추가
+
+[33mcommit cb5b33323a5e48b1ee2dfdf5fd9db525867a877a[m
+Merge: 28bb64c 24045b0
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 14:14:03 2025 +0900
+
+    Merge branch 'jsk' into rok_test
+
+[33mcommit 24045b0cf5a165238eda19e02275da6207badb75[m[33m ([m[1;31morigin/jsk[m[33m)[m
+Author: JS <smart317@naver.com>
+Date:   Thu Feb 20 14:03:40 2025 +0900
+
+    입소자 수정까지 일단 완료
+
+[33mcommit 28bb64c9a105cfe932c287b386313901fbd6218b[m[33m ([m[1;32mrok_test[m[33m)[m
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Thu Feb 20 13:59:22 2025 +0900
+
+    식사 서비스api오류 해결
+
+[33mcommit b4c8ecbcc5dc46b1393788e103682719c47dc630[m
+Merge: ff99fe6 c633972
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Thu Feb 20 12:38:01 2025 +0900
+
+    Merge branch 'yk' into rok_test
+
+[33mcommit c63397200338b102b78329292d244ebd01c00d7e[m[33m ([m[1;31morigin/yk[m[33m)[m
+Author: dudrhkdspt112 <dudrhkdspt112@gmail.com>
+Date:   Thu Feb 20 12:31:19 2025 +0900
+
+    식사일지 페이지
+
+[33mcommit ff99fe6a02a0fc81856aa784d8934a70efabb511[m
+Author: JH <wlgud5632@naver.com>
+Date:   Thu Feb 20 12:27:27 2025 +0900
+
+    프로텍티드라우터 설정 , 마이페이지 , 예약
+
+[33mcommit 1a2ae531d50c0a91778b85a5ef67b9d5283adc8e[m
+Author: JH <wlgud5632@naver.com>
+Date:   Thu Feb 20 12:06:54 2025 +0900
+
+    마이페이지 토큰 해독 오류 수�
