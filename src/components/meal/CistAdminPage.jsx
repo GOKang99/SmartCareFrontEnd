@@ -13,7 +13,7 @@ const CistAdminPage = () => {
     const [latestDate, setLatestDate] = useState(""); // 최신 날짜
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열기 상태
     const [cistToEdit, setCistToEdit] = useState(null); // 수정할 CIST 데이터
-    console.log("시츄의 위치는",cists);
+   
     // ✅ DB데이터 모든 정보 불러오기
     const fetchCists = useCallback(async () => {
         try {

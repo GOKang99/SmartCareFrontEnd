@@ -60,6 +60,7 @@ const MealForm = ({ handleAddMeal, latestDate, residents, handleSelectResident, 
             dinQty: "",
             morSnackQty: "",
             aftSnackQty: "",
+            giver:jwtDecode(token).partId,
         }));
         handleSelectResident({resMealId : meal.resMealId});
         console.log("출력",meal.resMealId)

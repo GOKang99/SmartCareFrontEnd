@@ -17,9 +17,10 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
         language: 0,
         totalScore: 0,
         resName: "",
-        cisDt: latestDate || new Date().toISOString().slice(0, 10),  // 기본값으로 최신 날짜
+        cisDt: "",  // 기본값으로 최신 날짜
         giverId:jwtDecode(token).partId,
     });
+    //console.log("cisDT는", latestDate);
     
     const today = new Date().toISOString().split("T")[0];
 
@@ -42,16 +43,9 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-         // 빈 값이 있는지 확인
-        //  for (const key in formData) {
-        //     if (!formData[key]) {
-        //         alert("모든 항목을 선택해주세요!");
-        //         return;
-        //     }
-        // }
-        console.log("📢 추가되는 데이터:", FormData);
+      
+        console.log("📢 추가되는 데이터:", formData);
         handleAddCist(formData); // 부모 컴포넌트에서 받은 함수 호출
-        console.log("이;이이이ㅣ이이이이이이ㅣ이이이이",formData)
         setFormData({
             residentId: residentId,
             orientation: 0,
@@ -62,13 +56,15 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
             language: 0,
             totalScore: 0,
             resName: "",
-            cisDt: latestDate || new Date().toISOString().slice(0, 10),
+            cisDt: "",
+            giverId:jwtDecode(token).partId,
         });
     };
 
     return (
         <form onSubmit={handleSubmit} className="mb-4">
             <div className="flex space-x-4">
+                {/* 레지던트선택 */}
                 <div className="w-1/3">
                     <label htmlFor="residentId" className="block mb-1">레지던트 선택</label>
                     <select
@@ -88,6 +84,8 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                         ))}
                     </select>
                 </div>
+                {/* 레지던트선택  끝*/}
+                {/* 검사 날짜 */}
                 <div className="w-2/3">
                     <label htmlFor="cisDt" className="block mb-1">검사 날짜</label>
                     <input
@@ -101,6 +99,7 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                         min={today}
                     />
                 </div>
+                 {/* 검사 날짜 끝 */}
             </div>
             
             <div className="grid grid-cols-2 gap-4">
@@ -121,12 +120,13 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                             value={formData[field] || ""} //undefined를 빈 문자열로 처리
                             onChange={handleInputChange}
                             className="border px-3 py-2 w-full"
+                            required
                         />
                     </div>
                 ))}
             </div>
             
-            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer">
                 추가
             </button>
         </form>
