@@ -3,15 +3,16 @@ import { useState, useEffect } from "react";
 import imageApi from "../../services/imageApi";
 
 const ResidentItem = () => {
-  const { id } = useParams();
-  const [isFormVisible, setIsFormVisible] = useState(false); // 폼 보이기/숨기기
+  const { id } = useParams(); // URL에서 입소자 ID를 가져옵니다
   const [guardData, setGuardData] = useState({
+    realname: "", // 보호자 성명
     ssn: "", // 주민번호
     relation: "", // 관계
     phone: "", // 전화번호
-    resId: id,
+    resId: id, // 입소자 ID
   });
-  const [guardInfo, setGuardInfo] = useState(null); // 보호자 정보 상태
+  const [isFormVisible, setIsFormVisible] = useState(false); // 폼의 가시성 관리
+  const [guardInfo, setGuardInfo] = useState(null); // 저장된 보호자 정보 상태
 
   // 컴포넌트가 처음 렌더링될 때, id가 변경될 때마다 로컬 스토리지에서 보호자 정보 불러오기
   useEffect(() => {
@@ -44,6 +45,7 @@ const ResidentItem = () => {
       );
       // 폼 제출 후 guardData 초기화
       setGuardData({
+        realname: "",
         ssn: "",
         relation: "",
         phone: "",
@@ -188,13 +190,16 @@ const ResidentItem = () => {
             <h3 className="text-xl font-semibold">보호자 정보</h3>
             <ul>
               <li>
-                <strong>주민번호:</strong> {guardInfo.ssn}
+                <strong>이름:</strong> {guardInfo.user.realname}
+              </li>
+              <li>
+                <strong>주민번호:</strong> {guardInfo.user.ssn}
               </li>
               <li>
                 <strong>관계:</strong> {guardInfo.relation}
               </li>
               <li>
-                <strong>전화번호:</strong> {guardInfo.phone}
+                <strong>전화번호:</strong> {guardInfo.user.phone}
               </li>
             </ul>
           </div>
@@ -213,6 +218,24 @@ const ResidentItem = () => {
         {/* 폼 영역 */}
         {isFormVisible && (
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <div>
+              <label
+                htmlFor="realname"
+                className="block text-sm font-medium text-gray-800"
+              >
+                보호자 성명:
+              </label>
+              <input
+                type="text"
+                id="realname"
+                name="realname"
+                value={guardData.realname}
+                onChange={handleInputChange}
+                placeholder="이름"
+                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
             <div>
               <label
                 htmlFor="ssn"
