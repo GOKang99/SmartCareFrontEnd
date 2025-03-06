@@ -17,8 +17,11 @@ import NoticeCreateForm from "./components/notice/NoticeCreateForm";
 import NoticeDetail from "./components/notice/NoticeDetail";
 import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
+import CistPage from "./components/meal/CistPage";
+import CistAdminPage from "./components/meal/CistAdminPage";
 import Givers from "./pages/Givers";
 import NoticeEdit from "./components/notice/NoticeEdit";
+import Compositions from "./pages/Compositions";
 
 function Layout() {
   const location = useLocation(); // 현재 URL 가져오기
@@ -37,6 +40,14 @@ function Layout() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/notice" element={<NoticeList />} />
         <Route path="givers" element={<Givers />} />
+        <Route
+          path="/composition/*"
+          element={
+            <ProtectedRoute>
+              <Compositions />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/notice/create"
           element={
@@ -91,6 +102,22 @@ function Layout() {
           element={
             <ProtectedRoute>
               <MealAdminPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cist/:residentId"
+          element={
+            <ProtectedRoute>
+              <CistPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/cist"
+          element={
+            <ProtectedRoute>
+              <CistAdminPage />
             </ProtectedRoute>
           }
         />

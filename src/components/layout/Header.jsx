@@ -124,14 +124,14 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="/meal"
+                  to="/composition"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/meal"
+                    location.pathname === "/compositions"
                       ? "text-blue-700"
                       : "text-gray-900 hover:text-blue-700"
                   }`}
                 >
-                  생활현황
+                  체성분 분석
                 </Link>
               </li>
               <li>
@@ -144,6 +144,18 @@ const Header = () => {
                   }`}
                 >
                   방문예약
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/meal"
+                  className={`block py-2 px-3 rounded-sm md:p-0 ${
+                    location.pathname === "/meal"
+                      ? "text-blue-700"
+                      : "text-gray-900 hover:text-blue-700"
+                  }`}
+                >
+                  생활현황
                 </Link>
               </li>
               <li>

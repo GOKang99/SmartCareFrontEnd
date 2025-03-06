@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import imageApi from "../../services/imageApi";
 
-const ResidentForm = ({ giverId }) => {
+const ResidentForm = ({ handleNewResident, giverId }) => {
   const [image, setImage] = useState(null); // 이미지 URL 상태
   const [file, setFile] = useState(null); // 실제 파일 객체 상태
 
@@ -99,7 +99,7 @@ const ResidentForm = ({ giverId }) => {
 
     try {
       const response = await imageApi.post("/resident/create", data);
-      console.log(response);
+      handleNewResident(response.data);
       navigate("/resident");
     } catch (error) {
       console.error("에러:", error);
