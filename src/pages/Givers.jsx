@@ -37,15 +37,13 @@ const Givers = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {givers.map((giver) => {
             return (
-              <>
-                <GiverCard
-                  key={giver.giverId}
-                  userImage={`${giverImage}${giver.user.userimage}`}
-                  name={giver.user.realname}
-                  email={giver.user.email}
-                  phone={giver.user.phone}
-                />
-              </>
+              <GiverCard
+                key={giver.giverId} // 고유한 key가 설정됨
+                userImage={`${giverImage}${giver.user.userimage}`}
+                name={giver.user.realname}
+                email={giver.user.email}
+                phone={giver.user.phone}
+              />
             );
           })}
         </div>
