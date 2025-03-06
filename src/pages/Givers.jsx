@@ -39,6 +39,7 @@ const Givers = () => {
             return (
               <>
                 <GiverCard
+                  key={giver.giverId}
                   userImage={`${giverImage}${giver.user.userimage}`}
                   name={giver.user.realname}
                   email={giver.user.email}

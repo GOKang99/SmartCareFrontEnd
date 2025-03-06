@@ -21,6 +21,7 @@ import CistPage from "./components/meal/CistPage";
 import CistAdminPage from "./components/meal/CistAdminPage";
 import Givers from "./pages/Givers";
 import NoticeEdit from "./components/notice/NoticeEdit";
+import Status from "./pages/Status";
 import Compositions from "./pages/Compositions";
 
 function Layout() {
@@ -126,6 +127,14 @@ function Layout() {
           element={
             <ProtectedRoute>
               <Residents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/status"
+          element={
+            <ProtectedRoute>
+              <Status />
             </ProtectedRoute>
           }
         />
