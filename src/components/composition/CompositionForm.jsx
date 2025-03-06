@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useMyContext } from "../../ContextApi";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const CompositionForm = () => {
-  const { giverId } = useMyContext();
+  const { giverId, selectedResident } = useMyContext();
+  const navigate = useNavigate();
+  const today = new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState({
-    comDate: "",
+    comDate: today,
     comHeight: 175,
     comWeight: 81.9,
     comSmm: 22.7, //골격근량
@@ -13,7 +17,7 @@ const CompositionForm = () => {
     comPbf: 35, //체지방 률
     comBmi: 26.2,
     comFatLvl: 10,
-    resId: "",
+    resId: selectedResident,
     giverId: giverId,
   });
 
@@ -44,9 +48,20 @@ const CompositionForm = () => {
         `/composition/create/${formData.resId}/${giverId}`,
         formData
       );
-      alert("예약 굿");
+
+      if (
+        window.confirm(
+          "저장이 완료 되었습니다. 입소자 리스트로 돌아가시겠습니까?"
+        )
+      ) {
+        navigate("/resident/list");
+      }
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.data.message) {
+        alert(error.response.data.message); // 백엔드에서 받은 오류 메시지 출력
+      } else {
+        alert("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
@@ -58,7 +73,12 @@ const CompositionForm = () => {
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         {[
-          { label: "환자 검색하기", name: "resId", type: "text" },
+          {
+            label: "환자 검색하기",
+            name: "resId",
+            type: "text",
+            disabled: true,
+          },
           { label: "검사 날짜", name: "comDate", type: "date" },
           { label: "키 (cm)", name: "comHeight", type: "number" },
           { label: "몸무게 (kg)", name: "comWeight", type: "number" },
@@ -94,7 +114,7 @@ const CompositionForm = () => {
             type="submit"
             className="bg-red-500  text-white px-4 py-2 rounded-md hover:bg-red-600"
           >
-            다음
+            완료
           </button>
         </div>
       </form>

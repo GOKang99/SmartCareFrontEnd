@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import CompositionTable from "./CompositionTable"; // 테이블 컴포넌트 가져오기
+import { useMyContext } from "../../ContextApi";
 
 const CompositionListForGiver = () => {
+  const { selectedResident } = useMyContext();
   const [compositions, setCompositions] = useState([]);
   const [error, setError] = useState("");
-  const [resId, setResId] = useState(2);
+  const [resId, setResId] = useState(selectedResident);
 
   useEffect(() => {
     const fetchAllCompositions = async () => {
