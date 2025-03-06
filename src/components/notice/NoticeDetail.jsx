@@ -17,6 +17,7 @@ const NoticeDetail = () => {
       try {
         setLoading(false);
         const response = await api.get(`/notice/${noticeId}`);
+        console.log("공지사항 데이터: ", response.data);
         setNotice(response.data);
         // console.log("한글", response.data);
       } catch (error) {
@@ -45,8 +46,21 @@ const NoticeDetail = () => {
     }
   };
 
+  const handleImageClick = (url) => {
+    const width = 800; // 창 가로 크기
+    const height = 600; // 창 세로 크기
+    const left = (window.innerWidth - width) / 2; // 창을 중앙에 배치
+    const top = (window.innerHeight - height) / 2; // 창을 중앙에 배치
+
+    window.open(
+      `http://localhost:8080${url}`,
+      "_blank",
+      `width=${width}, height=${height}, left=${left}, top=${top}, resizable=yes, scrollbars=yes`
+    );
+  };
+
   return (
-    <div className="w-full h-screen p-20 bg-white shadow-xl rounded-xl">
+    <div className="w-[60%] m-auto min-h-screen mt-5 bg-white rounded-xl">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
         공지사항 상세보기
       </h2>
@@ -69,6 +83,21 @@ const NoticeDetail = () => {
           </p>
           <hr className="my-4" />
           <p className="text-lg text-gray-800">{notice.noticeContent}</p>
+
+          {/* 이미지 표시 추가 */}
+          {notice.noticeImageURL && notice.noticeImageURL.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {notice.noticeImageURL.map((url, index) => (
+                <img
+                  key={index}
+                  src={`http://localhost:8080${url}`}
+                  alt={`공지 이미지 ${index + 1}`}
+                  className="w-[50%] h-[30%] object-cover rounded-lg border border-gray-300 hover:scale-101 transition-transform"
+                  onClick={() => handleImageClick(url)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         <p className="text-center text-lg text-red-500">
@@ -77,9 +106,9 @@ const NoticeDetail = () => {
       )}
 
       {/* 버튼 영역 */}
-      <div className="flex justify-between mt-6">
+      <div className="flex justify-between mt-6 mb-6">
         <button
-          className="px-6 py-3 bg-gray-600 text-white text-lg rounded-lg hover:bg-gray-700"
+          className="px-6 py-3 bg-gray-600 text-white text-lg rounded-lg hover:bg-gray-700 cursor-pointer"
           onClick={() => navigate("/notice")}
         >
           뒤로 가기
@@ -88,13 +117,13 @@ const NoticeDetail = () => {
         {isAdmin && (
           <div className="space-x-4">
             <button
-              className="px-6 py-3 bg-blue-600 text-white text-lg rounded-lg hover:bg-blue-700"
+              className="px-6 py-3 bg-blue-600 text-white text-lg rounded-lg hover:bg-blue-700 cursor-pointer"
               onClick={() => navigate(`/notice/edit/${noticeId}`)}
             >
               수정하기
             </button>
             <button
-              className="px-6 py-3 bg-red-600 text-white text-lg rounded-lg hover:bg-red-700"
+              className="px-6 py-3 bg-red-600 text-white text-lg rounded-lg hover:bg-red-700 cursor-pointer"
               onClick={handleDelete}
             >
               삭제하기

@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Header from "./components/layout/Header";
-import Notices from "./pages/Notices";
 import Mypage from "./pages/Mypage";
 import MealPage from "./components/meal/MealPage";
 import MealAdminPage from "./components/meal/MealAdminPage";
