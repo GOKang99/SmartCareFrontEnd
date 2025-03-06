@@ -36,7 +36,7 @@ const Residents = () => {
     try {
       const result = await imageApi.get("http://localhost:8080/api/resident");
       setResidents(result.data);
-      console("입소자목록: ", result.data);
+      console.log("입소자목록: ", result.data);
     } catch (error) {
       console.log("에러 발생", error);
     }
