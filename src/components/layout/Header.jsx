@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +26,7 @@ const Header = () => {
     navigate("/login");
     toast.success("로그아웃 되었습니다");
   };
+  // const partId = jwtDecode(token).partId;
 
   return (
     <>
@@ -124,9 +126,9 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="/meal"
+                  to={`/status`}
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/meal"
+                    location.pathname === "/status"
                       ? "text-blue-700"
                       : "text-gray-900 hover:text-blue-700"
                   }`}

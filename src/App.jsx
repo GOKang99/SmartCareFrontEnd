@@ -20,6 +20,7 @@ import Popup from "./pages/Popup";
 import Signup from "./auth/Signup";
 import Givers from "./pages/Givers";
 import NoticeEdit from "./components/notice/NoticeEdit";
+import Status from "./pages/Status";
 
 function Layout() {
   const location = useLocation(); // 현재 URL 가져오기
@@ -100,6 +101,14 @@ function Layout() {
           element={
             <ProtectedRoute>
               <Residents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/status"
+          element={
+            <ProtectedRoute>
+              <Status />
             </ProtectedRoute>
           }
         />
