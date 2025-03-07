@@ -3,11 +3,11 @@ import { useMyContext } from "../../ContextApi";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-const CompositionForm = () => {
-  const { giverId, selectedResident } = useMyContext();
+const CompositionForm = ({ resident }) => {
+  const { giverId } = useMyContext();
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
-
+  console.log("선택된 환자", resident);
   const [formData, setFormData] = useState({
     comDate: today,
     comHeight: 175,
@@ -17,7 +17,7 @@ const CompositionForm = () => {
     comPbf: 35, //체지방 률
     comBmi: 26.2,
     comFatLvl: 10,
-    resId: selectedResident,
+    resId: resident.resId,
     giverId: giverId,
   });
 
@@ -67,7 +67,9 @@ const CompositionForm = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold mb-2">입소자 체성분 분석 등록</h1>
+      <h1 className="text-2xl font-bold mb-2">
+        {resident.resName}님 입소자 체성분 분석 등록
+      </h1>
       <p className="text-sm text-gray-600 mb-4">
         유의사항:숫자만 입력(소수점가능) Ex) 15.5
       </p>

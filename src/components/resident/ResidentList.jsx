@@ -6,6 +6,7 @@ import ResidentManagementModal from "./ResidentMangeModal";
 const ResidentList = ({ residents, deleteResident }) => {
   const [searchResidents, setSearchResidents] = useState("");
   const { selectedResident, setSelectedResident } = useMyContext();
+  const [selectedResidentData, setSelectedResidentData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 검색된 입소자 목록 필터링
@@ -16,6 +17,7 @@ const ResidentList = ({ residents, deleteResident }) => {
 
   const handleClickManage = (resident) => {
     setSelectedResident(resident.resId);
+    setSelectedResidentData(resident);
     setIsModalOpen(true);
     console.log(selectedResident);
   };
@@ -95,6 +97,7 @@ const ResidentList = ({ residents, deleteResident }) => {
                 {isModalOpen && (
                   <ResidentManagementModal
                     onClose={() => setIsModalOpen(false)}
+                    resident={selectedResidentData}
                   />
                 )}
               </div>
