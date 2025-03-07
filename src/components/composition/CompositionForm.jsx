@@ -73,12 +73,6 @@ const CompositionForm = () => {
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         {[
-          {
-            label: "환자 검색하기",
-            name: "resId",
-            type: "text",
-            disabled: true,
-          },
           { label: "검사 날짜", name: "comDate", type: "date" },
           { label: "키 (cm)", name: "comHeight", type: "number" },
           { label: "몸무게 (kg)", name: "comWeight", type: "number" },
