@@ -14,48 +14,44 @@ const ResidentItem = () => {
   const [isFormVisible, setIsFormVisible] = useState(false); // 폼의 가시성 관리
   const [guardInfo, setGuardInfo] = useState(null); // 저장된 보호자 정보 상태
 
-  // 컴포넌트가 처음 렌더링될 때, id가 변경될 때마다 로컬 스토리지에서 보호자 정보 불러오기
+  // 컴포넌트가 처음 렌더링될 때, id가 변경될 때마다 백엔드에서 보호자 정보 불러오기
   useEffect(() => {
-    const storedGuardInfo = localStorage.getItem(`guardInfo_${id}`); // 입소자 ID로 로컬 스토리지에서 보호자 정보 가져오기
-    if (storedGuardInfo) {
-      setGuardInfo(JSON.parse(storedGuardInfo)); // 로컬 스토리지에서 가져온 데이터로 상태 업데이트
-    }
-  }, [id]); // id가 바뀔 때마다 실행
+    const fetchGuardInfo = async () => {
+      try {
+        const response = await imageApi.get(
+          `http://localhost:8080/api/resident/${id}/guard`
+        );
+        setGuardInfo(response.data); // 응답 데이터를 상태로 업데이트
+      } catch (error) {
+        console.error("보호자 정보 조회 오류:", error);
+      }
+    };
 
-  // 입력 값이 변경될 때마다 guardData 업데이트 및 콘솔 출력
+    fetchGuardInfo();
+  }, [id]); // id가 변경될 때마다 실행
+
+  // 입력 값이 변경될 때마다 guardData 업데이트
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setGuardData((prevData) => {
-      const updatedData = { ...prevData, [name]: value };
-      return updatedData;
+      return { ...prevData, [name]: value };
     });
   };
 
   // 폼 제출 시 데이터 확인
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       // guardData 객체를 그대로 전송
-      const response = await imageApi.put("/resident/guard", guardData);
-      // 로컬 스토리지에 해당 입소자 ID에 대한 보호자 정보 저장
-      localStorage.setItem(
-        `guardInfo_${guardData.resId}`,
-        JSON.stringify(response.data)
-      );
-      // 폼 제출 후 guardData 초기화
-      setGuardData({
-        realname: "",
-        ssn: "",
-        relation: "",
-        phone: "",
-      });
+      const response = await imageApi.put(`/resident/guard`, guardData);
+      console.log("서버 응답: ", response.data);
       setGuardInfo(response.data); // 응답 데이터 화면에 출력
       setIsFormVisible(false); // 폼 숨기기
+      alert("보호자 등록 성공!");
     } catch (error) {
       console.error("서버 오류:", error);
       if (error.response && error.response.status === 401) {
-        alert("등록실패");
+        alert("등록 실패");
       }
     }
   };
@@ -185,25 +181,26 @@ const ResidentItem = () => {
           </div>
         </div>
 
-        {guardInfo && (
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold">보호자 정보</h3>
-            <ul>
-              <li>
-                <strong>이름:</strong> {guardInfo.user.realname}
-              </li>
-              <li>
-                <strong>주민번호:</strong> {guardInfo.user.ssn}
-              </li>
-              <li>
-                <strong>관계:</strong> {guardInfo.relation}
-              </li>
-              <li>
-                <strong>전화번호:</strong> {guardInfo.user.phone}
-              </li>
-            </ul>
-          </div>
-        )}
+        {guardInfo &&
+          guardInfo.map((guardData, i) => (
+            <div className="mt-6" key={i}>
+              <h3 className="text-xl font-semibold">보호자 정보</h3>
+              <ul>
+                <li>
+                  <strong>이름:</strong> {guardData.realname}
+                </li>
+                <li>
+                  <strong>주민번호:</strong> {guardData.ssn}
+                </li>
+                <li>
+                  <strong>관계:</strong> {guardData.relation}
+                </li>
+                <li>
+                  <strong>전화번호:</strong> {guardData.phone}
+                </li>
+              </ul>
+            </div>
+          ))}
 
         {/* 추가 버튼 */}
         <div className="flex justify-end mt-6">
@@ -219,10 +216,7 @@ const ResidentItem = () => {
         {isFormVisible && (
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             <div>
-              <label
-                htmlFor="realname"
-                className="block text-sm font-medium text-gray-800"
-              >
+              <label className="block text-sm font-medium text-gray-800">
                 보호자 성명:
               </label>
               <input
@@ -237,10 +231,7 @@ const ResidentItem = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="ssn"
-                className="block text-sm font-medium text-gray-800"
-              >
+              <label className="block text-sm font-medium text-gray-800">
                 주민번호:
               </label>
               <input
@@ -255,10 +246,7 @@ const ResidentItem = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="relation"
-                className="block text-sm font-medium text-gray-800"
-              >
+              <label className="block text-sm font-medium text-gray-800">
                 관계:
               </label>
               <input
@@ -273,10 +261,7 @@ const ResidentItem = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-800"
-              >
+              <label className="block text-sm font-medium text-gray-800">
                 전화번호:
               </label>
               <input
