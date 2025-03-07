@@ -97,14 +97,16 @@ export const ContextProvider = ({ children }) => {
   }, [token]);
 
   //역할에 따라 저장하기
-
   useEffect(() => {
+    console.log("해독", deToken, isAdmin);
     if (isAdmin) {
       console.log("요양보호사 입니다." + isAdmin);
+      setGuardId(null);
       setGiverId(deToken?.partId);
       console.log("요양보호사 아이디는", giverId);
     } else {
       console.log("어드민이 아닙니다." + isAdmin);
+      setGiverId(null);
       setGuardId(deToken?.partId);
       console.log("보호자 아이디는", guardId);
     }
@@ -142,6 +144,8 @@ export const ContextProvider = ({ children }) => {
         guardId,
         giverId,
         userData,
+        setGiverId,
+        setGuardId,
       }}
     >
       {children}
