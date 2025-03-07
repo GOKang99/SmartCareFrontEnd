@@ -1,19 +1,13 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CompositionList from "../components/composition/CompositionList";
-import CompositionForm from "../components/composition/CompositionForm";
 import CompositionListForGiver from "../components/composition/CompositionListForGiver";
 
 const Compositions = () => {
   return (
     <div>
       <div className="text-center">
-        <h2>체성분 분석 페이지</h2>
-        <nav>
-          {/* 보호자,요양보호사 */}
-          <Link to="/composition/my">환자별 체성분 분석 보기</Link> |
-          <Link to="/composition/admin">(요양사)환자별 체성분 분석 보기</Link> |
-        </nav>
+        <h2 className="text-4xl">환자별 체성분 분석</h2>
       </div>
 
       <Routes>

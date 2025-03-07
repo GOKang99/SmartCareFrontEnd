@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import CompositionForm from "../composition/CompositionForm";
+import { useNavigate } from "react-router-dom";
 
 const ResidentManagementModal = ({ onClose, resident }) => {
   const [showCompositionForm, setShowCompositionForm] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
@@ -17,7 +19,10 @@ const ResidentManagementModal = ({ onClose, resident }) => {
             >
               체성분 분석 등록
             </button>
-            <button className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md w-full">
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md w-full"
+              onClick={() => navigate("/composition/admin")}
+            >
               체성분 분석 보기
             </button>
           </div>

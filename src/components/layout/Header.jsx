@@ -125,16 +125,29 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/composition"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/compositions"
-                      ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
-                  }`}
-                >
-                  체성분 분석
-                </Link>
+                {isAdmin ? (
+                  <Link
+                    to="/composition/admin"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/composition/admin"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    체성분 분석
+                  </Link>
+                ) : (
+                  <Link
+                    to="/composition/my"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/compositions/my"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    체성분 분석
+                  </Link>
+                )}
               </li>
               <li>
                 <Link
