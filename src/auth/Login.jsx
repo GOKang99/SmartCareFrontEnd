@@ -72,7 +72,8 @@ const Login = () => {
       }
     } catch (error) {
       if (error) {
-        toast.error(error.response.data.message);
+        // toast.error(error.response.data.message);
+        toast.error(error);
         setLoginError(true);
       }
     }

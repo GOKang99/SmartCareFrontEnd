@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import imageApi from "../../services/imageApi";
+import { useMyContext } from "../../ContextApi";
 
 const ResidentItem = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const ResidentItem = () => {
     phone: "", // 전화번호
     resId: id,
   });
+  const { isAdmin } = useMyContext();
   const [guardInfo, setGuardInfo] = useState(null); // 보호자 정보 상태
 
   // 컴포넌트가 처음 렌더링될 때, id가 변경될 때마다 로컬 스토리지에서 보호자 정보 불러오기
@@ -201,14 +203,16 @@ const ResidentItem = () => {
         )}
 
         {/* 추가 버튼 */}
-        <div className="flex justify-end mt-6">
-          <button
-            onClick={() => setIsFormVisible(!isFormVisible)}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-          >
-            {isFormVisible ? "취소" : "보호자 등록"}
-          </button>
-        </div>
+        {isAdmin && (
+          <div className="flex justify-end mt-6">
+            <button
+              onClick={() => setIsFormVisible(!isFormVisible)}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+            >
+              {isFormVisible ? "취소" : "보호자 등록"}
+            </button>
+          </div>
+        )}
 
         {/* 폼 영역 */}
         {isFormVisible && (
