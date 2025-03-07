@@ -22,6 +22,10 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
     caregroup: "",
     foodtype: "",
     functiondis: "",
+    resAdmissionYn: "",
+    koreanReadableYn: "",
+    religion: "",
+    maritalStatus: "",
     dementiaYn: false,
     fallYn: false,
     bedsoreYn: false,
@@ -87,6 +91,10 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
     data.append("fallYn", formData.fallYn);
     data.append("bedsoreYn", formData.bedsoreYn);
     data.append("postureYn", formData.postureYn);
+    data.append("resAdmissionYn", formData.resAdmissionYn);
+    data.append("koreanReadableYn", formData.koreanReadableYn);
+    data.append("religion", formData.religion);
+    data.append("maritalStatus", formData.maritalStatus);
 
     if (image) {
       data.append("resImages", file); // 파일 객체를 바로 추가
@@ -396,6 +404,71 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
               className="w-full border border-gray-300 rounded p-2"
             />
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">재입소 여부</label>
+          <select
+            required
+            name="resAdmissionYn"
+            onChange={handleInputChange}
+            value={formData.resAdmissionYn}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="예">예</option>
+            <option value="아니요">아니요</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">한글해독 가능</label>
+          <select
+            required
+            name="koreanReadableYn"
+            onChange={handleInputChange}
+            value={formData.koreanReadableYn}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="문맹">문맹</option>
+            <option value="숫자만 가능">숫자만 가능</option>
+            <option value="한글해독">한글해독</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">종교</label>
+          <select
+            required
+            name="religion"
+            onChange={handleInputChange}
+            value={formData.religion}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="불교">불교</option>
+            <option value="기독교">기독교</option>
+            <option value="가톨릭">가톨릭</option>
+            <option value="기타">기타</option>
+            <option value="무교">무교</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">배우자 여부</label>
+          <select
+            required
+            name="maritalStatus"
+            onChange={handleInputChange}
+            value={formData.maritalStatus}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="기혼">기혼</option>
+            <option value="미혼">미혼</option>
+            <option value="사망">사망</option>
+          </select>
         </div>
 
         {/* 제출 버튼과 취소 버튼을 양옆으로 배치하면서 가운데 정렬 */}

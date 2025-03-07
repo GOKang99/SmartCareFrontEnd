@@ -44,7 +44,6 @@ const ResidentItem = () => {
     try {
       // guardData 객체를 그대로 전송
       const response = await imageApi.put(`/resident/guard`, guardData);
-      console.log("서버 응답: ", response.data);
       setGuardInfo(response.data); // 응답 데이터 화면에 출력
       setIsFormVisible(false); // 폼 숨기기
       alert("보호자 등록 성공!");
@@ -78,6 +77,10 @@ const ResidentItem = () => {
     fallYn: "",
     bedsoreYn: "",
     postureYn: "",
+    resAdmissionYn: "",
+    koreanReadableYn: "",
+    religion: "",
+    maritalStatus: "",
   });
 
   useEffect(() => {
@@ -98,7 +101,9 @@ const ResidentItem = () => {
   return (
     <div className="min-h-screen bg-white py-8">
       <div className="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-xl">
-        <h2 className="text-3xl font-bold text-center mb-8">입소자 정보</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">
+          {resident.resName}
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* 입소자 이미지 */}
@@ -108,9 +113,6 @@ const ResidentItem = () => {
               alt={`${resident.resName}의 사진`}
               className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
             />
-            <p className="text-lg font-medium text-gray-800">
-              {resident.resName}
-            </p>
           </div>
 
           {/* 입소자 정보 */}
@@ -139,6 +141,9 @@ const ResidentItem = () => {
               </div>
               <div>
                 <strong>최종학력:</strong> {resident.resSchoolGrade}
+              </div>
+              <div>
+                <strong>배우자 여부:</strong> {resident.maritalStatus}
               </div>
               <div>
                 <strong>식사종류:</strong> {resident.resFoodType}
@@ -171,6 +176,15 @@ const ResidentItem = () => {
                 <strong>장기요양인정번호:</strong> {resident.resLongTermCareNo}
               </div>
               <div>
+                <strong>종교:</strong> {resident.religion}
+              </div>
+              <div>
+                <strong>재입소 여부:</strong> {resident.resAdmissionYn}
+              </div>
+              <div>
+                <strong>한글해독 가능:</strong> {resident.koreanReadableYn}
+              </div>
+              <div>
                 <strong>입소일:</strong> {resident.resEnterDate}
               </div>
               <div>
@@ -181,7 +195,8 @@ const ResidentItem = () => {
           </div>
         </div>
 
-        {guardInfo &&
+        {Array.isArray(guardInfo) &&
+          guardInfo.length > 0 &&
           guardInfo.map((guardData, i) => (
             <div className="mt-6" key={i}>
               <h3 className="text-xl font-semibold">보호자 정보</h3>

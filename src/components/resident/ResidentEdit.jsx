@@ -21,6 +21,10 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
     longtermNo: "",
     caregroup: "",
     foodtype: "",
+    resAdmissionYn: "",
+    koreanReadableYn: "",
+    religion: "",
+    maritalStatus: "",
     functiondis: "",
     dementiaYn: false,
     fallYn: false,
@@ -89,6 +93,10 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
         fallYn: resident.fallYn,
         bedsoreYn: resident.bedsoreYn,
         postureYn: resident.postureYn,
+        resAdmissionYn: resident.resAdmissionYn,
+        koreanReadableYn: resident.koreanReadableYn,
+        religion: resident.religion,
+        maritalStatus: resident.maritalStatus,
       });
       setImage(`http://localhost:8080/images/${resident.resImageAddress}`); // 이미지 경로 설정
     } catch (error) {
@@ -114,11 +122,9 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
     data.append("resDisease", formData.disease);
     data.append("resLocation", formData.location);
     data.append("resEnterDate", formData.enterdate);
-
     if (formData.exitdate) {
       data.append("resExitDate", formData.exitdate);
     }
-
     data.append("resAddress", formData.address);
     data.append("resSchoolGrade", formData.schoolgrade);
     data.append("systemResCode", formData.systemcode);
@@ -126,6 +132,10 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
     data.append("resCareGroup", formData.caregroup);
     data.append("resFoodType", formData.foodtype);
     data.append("resFunctionDis", formData.functiondis);
+    data.append("resAdmissionYn", formData.resAdmissionYn);
+    data.append("koreanReadableYn", formData.koreanReadableYn);
+    data.append("religion", formData.religion);
+    data.append("maritalStatus", formData.maritalStatus);
 
     // boolean 값 처리: 서버에서 true/false를 string으로 처리한다고 가정
     data.append("dementiaYn", formData.dementiaYn ? "true" : "false");
@@ -460,6 +470,71 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
               className="w-full p-2 border rounded-md mt-2"
             />
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">재입소 여부</label>
+          <select
+            required
+            name="resAdmissionYn"
+            onChange={handleInputChange}
+            value={formData.resAdmissionYn}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="예">예</option>
+            <option value="아니요">아니요</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">한글해독 가능</label>
+          <select
+            required
+            name="koreanReadableYn"
+            onChange={handleInputChange}
+            value={formData.koreanReadableYn}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="문맹">문맹</option>
+            <option value="숫자만 가능">숫자만 가능</option>
+            <option value="한글해독">한글해독</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">종교</label>
+          <select
+            required
+            name="religion"
+            onChange={handleInputChange}
+            value={formData.religion}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="불교">불교</option>
+            <option value="기독교">기독교</option>
+            <option value="가톨릭">가톨릭</option>
+            <option value="기타">기타</option>
+            <option value="무교">무교</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-semibold">배우자 여부</label>
+          <select
+            required
+            name="maritalStatus"
+            onChange={handleInputChange}
+            value={formData.maritalStatus}
+            className="w-full border border-gray-300 rounded p-2"
+          >
+            <option value="">선택하세요</option>
+            <option value="기혼">기혼</option>
+            <option value="미혼">미혼</option>
+            <option value="사망">사망</option>
+          </select>
         </div>
 
         {/* 제출 및 취소 버튼 */}
