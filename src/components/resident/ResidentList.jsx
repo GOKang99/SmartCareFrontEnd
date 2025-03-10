@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useMyContext } from "../../ContextApi";
+import ResidentManagementModal from "./ResidentMangeModal";
 
 const ResidentList = ({ residents, deleteResident }) => {
   const [searchResidents, setSearchResidents] = useState("");
+  const { selectedResident, setSelectedResident } = useMyContext();
+  const [selectedResidentData, setSelectedResidentData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 검색된 입소자 목록 필터링
   const filteredResidents = residents.filter(
     (resident) =>
       resident.resName.toLowerCase().includes(searchResidents.toLowerCase()) // 이름으로 검색
   );
+
+  const handleClickManage = (resident) => {
+    setSelectedResident(resident.resId);
+    setSelectedResidentData(resident);
+    setIsModalOpen(true);
+    console.log(selectedResident);
+  };
 
   return (
     <div className="min-h-screen bg-white text-blue-900 p-6">
@@ -52,16 +64,16 @@ const ResidentList = ({ residents, deleteResident }) => {
               <p className="text-center text-gray-600">{resident.resBirth}</p>
 
               {/* 버튼 영역 */}
-              <div className="flex justify-between mt-4">
+              <div className="flex justify-between space-x-1">
                 {/* 상세보기 버튼 */}
                 <Link to={`/resident/list/${resident.resId}`}>
-                  <button className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300">
+                  <button className="bg-green-600 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300">
                     보기
                   </button>
                 </Link>
                 {/* 수정 버튼 */}
                 <Link to={`/resident/edit/${resident.resId}`}>
-                  <button className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300">
+                  <button className="bg-yellow-600 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300">
                     수정
                   </button>
                 </Link>
@@ -72,6 +84,22 @@ const ResidentList = ({ residents, deleteResident }) => {
                 >
                   삭제
                 </button>
+              </div>
+              {/* 두 번째 줄 버튼 (환자 관리) */}
+              <div className="mt-2 flex justify-center">
+                <button
+                  onClick={() => handleClickManage(resident)}
+                  className=" bg-blue-500 hover:bg-amber-500 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300"
+                >
+                  입소자 관리
+                </button>
+
+                {isModalOpen && (
+                  <ResidentManagementModal
+                    onClose={() => setIsModalOpen(false)}
+                    resident={selectedResidentData}
+                  />
+                )}
               </div>
             </div>
           ))}

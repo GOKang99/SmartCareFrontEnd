@@ -9,7 +9,7 @@ import { useMyContext } from "../../ContextApi";
 const VisitForm = () => {
   const navigate = useNavigate();
 
-  const { guardId } = useMyContext();
+  const { guardId, isAdmin } = useMyContext();
 
   //기본 값 설정 useState
   //  기본값 09:00 설정
@@ -33,6 +33,7 @@ const VisitForm = () => {
     visApply: "pending",
     visYn: false,
     remark: "",
+    guardId: isAdmin ? "" : guardId,
   });
 
   //input창 입력시 실행되는
@@ -56,11 +57,14 @@ const VisitForm = () => {
     console.log("서버로 보낼 데이터", formData);
 
     try {
-      const response = await api.post(`/visit/create/${guardId}`, formData);
+      const response = await api.post(
+        `/visit/create/${formData.guardId}`,
+        formData
+      );
       console.log("Response", response.data);
       alert(`${formData.visDate}일 ${formData.visTime}에 예약 완료`);
       //내 예약으로 이동
-      navigate("/visits/my");
+      navigate(isAdmin ? "/visits/list" : "/visits/my");
     } catch (error) {
       console.error(error);
       setError("예약 생성 중 오류 발생");
@@ -75,6 +79,20 @@ const VisitForm = () => {
         onSubmit={handleSubmit}
         className="mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-md w-[500px]"
       >
+        {/* 요양보호사라면 아이디 입력 */}
+        {isAdmin && (
+          <div className="mb-4">
+            <InputField
+              label="보호자 ID"
+              type="text"
+              name="guardId"
+              value={formData.guardId}
+              onChange={handleChange}
+              required
+              placeholder="보호자 ID를 입력하세요"
+            />
+          </div>
+        )}
         {/* 방문 날짜 선택 */}
         <div className="mb-4">
           <InputField

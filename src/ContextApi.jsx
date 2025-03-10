@@ -31,6 +31,8 @@ export const ContextProvider = ({ children }) => {
   const [giverId, setGiverId] = useState(null);
   //유저데이터(환자 포함)
   const [userData, setUserData] = useState(null);
+  //환자
+  const [selectedResident, setSelectedResident] = useState("");
 
   const fetchUser = async () => {
     //로컬스토리지에서 USER라는 키에 저장된 데이터를 JSON에서 자바스크립트 객체로 변환
@@ -146,6 +148,8 @@ export const ContextProvider = ({ children }) => {
         userData,
         setGiverId,
         setGuardId,
+        selectedResident,
+        setSelectedResident,
       }}
     >
       {children}

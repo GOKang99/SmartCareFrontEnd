@@ -10,6 +10,22 @@ const CompositionTable = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedComposition, setSelectedComposition] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // 한 페이지당 10개 항목 표시
+
+  // 총 페이지 수 계산
+  const totalPages = Math.ceil(compositions.length / itemsPerPage);
+
+  // 현재 페이지 데이터 가져오기
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = compositions.slice(indexOfFirstItem, indexOfLastItem);
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   // 개별 항목 삭제 함수
   const handleDelete = async (comId) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return; // 삭제 확인
@@ -29,10 +45,10 @@ const CompositionTable = ({
   };
 
   return (
-    <div className="flex justify-center items-center p-3">
+    <div className="flex flex-col justify-center items-center p-3 text-center">
       <table className="w-300 border-collapse border border-gray-300">
         <thead>
-          <tr className="bg-gray-200 text-left">
+          <tr className="bg-gray-200">
             <th className="border border-gray-300 px-4 py-2">이름</th>
             <th className="border border-gray-300 px-4 py-2">검사일자</th>
             <th className="border border-gray-300 px-4 py-2">신장 (cm)</th>
@@ -51,7 +67,7 @@ const CompositionTable = ({
           </tr>
         </thead>
         <tbody>
-          {compositions.map((item) => (
+          {currentItems.map((item) => (
             <tr key={item.comId} className="hover:bg-gray-100">
               <td className="border border-gray-300 px-4 py-2">
                 {item.comResName}
@@ -84,7 +100,7 @@ const CompositionTable = ({
                 <>
                   <td className="border border-gray-300 px-4 py-2">
                     <button
-                      className="bg-blue-500 text-white px-2 py-1 rounded"
+                      className="bg-blue-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-700"
                       onClick={() => handleEdit(item)}
                     >
                       수정
@@ -92,7 +108,7 @@ const CompositionTable = ({
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     <button
-                      className="bg-red-500 text-white px-2 py-1 rounded"
+                      className="bg-red-500 text-white px-2 py-1 rounded cursor-pointer  hover:bg-red-700"
                       onClick={() => handleDelete(item.comId)}
                     >
                       삭제
@@ -104,6 +120,35 @@ const CompositionTable = ({
           ))}
         </tbody>
       </table>
+
+      {/* 페이징 버튼 */}
+      <div className="flex mt-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 mx-1 border ${
+            currentPage === 1
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-700 text-white"
+          } `}
+        >
+          이전
+        </button>
+        <span className="px-4 py-2">
+          {currentPage} / {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 mx-1 border ${
+            currentPage === totalPages
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-700 text-white"
+          }`}
+        >
+          다음
+        </button>
+      </div>
 
       {/* 수정 모달 */}
       {isModalOpen && selectedComposition && (
