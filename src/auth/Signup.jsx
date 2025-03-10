@@ -523,6 +523,194 @@ const Signup = () => {
       </div>
     </div>
   );
+  // return (
+  //   <div className="flex h-screen bg-gray-100">
+  //     <div className="w-3/5 flex flex-col justify-center items-center p-10 bg-white shadow-lg rounded-lg">
+  //       <h1 className="text-3xl font-bold mb-4 text-gray-900">회원가입</h1>
+  //       <p className="text-gray-600 mb-6">
+  //         필수 정보를 입력하고 회원가입을 완료하세요
+  //       </p>
+
+  //       <div className="w-full max-w-lg">
+  //         <form onSubmit={handleSubmit(onSubmitHandler)}>
+  //           {/* 역할 선택 */}
+  //           <label className="block text-sm font-medium text-gray-700 mb-1">
+  //             역할 선택
+  //           </label>
+  //           <div className="flex gap-4 mb-4">
+  //             <label className="flex items-center">
+  //               <input
+  //                 type="radio"
+  //                 value="admin"
+  //                 checked={role === "admin"}
+  //                 onChange={() => setRole("admin")}
+  //                 className="mr-2"
+  //               />{" "}
+  //               요양사
+  //             </label>
+  //             <label className="flex items-center">
+  //               <input
+  //                 type="radio"
+  //                 value="user"
+  //                 checked={role === "user"}
+  //                 onChange={() => setRole("user")}
+  //                 className="mr-2"
+  //               />{" "}
+  //               보호자
+  //             </label>
+  //           </div>
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             아이디
+  //           </label>
+  //           <div className="flex mb-4">
+  //             <input
+  //               type="text"
+  //               placeholder="아이디 입력"
+  //               className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
+  //               {...register("username", {
+  //                 required: "아이디를 입력해주세요",
+  //                 minLength: {
+  //                   value: 4,
+  //                   message: "아이디는 4자 이상 입력해주세요",
+  //                 },
+  //               })}
+  //             />
+  //             <button
+  //               type="button"
+  //               onClick={duplicateCheckHandle}
+  //               className="ml-2 bg-gray-300 text-black p-2 rounded-md"
+  //             >
+  //               중복확인
+  //             </button>
+  //           </div>
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             비밀번호
+  //           </label>
+  //           <input
+  //             type="password"
+  //             placeholder="비밀번호 입력"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("password", {
+  //               required: "비밀번호를 입력해주세요",
+  //               minLength: {
+  //                 value: 4,
+  //                 message: "비밀번호는 4자 이상 입력해주세요",
+  //               },
+  //             })}
+  //           />
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             비밀번호 확인
+  //           </label>
+  //           <input
+  //             type="password"
+  //             placeholder="비밀번호 확인"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("confirmPassword", {
+  //               required: "비밀번호를 확인해주세요",
+  //             })}
+  //           />
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             이름
+  //           </label>
+  //           <input
+  //             type="text"
+  //             placeholder="이름 입력"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("realname", { required: "이름을 입력해주세요" })}
+  //           />
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             이메일
+  //           </label>
+  //           <input
+  //             type="email"
+  //             placeholder="이메일 입력"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("email", { required: "이메일을 입력해주세요" })}
+  //           />
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             휴대폰 번호
+  //           </label>
+  //           <input
+  //             type="tel"
+  //             placeholder="휴대폰 번호 입력"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("phone", { required: "휴대폰 번호를 입력해주세요" })}
+  //           />
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             주소
+  //           </label>
+  //           <input
+  //             type="text"
+  //             placeholder="주소 입력"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("address", { required: "주소를 입력해주세요" })}
+  //           />
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             주민등록번호
+  //           </label>
+  //           <input
+  //             type="text"
+  //             placeholder="주민등록번호 입력"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             {...register("ssn", { required: "주민등록번호를 입력해주세요" })}
+  //           />
+
+  //           {role === "user" && (
+  //             <>
+  //               <label className="block text-sm font-medium text-gray-700">
+  //                 관계
+  //               </label>
+  //               <input
+  //                 type="text"
+  //                 placeholder="환자와의 관계 입력"
+  //                 className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //                 {...register("relation", {
+  //                   required: "환자와의 관계를 입력해주세요",
+  //                 })}
+  //               />
+  //             </>
+  //           )}
+
+  //           <label className="block text-sm font-medium text-gray-700">
+  //             사진 업로드
+  //           </label>
+  //           <input
+  //             type="file"
+  //             className="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300 mb-4"
+  //             onChange={handleImageChange}
+  //           />
+
+  //           <div className="flex items-center mb-4">
+  //             <input
+  //               type="checkbox"
+  //               className="mr-2"
+  //               {...register("agree", { required: "약관에 동의해주세요" })}
+  //             />
+  //             <span className="text-sm text-gray-700">
+  //               I agree to the terms & policy
+  //             </span>
+  //           </div>
+
+  //           <button
+  //             type="submit"
+  //             className="w-full bg-green-700 text-white p-3 rounded-md hover:bg-green-800"
+  //           >
+  //             가입하기
+  //           </button>
+  //         </form>
+  //       </div>
+  //     </div>
+  //     <div className="w-2/5 bg-blue-500"></div>
+  //   </div>
+  // );
 };
 
 export default Signup;
