@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import GiverCard from "./GiverCard";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import Spinner from "../utils/Spinner";
@@ -9,7 +8,7 @@ const Givers = () => {
   const [givers, setGivers] = useState([]);
   const giverImage = "http://localhost:8080/userimage/";
 
-  //모든 요양사 엔티티 가져오기
+  // 모든 요양사 엔티티 가져오기
   const getGivers = async () => {
     try {
       const { data } = await api.get("/giver/all");
@@ -21,41 +20,54 @@ const Givers = () => {
     setLoading(false);
   };
 
-  //페이지 로딩 시 모든 요양사를 가져오는 함수를 한 번 실행한다
+  // 페이지 로딩 시 모든 요양사를 가져오는 함수를 실행
   useEffect(() => {
-    setLoading(true); //로딩상태를 true 세팅
-    getGivers(); //모든 요양사를 가져오는 함수를 실행하며 해당 함수가 끝나면 로딩의 상태는 false로 바뀌면서 요양사 리스트가 화면에 표시된다
+    setLoading(true);
+    getGivers();
   }, []);
 
-  //로딩상태가 false일 경우
-  if (!loading) {
-    return (
-      <div className="p-4 w-[60%] m-auto">
-        <h2 className="text-xl font-semibold mb-4">
-          함께 할 요양사분들을 소개합니다
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {givers.map((giver) => {
-            return (
-              <GiverCard
-                key={giver.giverId} // 고유한 key가 설정됨
-                userImage={`${giverImage}${giver.user.userimage}`}
-                name={giver.user.realname}
-                email={giver.user.email}
-                phone={giver.user.phone}
-              />
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else {
+  if (loading) {
     return (
       <div className="m-auto">
         <Spinner />
       </div>
     );
   }
+
+  return (
+    <div className="p-4 m-auto">
+      <h2 className="text-2xl font-bold text-center mb-6">
+        함께 할 요양사분들을 소개합니다
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {givers.map((giver) => (
+          <div
+            key={giver.giverId}
+            className="bg-white shadow-md rounded-lg overflow-hidden"
+          >
+            <img
+              src={`${giverImage}${giver.user.userimage}`}
+              alt={giver.user.realname}
+              className="w-full h-56 object-cover"
+            />
+            <div className="p-4 bg-blue-100 text-center">
+              <h3 className="text-lg font-semibold">{giver.user.realname}</h3>
+              <p className="text-gray-600">{giver.user.email}</p>
+              <p className="text-gray-600">{giver.user.phone}</p>
+              <div className="flex justify-center space-x-4 my-2">
+                <i className="fa fa-facebook text-blue-500"></i>
+                <i className="fa fa-twitter text-blue-400"></i>
+                <i className="fa fa-linkedin text-blue-700"></i>
+              </div>
+              <button className="mt-4 bg-blue-900 text-white py-2 px-4 rounded-md w-full hover:bg-blue-700">
+                프로필 보기
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Givers;
