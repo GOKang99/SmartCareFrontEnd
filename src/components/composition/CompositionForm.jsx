@@ -101,12 +101,6 @@ const CompositionForm = ({ resident }) => {
 
         <div className="flex justify-end mt-4 space-x-1">
           <button
-            type="button"
-            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
-          >
-            취소
-          </button>
-          <button
             type="submit"
             className="bg-red-500  text-white px-4 py-2 rounded-md hover:bg-red-600"
           >
