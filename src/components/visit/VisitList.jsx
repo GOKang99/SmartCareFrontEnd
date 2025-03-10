@@ -7,8 +7,9 @@ import NoVisitsMessage from "./NoVisitsMessage";
 const VisitList = () => {
   const [visits, setVisits] = useState([]);
   const [error, setError] = useState("");
-  const [filterName, SetFilterName] = useState("");
-  const [filterDate, SetFilterDate] = useState("");
+  const [filterName, SetFilterName] = useState(""); //환자 이름으로 필터
+  const [filterDate, SetFilterDate] = useState(""); //날짜로 필터
+  const [filterStatus, SetFilterStatus] = useState(""); //예약 상태로 필터
 
   useEffect(() => {
     const fetchAllVisits = async () => {
@@ -31,12 +32,14 @@ const VisitList = () => {
     //완전히 일치하는 날짜만 가지고 온다.
     const dateMatch = filterDate === "" || visit.visDate === filterDate;
 
-    return nameMatch && dateMatch;
+    const statusMatch = filterStatus === "" || visit.visApply === filterStatus;
+    return nameMatch && dateMatch && statusMatch;
   });
 
   const handleReset = () => {
     SetFilterDate("");
     SetFilterName("");
+    SetFilterStatus("");
   };
 
   return (
@@ -44,7 +47,7 @@ const VisitList = () => {
       {error && <ErrorMessage error={error} />}
 
       {/* 검색 필터 UI 영역 */}
-      <div className="p-4 h-15 space-y-4 w-[800px] mx-auto ">
+      <div className="p-4 h-15 space-y-4 w-[900px] mx-auto ">
         {/*  */}
         {/* 이름 검색 필터  */}
         <div>
@@ -65,6 +68,18 @@ const VisitList = () => {
             onChange={(e) => SetFilterDate(e.target.value)}
             className="p-1 border border-gray-300 rounded"
           />
+
+          {/* 예약 상태별 보기 */}
+          <select
+            value={filterStatus}
+            onChange={(e) => SetFilterStatus(e.target.value)}
+            className="px-3 py-1 border m-2 border-gray-300 rounded-md"
+          >
+            <option value="">승인 상태</option>
+            <option value="pending">대기</option>
+            <option value="rejected">거절</option>
+            <option value="permited">허가</option>
+          </select>
 
           <button
             className="p-1 m-2 text-white border-r-2 bg-violet-500 hover:bg-violet-600 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700 ..."
