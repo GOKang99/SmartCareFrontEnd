@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
 import { toast } from "react-toastify";
@@ -9,11 +9,23 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation(); // 현재 URL 가져오기
   const navigate = useNavigate(); //이동객체
-  // const { handleLogout, navigate } = useMyContext();
 
   //컨텍스트에서 유저 관련 변수 가져오기
-  const { token, setToken, setCurrentUser, isAdmin, setIsAdmin, setDeToken } =
-    useMyContext();
+  const {
+    token,
+    setToken,
+    setCurrentUser,
+    isAdmin,
+    setIsAdmin,
+    setDeToken,
+    setGuardId,
+    setGiverId,
+    guardId,
+    giverId,
+  } = useMyContext();
+  if (token) {
+    const { partId, role } = jwtDecode(token);
+  }
 
   const handleLogout = () => {
     //로그아웃시 로컬스토리지와 유저 관련 변수 초기화, 메인화면으로 이동
@@ -24,10 +36,11 @@ const Header = () => {
     setCurrentUser(null);
     setIsAdmin(null);
     setDeToken(null);
+    setGiverId(null);
+    setGuardId(null);
     navigate("/login");
     toast.success("로그아웃 되었습니다");
   };
-  // const partId = jwtDecode(token).partId;
 
   return (
     <>
@@ -137,6 +150,31 @@ const Header = () => {
                   체성분 분석
                 </Link>
               </li> */}
+              <li>
+                {isAdmin ? (
+                  <Link
+                    to="/composition/admin"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/composition/admin"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    체성분 분석
+                  </Link>
+                ) : (
+                  <Link
+                    to="/composition/my"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/compositions/my"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    체성분 분석
+                  </Link>
+                )}
+              </li>
               <li>
                 <Link
                   to="/visits"

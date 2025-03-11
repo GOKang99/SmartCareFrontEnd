@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
 import { useMyContext } from "../../ContextApi";
@@ -12,12 +12,19 @@ const NoticeDetail = () => {
   const [loading, setLoading] = useState(false);
   const { isAdmin } = useMyContext();
 
+  const isFetched = useRef(false); // 중복 실행 방지용 ref 추가
+
   useEffect(() => {
+    console.log("유즈이펙트 실행됨!");
+
+    if (isFetched.current) return; // 이미 실행된 경우, 다시 실행 방지
+    isFetched.current = true; // 첫 실행 후 true로 변경
+
     const fetchNotice = async () => {
       try {
-        setLoading(false);
+        // setLoading(false);
         const response = await api.get(`/notice/${noticeId}`);
-        console.log("공지사항 데이터: ", response.data);
+        // console.log("공지사항 데이터: ", response.data);
         setNotice(response.data);
         // console.log("한글", response.data);
       } catch (error) {
@@ -111,7 +118,7 @@ const NoticeDetail = () => {
           className="px-6 py-3 bg-gray-600 text-white text-lg rounded-lg hover:bg-gray-700 cursor-pointer"
           onClick={() => navigate("/notice")}
         >
-          뒤로 가기
+          목록으로
         </button>
 
         {isAdmin && (

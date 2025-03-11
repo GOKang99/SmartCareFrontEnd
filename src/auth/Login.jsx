@@ -72,7 +72,8 @@ const Login = () => {
       }
     } catch (error) {
       if (error) {
-        toast.error(error.response.data.message);
+        // toast.error(error.response.data.message);
+        toast.error(error);
         setLoginError(true);
       }
     }
@@ -182,3 +183,80 @@ const Login = () => {
 };
 
 export default Login;
+
+// return (
+//   <div className="flex h-screen bg-gray-100">
+//     <div className="w-1/2 flex flex-col justify-center items-center p-10 bg-white">
+//       <h1 className="text-2xl font-bold mb-2">Welcome back!</h1>
+//       <p className="text-gray-600 mb-6">
+//         Enter your Credentials to access your account
+//       </p>
+
+//       <div className="w-full max-w-md">
+//         <form onSubmit={handleSubmit(onLoginHandler)}>
+//           <label className="block text-sm font-medium text-gray-700">
+//             아이디
+//           </label>
+//           <input
+//             type="text"
+//             placeholder="아이디 입력"
+//             className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
+//             {...register("username", {
+//               required: "아이디를 입력해주세요",
+//               minLength: {
+//                 value: 4,
+//                 message: "아이디는 4자 이상 적어주세요",
+//               },
+//             })}
+//           />
+//           {errors.username?.message && (
+//             <p className="text-sm font-semibold text-red-500 mt-0">
+//               {errors.username.message}
+//             </p>
+//           )}
+
+//           <label className="block text-sm font-medium text-gray-700 mt-4">
+//             비밀번호
+//           </label>
+//           <input
+//             type="password"
+//             placeholder="비밀번호 입력"
+//             className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
+//             {...register("password", {
+//               required: "비밀번호를 입력해주세요",
+//               minLength: {
+//                 value: 4,
+//                 message: "비밀번호는 4자 이상 적어주세요",
+//               },
+//             })}
+//           />
+//           {errors.password?.message && (
+//             <p className="text-sm font-semibold text-red-500 mt-0">
+//               {errors.password.message}
+//             </p>
+//           )}
+
+//           <button
+//             type="submit"
+//             className="w-full mt-6 bg-green-700 text-white p-3 rounded-md hover:bg-green-800"
+//           >
+//             로그인
+//           </button>
+//         </form>
+
+//         <div className="mt-6 text-center relative">
+//           <div className="absolute left-0 right-0 top-1/2 h-px bg-gray-300"></div>
+//           <span className="relative bg-white px-4 text-gray-500">or</span>
+//         </div>
+
+//         <p className="mt-4 text-center text-gray-600">
+//           계정이 없으신가요?{" "}
+//           <Link to="/signup" className="text-blue-600">
+//             회원가입
+//           </Link>
+//         </p>
+//       </div>
+//     </div>
+//     <div className="w-1/2 bg-blue-500"></div>
+//   </div>
+// );

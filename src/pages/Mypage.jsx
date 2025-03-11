@@ -8,8 +8,15 @@ import { toast } from "react-toastify";
 import UserExitModal from "./UserExitModal";
 
 const Mypage = () => {
-  const { token, setToken, setCurrentUser, setIsAdmin, setDeToken } =
-    useMyContext(); //컨텍스트에서 id 받아오기
+  const {
+    token,
+    setToken,
+    setCurrentUser,
+    setIsAdmin,
+    setDeToken,
+    setGiverId,
+    setGuardId,
+  } = useMyContext(); //컨텍스트에서 id 받아오기
   const { id } = useParams(); // URL에서 user id를 가져온다고 가정(/mypage/1)
   const [userData, setUserData] = useState(null); // 백엔드에서 받은 유저 정보
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
@@ -27,6 +34,8 @@ const Mypage = () => {
     setCurrentUser(null);
     setIsAdmin(null);
     setDeToken(null);
+    setGiverId(null);
+    setGuardId(null);
     navigate("/login");
     toast.success("로그아웃 되었습니다");
   };
