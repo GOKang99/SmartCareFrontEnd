@@ -55,9 +55,9 @@ const Givers = () => {
               <p className="text-gray-600">{giver.user.email}</p>
               <p className="text-gray-600">{giver.user.phone}</p>
               <div className="flex justify-center space-x-4 my-2">
-                <i className="fa fa-facebook text-blue-500"></i>
-                <i className="fa fa-twitter text-blue-400"></i>
-                <i className="fa fa-linkedin text-blue-700"></i>
+                <i className="fa fa-facebook text-blue-500">fb</i>
+                <i className="fa fa-twitter text-blue-400">twitter</i>
+                <i className="fa fa-linkedin text-blue-700">linkedin</i>
               </div>
               <button className="mt-4 bg-blue-900 text-white py-2 px-4 rounded-md w-full hover:bg-blue-700">
                 프로필 보기

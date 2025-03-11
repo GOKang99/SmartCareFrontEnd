@@ -63,52 +63,74 @@ const VisitItem = ({ visit, onUpdate }) => {
 
   return (
     <>
-      <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md w-[750px]">
-        {/* 예약 유형 헤더 */}
-        <h2 className="text-xl font-bold mb-2">
-          {visTp === "visit" ? "방문 예약" : "영상통화 예약"}
-        </h2>
+      <div className="flex justify-center items-center ">
+        <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md w-[600px]">
+          {/* 예약 유형 헤더 */}
+          <h2 className="text-xl font-bold mb-2">
+            {visTp === "visit" ? "방문 예약" : "영상통화 예약"}
+          </h2>
 
-        <div className="flex items-center gap-2 text-gray-700 mb-1">
-          {/* 예약 일자 */}
-          <span className="font-semibold">예약 일자:</span> {visDate}
-          {/* 예약 시간 */}
-          <span className="font-semibold">예약 시간:</span> {visTime}
-          {/* 환자와의 관계 */}
-          <span className="font-semibold">관계: </span> {visRelation}
-          {/* 방문자 수 */}
-          <span className="font-semibold">방문자 수: </span> {visCnt}
+          <table className="min-w-full border border-gray-300 divide-y divide-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-4 py-2 text-left font-semibold">항목</th>
+                <th className="px-4 py-2 text-left font-semibold">내용</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              <tr>
+                <td className="px-4 py-2 font-semibold">예약 일자</td>
+                <td className="px-4 py-2">{visit.visDate}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-semibold">예약 시간</td>
+                <td className="px-4 py-2">{visit.visTime}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-semibold">관계</td>
+                <td className="px-4 py-2">{visit.visRelation}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-semibold">방문자 수</td>
+                <td className="px-4 py-2">{visit.visCnt}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-semibold">방문 여부</td>
+                <td className="px-4 py-2">{vistedText}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-semibold">비고</td>
+                <td className="px-4 py-2">{visit.remark}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-semibold">환자 이름</td>
+                <td className="px-4 py-2">{visit.resName}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          {/* 승인 상태 */}
+          <p className={`text-gray-700 ${applyColor}`}>
+            <span className="font-semibold">승인 상태: </span> {applyText}
+          </p>
+
+          {/* 수정 하기 */}
+          <button
+            onClick={openModal}
+            type="button"
+            className="mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
+          >
+            수정
+          </button>
+
+          {/* 삭제 하기 */}
+          <button
+            onClick={handleDelete}
+            className="mt-2 m-1 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+          >
+            삭제
+          </button>
         </div>
-
-        <div className="flex items-center gap-2 text-gray-700 mb-1">
-          {/* 방문 여부  */}
-          <span className="font-semibold">방문 여부: </span> {vistedText}
-          {/* 비고  */}
-          <span className="font-semibold">비고: </span> {remark}
-          {/* 환자 이름 */}
-          <span className="font-semibold">환자 이름: </span> {visit.resName}
-        </div>
-
-        {/* 승인 상태 */}
-        <p className={`text-gray-700 ${applyColor}`}>
-          <span className="font-semibold">승인 상태: </span> {applyText}
-        </p>
-        {/* 수정 하기 */}
-        <button
-          onClick={openModal}
-          type="button"
-          className="mt-2 bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
-        >
-          수정
-        </button>
-
-        {/* 삭제 하기 */}
-        <button
-          onClick={handleDelete}
-          className="mt-2 m-1 bg-orange-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
-        >
-          삭제
-        </button>
       </div>
 
       {/* EditVisitForm은 VisitItem의 정보 컨테이너 아래에 표시됨 */}
