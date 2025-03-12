@@ -126,18 +126,7 @@ const Header = () => {
                   요양사 소개
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/notice"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/notice"
-                      ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
-                  }`}
-                >
-                  공지사항
-                </Link>
-              </li>
+
               <li className="relative group">
                 <Link
                   to="/resident"
@@ -170,19 +159,7 @@ const Header = () => {
                   </div>
                 )}
               </li>
-              <li>
-                <Link
-                  to="/composition"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/compositions"
-                      ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
-                  }`}
-                >
-                  체성분 분석
-                </Link>
-              </li>{" "}
-              */
+
               <li>
                 {isAdmin ? (
                   <Link
