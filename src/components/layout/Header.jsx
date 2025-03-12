@@ -112,7 +112,7 @@ const Header = () => {
                   공지사항
                 </Link>
               </li>
-              <li>
+              <li className="relative group">
                 <Link
                   to="/resident"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
@@ -123,7 +123,28 @@ const Header = () => {
                 >
                   입소자 정보
                 </Link>
+
+                {/* isAdmin이 true일 경우에만 드롭다운 메뉴를 보여줌 */}
+                {isAdmin && (
+                  <div
+                    className={`absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  >
+                    <Link
+                      to="/resident/form"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      입소자 등록
+                    </Link>
+                    <Link
+                      to="/resident/list"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      입소자 리스트
+                    </Link>
+                  </div>
+                )}
               </li>
+
               <li>
                 <Link
                   to="/composition"
