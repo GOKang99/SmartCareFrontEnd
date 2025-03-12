@@ -67,9 +67,9 @@ const NoticeDetail = () => {
   };
 
   return (
-    <div className="w-[60%] m-auto min-h-screen mt-5 bg-white rounded-xl">
+    <div className="w-[60%] m-auto min-h-screen mt-5 mb-6 bg-white p-6 rounded-xl shadow-md flex flex-col">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-        공지사항 상세보기
+        {notice?.noticeTitle || ".. 로딩중"}
       </h2>
 
       {!loading ? (
@@ -77,35 +77,40 @@ const NoticeDetail = () => {
           공지사항을 불러오는 중...
         </p>
       ) : notice ? (
-        <div className="border border-gray-400 p-6 rounded-lg shadow-md bg-gray-100">
-          <h3 className="text-2xl font-bold mb-4">{notice.noticeTitle}</h3>
-          <p className="text-gray-700 mb-2">
-            <strong>작성자:</strong> {notice.username || "Unknown"}
-          </p>
-          <p className="text-gray-700 mb-4">
-            <strong>작성일:</strong>{" "}
-            {notice.noticeDate
-              ? new Date(notice.noticeDate).toLocaleString()
-              : "날짜 없음"}
-          </p>
+        // 작성자 작성일
+        <>
           <hr className="my-4" />
-          <p className="text-lg text-gray-800">{notice.noticeContent}</p>
-
-          {/* 이미지 표시 추가 */}
-          {notice.noticeImageURL && notice.noticeImageURL.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {notice.noticeImageURL.map((url, index) => (
-                <img
-                  key={index}
-                  src={`http://localhost:8080${url}`}
-                  alt={`공지 이미지 ${index + 1}`}
-                  className="w-[50%] h-[30%] object-cover rounded-lg border border-gray-300 hover:scale-101 transition-transform"
-                  onClick={() => handleImageClick(url)}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+          <div className="flex flex-col justify-end items-start text-gray-500 text-sm mb-6 border-b border-gray-300">
+            <p className="text-gray-700 mb-2">
+              <strong>작성자:</strong> {notice.giverName || "Unknown"}
+            </p>
+            <p className="text-gray-700 mb-4">
+              <strong>작성일:</strong>{" "}
+              {notice.noticeDate
+                ? new Date(notice.noticeDate).toLocaleString()
+                : "날짜 없음"}
+            </p>
+          </div>
+          <div className="flex flex-col justify-center items-center mb-4">
+            {/* 이미지 표시 추가 */}
+            {notice.noticeImageURL && notice.noticeImageURL.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-4 justify-center">
+                {notice.noticeImageURL.map((url, index) => (
+                  <img
+                    key={index}
+                    src={`http://localhost:8080${url}`}
+                    alt={`공지 이미지 ${index + 1}`}
+                    className="w-auto h-auto max-w-[45%] rounded-lg border border-gray-300"
+                    onClick={() => handleImageClick(url)}
+                  />
+                ))}
+              </div>
+            )}
+            <p className="text-sm text-gray-800 mt-6 whitespace-pre-line text-center">
+              {notice.noticeContent}
+            </p>
+          </div>
+        </>
       ) : (
         <p className="text-center text-lg text-red-500">
           공지사항을 찾을 수 없습니다.
@@ -113,7 +118,7 @@ const NoticeDetail = () => {
       )}
 
       {/* 버튼 영역 */}
-      <div className="flex justify-between mt-6 mb-6">
+      <div className="flex justify-between items-center border-t border-gray-300 pt-4 mt-auto">
         <button
           className="px-6 py-3 bg-gray-600 text-white text-lg rounded-lg hover:bg-gray-700 cursor-pointer"
           onClick={() => navigate("/notice")}

@@ -109,27 +109,35 @@ const NoticeList = () => {
       </h2>
 
       {/* 공지 유형 버튼 추가 */}
-      <div className="flex justify-center space-x-4 mb-4 ">
-        {["전체", "공지", "식단", "계획표", "진료일정"].map((category) => (
-          <button
-            key={category}
-            onClick={() => handleFilter(category)}
-            className={`px-4 py-2 rounded-lg text-white hover:bg-gray-500 transition ${
-              selectedCategory === category
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
+      <div className="flex justify-center rounded-xl">
+        <div className="inline-flex rounded-xl shadow-xs mb-6 " role="group">
+          {["전체", "공지", "식단", "계획표", "진료일정"].map((category) => (
+            <button
+              key={category}
+              onClick={() => handleFilter(category)}
+              className={`px-4 py-2 text-sm font-medium border border-gray-200 focus:z-10 focus:ring-2 focus:ring-blue-400 focus:text-blue-700 ${
+                selectedCategory === category
+                  ? " text-gray-600 focus:ring-blue-300"
+                  : "hover:bg-gray-100 hover:text-blue-700"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="flex justify-center space-x-2 mb-4">
+      {/* 검색부분 */}
+      <div className="flex justify-center mb-6">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
-          className="px-3 py-2 border rounded-lg"
+          className="shrink-0 z-10 inline-flex items-center 
+                     py-2.5 px-4 text-sm font-medium 
+                    text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg
+                    hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100
+                    dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white
+                    dark:border-gray-600"
         >
           <option value="전체">전체</option>
           <option value="제목">제목</option>
@@ -140,11 +148,17 @@ const NoticeList = () => {
           placeholder="검색어 입력"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="px-4 py-2 border rounded-lg w-64"
+          className="block p-2.5 w-100 z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg
+                   border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500
+                   focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600
+                   dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
         />
         <button
           onClick={handleSearch}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="relative flex items-center justify-center p-2.5 text-sm font-medium w-17
+                   text-white bg-blue-700 rounded-lg border border-blue-700
+                   hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300
+                   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           검색
         </button>
@@ -152,45 +166,58 @@ const NoticeList = () => {
         {/* 검색 초기화 버튼 */}
         <button
           onClick={handleResetSearch}
-          className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+          className="relative flex items-center justify-center p-2.5 text-sm font-medium w-20
+                   bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
         >
           초기화
         </button>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-400 text-lg">
-          <thead className="bg-gray-300">
+      {/* 테이블 */}
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th className="border px-6 py-3 w-[3%]">번호</th>
-              <th className="border px-6 py-3 w-[5%]">유형</th>
-              <th className="border px-6 py-3 w-[20%]">제목</th>
-              <th className="border px-6 py-3 w-[5%]">작성자</th>
-              <th className="border px-6 py-3 w-[7%]">작성일</th>
-              <th className="border px-6 py-3 w-[3%]">조회수</th>
+              <th scope="col" className="px-6 py-3 ">
+                번호
+              </th>
+              <th scope="col" className="px-6 py-3 ">
+                유형
+              </th>
+              <th scope="col" className="px-6 py-3 w-[40%] ">
+                제목
+              </th>
+              <th scope="col" className="px-6 py-3 ">
+                작성자
+              </th>
+              <th scope="col" className="px-6 py-3 ">
+                작성일
+              </th>
+              <th scope="col" className="px-6 py-3 ">
+                조회수
+              </th>
             </tr>
           </thead>
           <tbody>
             {currentItem.map((notice, index) => (
-              <tr key={notice.noticeId} className="hover:bg-gray-200">
-                <td className="border px-1 py-4 text-center">
+              <tr
+                key={notice.noticeId}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-200"
+              >
+                <td className="px-6 py-4">
                   {filteredNotice.length -
                     (currentPage - 1) * itemsPerPage -
                     index}
                 </td>
-                <td className="border px-5 py-4 text-center">
-                  {notice.noticeType}
-                </td>
-                <td className="border px-8 py-4">
+                <td className="px-6 py-4">{notice.noticeType}</td>
+                <td className="px-6 py-4">
                   <Link to={`/notice/${notice.noticeId}`}>
                     {notice.noticeTitle}
                   </Link>
                 </td>
 
-                <td className="border px-3 py-4 text-center">
-                  {notice.giverName || "Unknown"}
-                </td>
-                <td className="border px-1 py-4 text-center">
+                <td className="px-6 py-4">{notice.giverName || "Unknown"}</td>
+                <td className="px-6 py-4">
                   {new Date(notice.noticeDate).toLocaleDateString("KO-KR", {
                     year: "numeric",
                     month: "2-digit",
@@ -200,9 +227,7 @@ const NoticeList = () => {
                     hour12: false,
                   })}
                 </td>
-                <td className="border px-1 py-4 text-center">
-                  {notice.noticeCount}
-                </td>
+                <td className="px-6 py-4">{notice.noticeCount}</td>
               </tr>
             ))}
           </tbody>
@@ -210,63 +235,84 @@ const NoticeList = () => {
       </div>
 
       {/* 페이징 버튼 */}
-      <div className="flex justify-center mt-6 space-x-2 mb-6">
-        <button
-          onClick={() => handlePageChange(1)}
-          className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-        >
-          처음
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg ${
-            currentPage === 1
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-blue-600 text-white hover:bg-blue-700 transition"
-          }`}
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          이전
-        </button>
+      <nav
+        aria-label="Page navigation example"
+        className="flex justify-center mt-6 mb-6"
+      >
+        <ul className="flex items-center -space-x-px h-10 text-base">
+          {/* 처음 버튼 */}
+          <li>
+            <button
+              onClick={() => handlePageChange(1)}
+              className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 transition"
+            >
+              처음
+            </button>
+          </li>
 
-        {Array.from({ length: totalPage }, (_, i) => (
-          <button
-            key={i + 1}
-            onClick={() => handlePageChange(i + 1)}
-            className={`px-4 py-2 rounded-lg  ${
-              currentPage === i + 1
-                ? "bg-blue-600 text-white  hover:bg-blue-700 transition"
-                : "bg-gray-200  hover:bg-gray-300 transition"
-            }`}
-          >
-            {i + 1}
-          </button>
-        ))}
+          {/* 이전 버튼 */}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 ${
+                currentPage === 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition"
+              }`}
+            >
+              이전
+            </button>
+          </li>
 
-        <button
-          className={`px-4 py-2 rounded-lg ${
-            currentPage === totalPage
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-blue-600 text-white  hover:bg-blue-700 transition"
-          }`}
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPage}
-        >
-          다음
-        </button>
-        <button
-          onClick={() => handlePageChange(totalPage)}
-          className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-        >
-          끝으로
-        </button>
-      </div>
+          {/* 페이지 번호 버튼 */}
+          {Array.from({ length: totalPage }, (_, i) => (
+            <li key={i + 1}>
+              <button
+                onClick={() => handlePageChange(i + 1)}
+                className={`flex items-center justify-center px-4 h-10 leading-tight border ${
+                  currentPage === i + 1
+                    ? "z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
+                    : "bg-white text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                }`}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))}
+
+          {/* 다음 버튼 */}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPage}
+              className={`flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 ${
+                currentPage === totalPage
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition"
+              }`}
+            >
+              다음
+            </button>
+          </li>
+
+          {/* 끝으로 버튼 */}
+          <li>
+            <button
+              onClick={() => handlePageChange(totalPage)}
+              className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 transition"
+            >
+              끝으로
+            </button>
+          </li>
+        </ul>
+      </nav>
 
       {/* 버튼 영역 */}
       {isAdmin && (
         <div className="flex justify-end space-x-6 mt-6 mb-3">
           <button
-            className="px-6 py-3 bg-blue-600 text-white text-lg rounded-lg hover:bg-blue-700 cursor-pointer"
+            className="px-6 py-3 bg-[#475773] text-white text-lg rounded-lg hover:bg-[#1E2939] cursor-pointer"
             onClick={() => navigate("/notice/create")}
           >
             글쓰기

@@ -78,13 +78,17 @@ const NoticeCreateForm = () => {
       <form onSubmit={handleSubmit}>
         {/* 🔹 공지 유형 선택 */}
         <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-700">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             공지 유형
           </label>
           <select
             value={noticeType}
             onChange={(e) => setNoticeType(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 rounded-md
+                    text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg
+                    hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100
+                    dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white
+                    dark:border-gray-600"
             required
           >
             <option value="공지">공지</option>
@@ -96,14 +100,18 @@ const NoticeCreateForm = () => {
 
         {/* 🔹 공지 제목 입력 */}
         <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-700">
+          <label className="block text-sm font-semibold text-gray- mb-2">
             공지 제목
           </label>
           <input
             type="text"
             value={noticeTitle}
             onChange={(e) => setNoticeTitle(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 rounded-md
+                    text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg
+                    hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100
+                    dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white
+                    dark:border-gray-600"
             placeholder="공지 제목을 입력하세요"
             required
           />
@@ -111,14 +119,16 @@ const NoticeCreateForm = () => {
 
         {/* 🔹 파일 업로드&미리보기 추가 */}
         <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-700">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">
             파일 첨부 (여러 개 선택 가능)
           </label>
           <input
             type="file"
             multiple
             onChange={handleFileChange}
-            className="w-full p-2 border rounded-md"
+            className="block w-full text-sm text-gray-900 border border-gray-300 hover:bg-gray-200
+                      rounded-lg cursor-pointer bg-gray-100 dark:text-gray-400 focus:outline-none
+                       dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           />
 
           {/* 미리보기 */}
@@ -144,13 +154,17 @@ const NoticeCreateForm = () => {
 
         {/* 🔹 공지 내용 입력 */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-700">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             공지 내용
           </label>
           <textarea
             value={noticeContent}
             onChange={(e) => setNoticeContent(e.target.value)}
-            className="w-full p-2 border rounded-md h-32 resize-none"
+            className="w-full p-2 border rounded-md h-32 resize-none
+                    text-gray-500 bg-gray-100 border-gray-300 rounded-s-lg
+                    hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100
+                    dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white
+                    dark:border-gray-600"
             placeholder="공지 내용을 입력하세요"
             required
           />

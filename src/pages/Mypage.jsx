@@ -6,6 +6,7 @@ import { useMyContext } from "../ContextApi";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import UserExitModal from "./UserExitModal";
+import Spinner from "../utils/Spinner";
 
 const Mypage = () => {
   const {
@@ -64,7 +65,11 @@ const Mypage = () => {
   }, [id]);
 
   if (!userData) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
   }
 
   // 역할(Role)에 따라 구분
