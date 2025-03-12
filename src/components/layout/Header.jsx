@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-import "./Header.css"
+import "./Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -126,30 +126,38 @@ const Header = () => {
                   요양사 소개
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/resident"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/resident"
-                      ? "text-blue-700"
-                      : "text-gray-800 hover:text-blue-700"
-                  }`}
-                >
-                  입소자 정보
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  to="/composition"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/compositions"
-                      ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
-                  }`}
-                >
-                  체성분 분석
-                </Link>
-              </li> */}
+
+              {isAdmin && (
+                <li className="relative group">
+                  <Link
+                    to="/resident"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/resident"
+                        ? "text-blue-700"
+                        : "text-gray-800 hover:text-blue-700"
+                    }`}
+                  >
+                    입소자 정보
+                  </Link>
+                  <div
+                    className={`absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  >
+                    <Link
+                      to="/resident/form"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      입소자 등록
+                    </Link>
+                    <Link
+                      to="/resident/list"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      입소자 리스트
+                    </Link>
+                  </div>
+                </li>
+              )}
+
               <li>
                 {isAdmin ? (
                   <Link
@@ -226,9 +234,12 @@ const Header = () => {
                 </li>
               )}
               {token ? (
-                  <li onClick={handleLogout} className="cursor-pointer text-gray-800">
-                    로그아웃
-                  </li>
+                <li
+                  onClick={handleLogout}
+                  className="cursor-pointer text-gray-800"
+                >
+                  로그아웃
+                </li>
               ) : (
                 <li>
                   <Link

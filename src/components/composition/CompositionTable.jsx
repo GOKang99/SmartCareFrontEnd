@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../../services/api";
 import EditCompositionForm from "./EditCompositionForm";
+import { toast } from "react-toastify";
 
 const CompositionTable = ({
   compositions,
@@ -31,10 +32,12 @@ const CompositionTable = ({
     if (!window.confirm("정말 삭제하시겠습니까?")) return; // 삭제 확인
     try {
       await api.delete(`/composition/delete/${comId}`);
-      console.log("삭제 성공:", comId);
+      // console.log("삭제 성공:", comId);
+      toast.success("삭제 성공");
       onDelete(comId); // 부모 컴포넌트에서 상태 업데이트
     } catch (error) {
-      console.error("삭제 중 오류 발생", error);
+      // console.error("삭제 중 오류 발생", error);
+      toast.error("삭제 중 오류 발생");
     }
   };
 

@@ -6,9 +6,9 @@ import CompositionListForGiver from "../components/composition/CompositionListFo
 const Compositions = () => {
   return (
     <div>
-      <div className="text-center">
+      {/* <div className="text-center">
         <h2 className="text-4xl">환자별 체성분 분석</h2>
-      </div>
+      </div> */}
 
       <Routes>
         <Route path="/my" element={<CompositionList />} />
