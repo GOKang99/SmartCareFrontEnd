@@ -16,10 +16,10 @@ const VisitList = () => {
     const fetchAllVisits = async () => {
       try {
         const response = await api.get("/visit/all");
-        console.log(response);
+        // console.log(response);
         setVisits(response.data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         setError("모든 데이터 불러오기 중 오류 발생");
       }
     };

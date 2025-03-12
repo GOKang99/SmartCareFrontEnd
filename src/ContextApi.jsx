@@ -42,7 +42,7 @@ export const ContextProvider = ({ children }) => {
         //서버로부터 받은 응답은 data라는 변수에 할당
         //현재 로그인한 사용자의 정보를 axios로 가져온다
         const { data } = await api.get(`/auth/user`);
-        console.log("데이터", data);
+        // console.log("데이터", data);
         //서버의 응답 data에서 권한 배열을 저장
         const roles = data.roles;
 
@@ -65,7 +65,7 @@ export const ContextProvider = ({ children }) => {
       } catch (error) {
         //오류시
         toast.error("현재 유저정보를 업데이트하는데 실패했습니다");
-        console.error(error);
+        // console.error(error);
       }
     }
   };
@@ -100,17 +100,17 @@ export const ContextProvider = ({ children }) => {
 
   //역할에 따라 저장하기
   useEffect(() => {
-    console.log("해독", deToken, isAdmin);
+    // console.log("해독", deToken, isAdmin);
     if (isAdmin) {
-      console.log("요양보호사 입니다." + isAdmin);
+      // console.log("요양보호사 입니다." + isAdmin);
       setGuardId(null);
       setGiverId(deToken?.partId);
-      console.log("요양보호사 아이디는", giverId);
+      // console.log("요양보호사 아이디는", giverId);
     } else {
-      console.log("어드민이 아닙니다." + isAdmin);
+      // console.log("어드민이 아닙니다." + isAdmin);
       setGiverId(null);
       setGuardId(deToken?.partId);
-      console.log("보호자 아이디는", guardId);
+      // console.log("보호자 아이디는", guardId);
     }
   }, [isAdmin, deToken?.partId]);
 
@@ -124,7 +124,7 @@ export const ContextProvider = ({ children }) => {
           const { data } = await api.get(`/users/${deToken.userId}`);
           setUserData(data);
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          // console.error("Error fetching user data:", error);
         }
       };
       fetchUserData();

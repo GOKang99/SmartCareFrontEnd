@@ -2,7 +2,7 @@ import axios from "axios";
 
 //백엔드 주소
 //react create와는 다르게 vite에서는 env변수를 'import.meta.env.REACT_APP_API_URL' 이렇게 가져온다
-console.log("API URL:", import.meta.env.VITE_API_URL);
+// console.log("API URL:", import.meta.env.VITE_API_URL);
 
 // axios 객체 생성(기본주소), 서버와 통신
 const api = axios.create({
