@@ -11,7 +11,9 @@ const Visits = () => {
   return (
     <div>
       <div className="text-center">
-        <h2>방문 예약 페이지</h2>
+        <h2 className="pt-4 text-3xl font-bold text-center mb-6 text-gray-800">
+          방문 예약
+        </h2>
         <nav>
           <Link to="/visits/form">방문 예약하기</Link> |
           <Link to="/visits/my">보호자 예약 내역 보기</Link> |

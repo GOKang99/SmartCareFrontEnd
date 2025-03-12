@@ -74,6 +74,10 @@ const CompositionListForGiver = () => {
 
   return (
     <>
+      <h2 className="pt-4 text-3xl font-bold text-center mb-6 text-gray-800">
+        환자별 체성분 분석
+      </h2>
+
       {/* 필터 입력창 및 초기화 버튼 */}
       <div className="flex justify-center space-x-2 items-center">
         <input

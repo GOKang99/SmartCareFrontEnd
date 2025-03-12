@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import InputField from "../form/InputField";
 import TimePicker from "./TimePicker";
 import api from "../../services/api";
+import { useMyContext } from "../../ContextApi";
 
 const EditVisitForm = ({ visit, onClose, onUpdate }) => {
   //  기본값 09:00 설정
@@ -9,6 +10,8 @@ const EditVisitForm = ({ visit, onClose, onUpdate }) => {
     value: visit.visTime,
     label: visit.visTime,
   });
+
+  const { isAdmin } = useMyContext();
 
   const [formData, setFormData] = useState({
     //방문 날짜
@@ -137,40 +140,43 @@ const EditVisitForm = ({ visit, onClose, onUpdate }) => {
             onChange={handleChange}
           />
         </div>
+        {isAdmin && (
+          <>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-1">
+                방문 승인
+              </label>
+              <select
+                name="visApply"
+                value={formData.visApply}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
+              >
+                <option value="pending">대기</option>
+                <option value="permited">허가</option>
+                <option value="rejected">거절</option>
+              </select>
+            </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-1">
-            방문 승인
-          </label>
-          <select
-            name="visApply"
-            value={formData.visApply}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
-          >
-            <option value="pending">대기</option>
-            <option value="permited">허가</option>
-            <option value="rejected">거절</option>
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-1">
-            방문여부
-          </label>
-          <select
-            name="visYn"
-            value={formData.visYn}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
-          >
-            <option value="">선택하세요</option>
-            <option value="true">방문</option>
-            <option value="false">미방문</option>
-          </select>
-        </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-1">
+                방문여부
+              </label>
+              <select
+                name="visYn"
+                value={formData.visYn}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300"
+              >
+                <option value="">선택하세요</option>
+                <option value="true">방문</option>
+                <option value="false">미방문</option>
+              </select>
+            </div>
+          </>
+        )}
         <button
           className="mt-2 m-1 bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
           type="submit"
