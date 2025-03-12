@@ -485,7 +485,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                               value="예"
                               onChange={handleInputChange}
                               checked={formData.resAdmissionYn === "예"}
-                              className="w-3 h-3 text-black"
+                              className="w-3 h-3 text-green-600"
                             />
                             <label
                               htmlFor="yes"
@@ -627,7 +627,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                                 checked={
                                   formData.koreanReadableYn === item.value
                                 }
-                                className="w-3 h-3"
+                                className="w-3 h-3 text-green-600"
                               />
                               <label
                                 htmlFor={item.id}
@@ -664,7 +664,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                                 value={item.value}
                                 onChange={handleInputChange}
                                 checked={formData.religion === item.value}
-                                className="w-3 h-3"
+                                className="w-3 h-3 text-green-600"
                               />
                               <label
                                 htmlFor={item.id}

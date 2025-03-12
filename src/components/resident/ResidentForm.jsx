@@ -423,7 +423,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                               value="예"
                               onChange={handleInputChange}
                               checked={formData.resAdmissionYn === "예"}
-                              className="w-3 h-3 text-black"
+                              className="w-3 h-3 text-green-600"
                             />
                             <label
                               htmlFor="yes"
@@ -554,7 +554,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                           ].map((item) => (
                             <div
                               key={item.id}
-                              className="flex items-center bg-gray-100 p-1 rounded-md border border-gray-100 transition-all hover:bg-gray-100"
+                              className="flex items-center bg-gray-100 p-1 rounded-md border border-gray-100 transition-all hover:bg-gray-100 text-green-600"
                             >
                               <input
                                 type="radio"
@@ -565,7 +565,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                                 checked={
                                   formData.koreanReadableYn === item.value
                                 }
-                                className="w-3 h-3"
+                                className="w-3 h-3 text-green-600"
                               />
                               <label
                                 htmlFor={item.id}
@@ -602,7 +602,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                                 value={item.value}
                                 onChange={handleInputChange}
                                 checked={formData.religion === item.value}
-                                className="w-3 h-3"
+                                className="w-3 h-3 text-green-600"
                               />
                               <label
                                 htmlFor={item.id}
