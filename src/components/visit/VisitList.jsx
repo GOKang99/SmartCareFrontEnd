@@ -3,12 +3,14 @@ import VisitItem from "./VisitItem";
 import api from "../../services/api";
 import ErrorMessage from "../form/ErrorMessage";
 import NoVisitsMessage from "./NoVisitsMessage";
+import turnback from "/return.png";
 
 const VisitList = () => {
   const [visits, setVisits] = useState([]);
   const [error, setError] = useState("");
-  const [filterName, SetFilterName] = useState("");
-  const [filterDate, SetFilterDate] = useState("");
+  const [filterName, SetFilterName] = useState(""); //환자 이름으로 필터
+  const [filterDate, SetFilterDate] = useState(""); //날짜로 필터
+  const [filterStatus, SetFilterStatus] = useState(""); //예약 상태로 필터
 
   useEffect(() => {
     const fetchAllVisits = async () => {
@@ -31,55 +33,80 @@ const VisitList = () => {
     //완전히 일치하는 날짜만 가지고 온다.
     const dateMatch = filterDate === "" || visit.visDate === filterDate;
 
-    return nameMatch && dateMatch;
+    const statusMatch = filterStatus === "" || visit.visApply === filterStatus;
+    return nameMatch && dateMatch && statusMatch;
   });
 
   const handleReset = () => {
     SetFilterDate("");
     SetFilterName("");
+    SetFilterStatus("");
   };
+
+  // const handleVisitUpdate = (updatedVisit) => {
+  //   console.log("업데이트된 방문 데이터:", updatedVisit);
+  //   setVisits((prevVisits) =>
+  //     prevVisits.map((visit) =>
+  //       visit.visId === updatedVisit.visId
+  //         ? { ...visit, ...updatedVisit }
+  //         : visit
+  //     )
+  //   );
+  // };
 
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}
 
       {/* 검색 필터 UI 영역 */}
-      <div className="p-4 h-15 space-y-4 w-[800px] mx-auto ">
+      <div className="p-4 h-15 space-y-4 w-[900px] mx-auto ">
         {/*  */}
         {/* 이름 검색 필터  */}
         <div>
-          <label className="mr-2">환자 이름 검색:</label>
+          <label className="mr-1">환자 이름 검색:</label>
           <input
             type="text"
             value={filterName}
             placeholder="예) 홍길동"
             onChange={(e) => SetFilterName(e.target.value)}
-            className="p-1 border border-gray-300 rounded"
+            className="p-1 border border-gray-300 rounded h-7"
           />
 
           {/* 날짜 검색 필터 */}
-          <label className="mr-2 p-4">날짜 검색:</label>
+          <label className="mr-1 p-1">날짜 검색:</label>
           <input
             type="date"
             value={filterDate}
             onChange={(e) => SetFilterDate(e.target.value)}
-            className="p-1 border border-gray-300 rounded"
+            className="p-0.5 border border-gray-300 rounded h-7"
           />
 
-          <button
-            className="p-1 m-2 text-white border-r-2 bg-violet-500 hover:bg-violet-600 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700 ..."
-            onClick={handleReset}
+          {/* 예약 상태별 보기 */}
+          <label className="mr-1 p-0.5">승인 상태:</label>
+          <select
+            value={filterStatus}
+            onChange={(e) => SetFilterStatus(e.target.value)}
+            className=" py-1 border m-1 border-gray-300 rounded-md h-8"
           >
-            필터 초기화
+            <option value="">승인 상태</option>
+            <option value="pending">대기</option>
+            <option value="rejected">거절</option>
+            <option value="permited">허가</option>
+          </select>
+
+          <button onClick={handleReset}>
+            <img
+              src={turnback}
+              alt="초기화 하기"
+              className="mx-2 w-[20px] h-auto transition-transform duration-300 hover:scale-120"
+            ></img>
           </button>
         </div>
       </div>
 
       <div>
         {FilteredVisits.length > 0 ? (
-          FilteredVisits.map((visit) => (
-            <VisitItem key={visit.visId} visit={visit} />
-          ))
+          <VisitItem visit={FilteredVisits} />
         ) : (
           <NoVisitsMessage />
         )}

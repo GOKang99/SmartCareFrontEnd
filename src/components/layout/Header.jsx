@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
+import "./Header.css"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,14 +44,14 @@ const Header = () => {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <nav className="bg-white border-gray-200 dark:bg-gray-900 top-0 left-0 w-full z-10  shadow-sm">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img src="/icon.png" className="h-8" alt="SmartCare Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">
               SmartCare
             </span>
           </Link>
@@ -88,9 +89,9 @@ const Header = () => {
             } w-full md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="menu font-bold flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <Link
+                {/* <Link
                   to="/"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/"
@@ -99,6 +100,18 @@ const Header = () => {
                   }`}
                 >
                   Home
+                </Link> */}
+              </li>
+              <li className={location.pathname === "/notice" ? "active" : ""}>
+                <Link
+                  to="/notice"
+                  className={`block py-2 px-3 rounded-sm md:p-0 ${
+                    location.pathname === "/notice"
+                      ? "text-blue-700"
+                      : "text-gray-800 hover:text-blue-700"
+                  }`}
+                >
+                  공지사항
                 </Link>
               </li>
               <li>
@@ -107,22 +120,10 @@ const Header = () => {
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/givers"
                       ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
+                      : "text-gray-800 hover:text-blue-700"
                   }`}
                 >
                   요양사 소개
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/notice"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/notice"
-                      ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
-                  }`}
-                >
-                  공지사항
                 </Link>
               </li>
               <li>
@@ -131,13 +132,13 @@ const Header = () => {
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/resident"
                       ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
+                      : "text-gray-800 hover:text-blue-700"
                   }`}
                 >
                   입소자 정보
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   to="/composition"
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
@@ -148,6 +149,31 @@ const Header = () => {
                 >
                   체성분 분석
                 </Link>
+              </li> */}
+              <li>
+                {isAdmin ? (
+                  <Link
+                    to="/composition/admin"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/composition/admin"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    체성분 분석
+                  </Link>
+                ) : (
+                  <Link
+                    to="/composition/my"
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/compositions/my"
+                        ? "text-blue-700"
+                        : "text-gray-900 hover:text-blue-700"
+                    }`}
+                  >
+                    체성분 분석
+                  </Link>
+                )}
               </li>
               <li>
                 <Link
@@ -155,7 +181,7 @@ const Header = () => {
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/visits"
                       ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
+                      : "text-gray-800 hover:text-blue-700"
                   }`}
                 >
                   방문예약
@@ -167,7 +193,7 @@ const Header = () => {
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/status"
                       ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
+                      : "text-gray-800 hover:text-blue-700"
                   }`}
                 >
                   생활현황
@@ -179,7 +205,7 @@ const Header = () => {
                   className={`block py-2 px-3 rounded-sm md:p-0 ${
                     location.pathname === "/mypage"
                       ? "text-blue-700"
-                      : "text-gray-900 hover:text-blue-700"
+                      : "text-gray-800 hover:text-blue-700"
                   }`}
                 >
                   마이페이지
@@ -192,7 +218,7 @@ const Header = () => {
                     className={`block py-2 px-3 rounded-sm md:p-0 ${
                       location.pathname === "/signup"
                         ? "text-blue-700"
-                        : "text-gray-900 hover:text-blue-700"
+                        : "text-gray-800 hover:text-blue-700"
                     }`}
                   >
                     회원가입
@@ -200,9 +226,9 @@ const Header = () => {
                 </li>
               )}
               {token ? (
-                <li onClick={handleLogout} className="cursor-pointer">
-                  로그아웃
-                </li>
+                  <li onClick={handleLogout} className="cursor-pointer text-gray-800">
+                    로그아웃
+                  </li>
               ) : (
                 <li>
                   <Link
@@ -210,7 +236,7 @@ const Header = () => {
                     className={`block py-2 px-3 rounded-sm md:p-0 ${
                       location.pathname === "/login"
                         ? "text-blue-700"
-                        : "text-gray-900 hover:text-blue-700"
+                        : "text-gray-800 hover:text-blue-700"
                     }`}
                   >
                     로그인
