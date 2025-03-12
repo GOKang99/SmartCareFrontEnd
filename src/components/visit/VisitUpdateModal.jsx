@@ -3,6 +3,7 @@ import EditVisitForm from "./EditVisitForm";
 
 const VisitUpdateModal = ({ visit, show, onClose, onUpdate }) => {
   if (!show) return null;
+  console.log("모달창에서  열린 업데이트 함ㅅ", onUpdate);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">

@@ -35,21 +35,18 @@ const VisitLisitForGuard = () => {
   const handleVisitUpdate = (updatedVisit) => {
     setVisits((prevVisits) =>
       prevVisits.map((visit) =>
-        visit.visId === updatedVisit.visId ? updatedVisit : visit
+        visit.visId === updatedVisit.visId
+          ? { ...visit, ...updatedVisit }
+          : visit
       )
     );
   };
+
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}
       {visits.length > 0 ? (
-        visits.map((visit) => (
-          <VisitItem
-            key={visit.visId}
-            visit={visit}
-            onUpdate={handleVisitUpdate}
-          />
-        ))
+        <VisitItem visit={visits} onUpdate={handleVisitUpdate} />
       ) : (
         <NoVisitsMessage />
       )}

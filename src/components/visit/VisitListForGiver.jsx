@@ -43,17 +43,6 @@ const VisitList = () => {
     SetFilterStatus("");
   };
 
-  // const handleVisitUpdate = (updatedVisit) => {
-  //   console.log("업데이트된 방문 데이터:", updatedVisit);
-  //   setVisits((prevVisits) =>
-  //     prevVisits.map((visit) =>
-  //       visit.visId === updatedVisit.visId
-  //         ? { ...visit, ...updatedVisit }
-  //         : visit
-  //     )
-  //   );
-  // };
-
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}
@@ -106,7 +95,7 @@ const VisitList = () => {
 
       <div>
         {FilteredVisits.length > 0 ? (
-          <VisitItem visit={FilteredVisits} />
+          <VisitItem visit={visits} />
         ) : (
           <NoVisitsMessage />
         )}
