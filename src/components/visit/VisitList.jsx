@@ -64,7 +64,7 @@ const VisitList = () => {
       {error && <ErrorMessage error={error} />}
 
       {/* 검색 필터 UI 영역 */}
-      <div className="p-4 h-15 space-y-4 w-[900px] mx-auto ">
+      <div className="p-4 h-[70px] space-y-4 w-[900px] mx-auto rounded-xl  border border-gray-200  bg-white shadow-sm">
         {/*  */}
         {/* 이름 검색 필터  */}
         <div>
