@@ -21,7 +21,7 @@ const NoticeList = () => {
       try {
         const response = await api.get("/notice"); // 공지사항 API 호출
         setNotices(response.data); // 공지사항 데이터를 상태에 저장
-        console.log(response.data);
+        // console.log(response.data);
         setFilteredNotice(response.data);
         setLoading(false); // 로딩 종료
       } catch (error) {

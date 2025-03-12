@@ -15,7 +15,7 @@ const NoticeDetail = () => {
   const isFetched = useRef(false); // 중복 실행 방지용 ref 추가
 
   useEffect(() => {
-    console.log("유즈이펙트 실행됨!");
+    // console.log("유즈이펙트 실행됨!");
 
     if (isFetched.current) return; // 이미 실행된 경우, 다시 실행 방지
     isFetched.current = true; // 첫 실행 후 true로 변경

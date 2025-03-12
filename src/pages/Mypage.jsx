@@ -56,7 +56,7 @@ const Mypage = () => {
       try {
         const { data } = await api.get(`/users/${dToken.userId}`);
         setUserData(data);
-        console.log("유저데이터", userData);
+        // console.log("유저데이터", userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

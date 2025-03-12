@@ -5,11 +5,11 @@ const Footer = () => {
     //   © 2025 SmartCare. All Rights Reserved.
     // </footer>
 
-    <footer className="w-full bg-gray-800 text-gray-300 text-center py-3 mt-auto">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <footer className="w-full  bg-gray-800 text-gray-300 text-center py-1 mt-auto">
+      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-1">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex justify-items-start">
-            <img src="/icon.png" className="h-8" alt="Flowbite Logo" />
+            {/* <img src="/icon.png" className="h-8" alt="Flowbite Logo" /> */}
             <span className="self-center text-2xl font-semibold whitespace-nowrap ml-3 ">
               SmartCare
             </span>

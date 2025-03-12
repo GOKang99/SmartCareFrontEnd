@@ -69,7 +69,7 @@ const Status = () => {
                 src={
                   residentData.resImageAddress
                     ? `http://localhost:8080/images/${residentData.resImageAddress}`
-                    : "http://localhost:8080/images/anyuser.png"
+                    : "http://localhost:8080/userimage/anyuser.png"
                 }
                 alt="환자 사진"
                 className="w-24 h-24 m-auto rounded-full shadow-lg"
