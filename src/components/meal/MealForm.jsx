@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMyContext } from "../../ContextApi";
 import { jwtDecode } from "jwt-decode";
+import "./MealForm.css";
 
 const MealForm = ({ handleAddMeal, latestDate, residents, handleSelectResident, residentId }) => {
     const {token}=useMyContext();
@@ -68,7 +69,7 @@ const MealForm = ({ handleAddMeal, latestDate, residents, handleSelectResident, 
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg max-w-lg mx-auto mb-10">
-            <h2 className="text-lg font-semibold mb-4 text-center">🍽 식사 추가</h2>
+            <h2 className="text-lg font-semibold mb-4 text-center">식사 추가</h2>
 
             {/* 날짜 선택 */}
             <input 
@@ -124,7 +125,7 @@ const MealForm = ({ handleAddMeal, latestDate, residents, handleSelectResident, 
                 ))}
             </div>
 
-            <button type="submit" className="w-full bg-green-500 text-white p-2 rounded mt-4 hover:bg-green-600 cursor-pointer">
+            <button type="submit" className="meal-add w-full text-white p-2 rounded mt-4 cursor-pointer">
                 추가
             </button>
         </form>

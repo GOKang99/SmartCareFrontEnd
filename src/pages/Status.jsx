@@ -11,7 +11,7 @@ const Status = () => {
   const [compositionData, setCompositionData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { guardId, giverId, userData } = useMyContext();
-
+  console.log("콤포지션",compositionData)
   useEffect(() => {
     setIsLoading(true);
     if (guardId && userData) {

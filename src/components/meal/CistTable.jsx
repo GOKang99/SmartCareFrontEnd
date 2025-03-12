@@ -19,9 +19,9 @@ const CistTable = ({ data }) => {
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 mt-6">
-            <table className="w-full border-collapse border">
+            <table className="w-full border-collapse border-2 border-amber-500">
                 <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-gray-10">
                         <th className="border p-2">이름</th>
                         <th className="border p-2">날짜</th>
                         <th className="border p-2">총점</th>
