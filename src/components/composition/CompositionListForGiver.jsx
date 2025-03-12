@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import CompositionTable from "./CompositionTable"; // 테이블 컴포넌트 가져오기
+import turnback from "/return.png";
 
 const CompositionListForGiver = () => {
   const [compositions, setCompositions] = useState([]);
@@ -115,11 +116,12 @@ const CompositionListForGiver = () => {
           disabled={!filterField} // 필드 선택 없을 때 비활성화
         />
 
-        <button
-          onClick={resetFilters}
-          className="px-3 py-1 h-[40px] w-[120px] bg-violet-500 text-m text-white rounded-md hover:bg-violet-700"
-        >
-          필터 초기화
+        <button onClick={resetFilters} className="">
+          <img
+            src={turnback}
+            alt="초기화 하기"
+            className="w-[20px] h-auto transition-transform duration-300 hover:scale-120"
+          ></img>
         </button>
       </div>
 

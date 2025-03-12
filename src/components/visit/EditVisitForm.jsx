@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../form/InputField";
 import TimePicker from "./TimePicker";
 import api from "../../services/api";
@@ -45,17 +45,22 @@ const EditVisitForm = ({ visit, onClose, onUpdate }) => {
     e.preventDefault();
     //selectedTime이 존재한다면! value를 셋팅 없다면 빈 문자열
     formData.visTime = selectedTime?.value || "";
-    console.log(formData);
+    console.log("이 폼데이터는 정상적으로 보내 짐", formData);
     try {
       const response = await api.put(`/visit/update/${visit.visId}`, formData);
-      // response데이터 전달
       onUpdate(response.data);
-      //모달 창 닫고 새로 고침
       onClose();
+      console.log("onClose 실행 완료! 모달 닫기");
     } catch (err) {
+      window.location.reload();
+      console.error("예약 업데이트 중 오류 발생:", err);
       setError("예약 업데이트 중 오류 발생");
     }
   };
+
+  useEffect(() => {
+    console.log("Updated formData:", formData);
+  }, [formData]);
 
   return (
     <div>
