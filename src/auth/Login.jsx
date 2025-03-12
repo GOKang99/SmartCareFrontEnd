@@ -85,98 +85,116 @@ const Login = () => {
   }, [navigate, token]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
-          로그인
-        </h2>
+    <div className="flex h-screen bg-gray-100">
+      <div className="w-1/2 flex flex-col justify-center items-center p-10 bg-white">
+        <div className="w-full max-w-md">
+          <h1 className="text-2xl font-bold mb-2">환영합니다!</h1>
+          <p className="text-gray-600 mb-6 text-sm">계정 정보를 입력해주세요</p>
+          {/* 폼 시작 */}
+          <form onSubmit={handleSubmit(onLoginHandler)}>
+            <div className="grid gap-6 mb-6 md:grid-cols-1">
+              {/* 이메일 입력 */}
+              <div className="username_wrap">
+                <div class="relative z-0 w-full mb-5 group">
+                  <input
+                    type="text"
+                    id="username"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=""
+                    {...register("username", {
+                      required: {
+                        value: true,
+                        message: "아이디를 입력해주세요",
+                      },
+                      minLength: {
+                        value: 4,
+                        message: "아이디는 4자 이상 적어주세요",
+                      },
+                    })}
+                  />
+                  <label
+                    htmlFor="username"
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    아이디
+                  </label>
+                </div>
+                {/* errors는 리액트 훅 폼 라이브러리에서 각 필드의 오류 정보를 저장해주는 객체 */}
+                {errors.username?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.username.message}
+                  </p>
+                )}
+              </div>
 
-        {/* 폼 시작 */}
-        <form onSubmit={handleSubmit(onLoginHandler)}>
-          {/* 이메일 입력 */}
-          <div className="username_wrap">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700 mb-1.5"
-            >
-              아이디
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="아이디 입력"
-              {...register("username", {
-                required: { value: true, message: "아이디를 입력해주세요" },
-                minLength: {
-                  value: 4,
-                  message: "아이디는 4자 이상 적어주세요",
-                },
-              })}
-            />
-            {/* errors는 리액트 훅 폼 라이브러리에서 각 필드의 오류 정보를 저장해주는 객체 */}
-            {errors.username?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.username.message}
-              </p>
-            )}
-          </div>
+              {/* 비밀번호 입력 */}
+              <div className="pwd_wrap">
+                <div class="relative z-0 w-full mb-5 group">
+                  <input
+                    type="password"
+                    id="password"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=""
+                    {...register("password", {
+                      required: {
+                        value: true,
+                        message: "비밀번호를 입력해주세요",
+                      },
+                      minLength: {
+                        value: 4,
+                        message: "비밀번호는 4자 이상 적어주세요",
+                      },
+                    })}
+                  />
+                  <label
+                    htmlFor="password"
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    비밀번호
+                  </label>
+                </div>
+                {errors.password?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
 
-          {/* 비밀번호 입력 */}
-          <div className="pwd_wrap">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1.5"
-            >
-              비밀번호
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-2 border rounded-md mb-4"
-              placeholder="비밀번호 입력"
-              {...register("password", {
-                required: { value: true, message: "비밀번호를 입력해주세요" },
-                minLength: {
-                  value: 4,
-                  message: "비밀번호는 4자 이상 적어주세요",
-                },
-              })}
-            />
-            {errors.password?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          {/* 로그인 버튼 */}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
-          >
-            로그인
-          </button>
-        </form>
-
-        {loginError && (
-          <p className="text-sm font-semibold text-red-500 mt-0">
-            로그인 정보를 확인해주세요
-          </p>
-        )}
+              {/* 로그인 버튼 */}
+              <button
+                type="submit"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                로그인
+              </button>
+            </div>
+          </form>
+          {loginError && (
+            <p className="text-sm font-semibold text-red-500 mt-0">
+              로그인 정보를 확인해주세요
+            </p>
+          )}
+        </div>
+        <div className="mt-1 text-center relative w-[50%]">
+          <div className="absolute left-0 right-0 top-1/2 h-px bg-gray-300"></div>
+          <span className="relative bg-white px-4 text-gray-500">or</span>
+        </div>
 
         {/* 하단 링크 */}
-        <div className="mt-4 text-center">
-          <a href="#" className="text-sm text-blue-500 hover:underline">
-            비밀번호를 잊으셨나요?
-          </a>
-        </div>
-        <div className="mt-4 text-center text-sm">
-          계정이 없으신가요? &nbsp;
+        <div className="mt-4 ms-2 text-sm text-center font-medium text-gray-600 dark:text-gray-300">
+          계정이 없으신가요?
           <Link to="/signup" className="text-sm text-blue-500 hover:underline">
             회원가입
           </Link>
         </div>
+      </div>
+      <div className="w-1/2 h-[100vh] bg-white">
+        <img
+          src={"/public/login3.jpg"}
+          alt=""
+          className="object-cover w-full h-full"
+          style={{ borderRadius: "70px 0 0 0" }}
+        />
       </div>
     </div>
   );
@@ -185,78 +203,78 @@ const Login = () => {
 export default Login;
 
 // return (
-//   <div className="flex h-screen bg-gray-100">
-//     <div className="w-1/2 flex flex-col justify-center items-center p-10 bg-white">
-//       <h1 className="text-2xl font-bold mb-2">Welcome back!</h1>
-//       <p className="text-gray-600 mb-6">
-//         Enter your Credentials to access your account
+// <div className="flex h-screen bg-gray-100">
+//   <div className="w-1/2 flex flex-col justify-center items-center p-10 bg-white">
+//     <h1 className="text-2xl font-bold mb-2">Welcome back!</h1>
+//     <p className="text-gray-600 mb-6">
+//       Enter your Credentials to access your account
+//     </p>
+
+//     <div className="w-full max-w-md">
+//       <form onSubmit={handleSubmit(onLoginHandler)}>
+//         <label className="block text-sm font-medium text-gray-700">
+//           아이디
+//         </label>
+//         <input
+//           type="text"
+//           placeholder="아이디 입력"
+//           className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
+//           {...register("username", {
+//             required: "아이디를 입력해주세요",
+//             minLength: {
+//               value: 4,
+//               message: "아이디는 4자 이상 적어주세요",
+//             },
+//           })}
+//         />
+//         {errors.username?.message && (
+//           <p className="text-sm font-semibold text-red-500 mt-0">
+//             {errors.username.message}
+//           </p>
+//         )}
+
+//         <label className="block text-sm font-medium text-gray-700 mt-4">
+//           비밀번호
+//         </label>
+//         <input
+//           type="password"
+//           placeholder="비밀번호 입력"
+//           className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
+//           {...register("password", {
+//             required: "비밀번호를 입력해주세요",
+//             minLength: {
+//               value: 4,
+//               message: "비밀번호는 4자 이상 적어주세요",
+//             },
+//           })}
+//         />
+//         {errors.password?.message && (
+//           <p className="text-sm font-semibold text-red-500 mt-0">
+//             {errors.password.message}
+//           </p>
+//         )}
+
+//         <button
+//           type="submit"
+//           className="w-full mt-6 bg-green-700 text-white p-3 rounded-md hover:bg-green-800"
+//         >
+//           로그인
+//         </button>
+//       </form>
+
+//<div className="mt-6 text-center relative">
+//<div className="absolute left-0 right-0 top-1/2 h-px bg-gray-300"></div>
+//<span className="relative bg-white px-4 text-gray-500">or</span>
+//</div>
+
+//       <p className="mt-4 text-center text-gray-600">
+//         계정이 없으신가요?{" "}
+//         <Link to="/signup" className="text-blue-600">
+//           회원가입
+//         </Link>
 //       </p>
-
-//       <div className="w-full max-w-md">
-//         <form onSubmit={handleSubmit(onLoginHandler)}>
-//           <label className="block text-sm font-medium text-gray-700">
-//             아이디
-//           </label>
-//           <input
-//             type="text"
-//             placeholder="아이디 입력"
-//             className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
-//             {...register("username", {
-//               required: "아이디를 입력해주세요",
-//               minLength: {
-//                 value: 4,
-//                 message: "아이디는 4자 이상 적어주세요",
-//               },
-//             })}
-//           />
-//           {errors.username?.message && (
-//             <p className="text-sm font-semibold text-red-500 mt-0">
-//               {errors.username.message}
-//             </p>
-//           )}
-
-//           <label className="block text-sm font-medium text-gray-700 mt-4">
-//             비밀번호
-//           </label>
-//           <input
-//             type="password"
-//             placeholder="비밀번호 입력"
-//             className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-green-300"
-//             {...register("password", {
-//               required: "비밀번호를 입력해주세요",
-//               minLength: {
-//                 value: 4,
-//                 message: "비밀번호는 4자 이상 적어주세요",
-//               },
-//             })}
-//           />
-//           {errors.password?.message && (
-//             <p className="text-sm font-semibold text-red-500 mt-0">
-//               {errors.password.message}
-//             </p>
-//           )}
-
-//           <button
-//             type="submit"
-//             className="w-full mt-6 bg-green-700 text-white p-3 rounded-md hover:bg-green-800"
-//           >
-//             로그인
-//           </button>
-//         </form>
-
-//         <div className="mt-6 text-center relative">
-//           <div className="absolute left-0 right-0 top-1/2 h-px bg-gray-300"></div>
-//           <span className="relative bg-white px-4 text-gray-500">or</span>
-//         </div>
-
-//         <p className="mt-4 text-center text-gray-600">
-//           계정이 없으신가요?{" "}
-//           <Link to="/signup" className="text-blue-600">
-//             회원가입
-//           </Link>
-//         </p>
-//       </div>
 //     </div>
-//     <div className="w-1/2 bg-blue-500"></div>
 //   </div>
+//   <div className="w-1/2 bg-blue-500"></div>
+// </div>
 // );

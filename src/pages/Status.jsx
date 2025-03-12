@@ -26,7 +26,7 @@ const Status = () => {
           setMealData(mealRes.data[0]);
           setCistData(cistRes.data[0]);
           setCompositionData(CompRes.data[0]);
-          setIsLoading(false);
+          // setIsLoading(false);
         })
         .catch((error) => {
           console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
@@ -39,7 +39,9 @@ const Status = () => {
   }, [guardId, userData]);
 
   useEffect(() => {
-    if (!isLoading) {
+    // if(!isLoading)
+    if (residentData && mealData && cistData && compositionData) {
+      setIsLoading(false);
       console.log("시데", cistData);
       console.log("레데", residentData);
       console.log("밀데", mealData);
@@ -56,13 +58,13 @@ const Status = () => {
   }
 
   return (
-    <div className="status_section w-[60%] bg-red-100 mx-auto mt-10 rounded-3xl p-6 mb-10">
+    <div className="status_section w-[60%] bg-white mx-auto mt-10 rounded-3xl p-6 mb-10">
       <h2 className="text-center font-bold text-xl">생활현황</h2>
       <div className="status_content mt-6">
+        {/* 입소자 정보 */}
         <Link to={`/resident/list/${userData.residentId}`}>
-          {/* 주민 정보 */}
-          <div className="resident_wrap bg-blue-100 p-4 rounded-lg mb-4 flex items-center">
-            <div className="bg-white resimage_wrap rounded-full w-20 h-20 flex items-center justify-center mr-4">
+          <div className="resident_wrap w-[100%] flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div className="flex w-full h-full rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-s-lg justify-center">
               <img
                 src={
                   residentData.resImageAddress
@@ -70,10 +72,10 @@ const Status = () => {
                     : "http://localhost:8080/images/anyuser.png"
                 }
                 alt="환자 사진"
-                className="rounded-full w-full h-full object-cover"
+                className="w-24 h-24 m-auto rounded-full shadow-lg"
               />
             </div>
-            <div className="resinfo_wrap">
+            <div className="resinfo_wrap flex flex-col justify-between p-4 leading-normal">
               <div>
                 <strong>이름:</strong> {residentData.resName}
               </div>
@@ -87,7 +89,7 @@ const Status = () => {
           </div>
         </Link>
 
-        {/* 상세내역 안내 */}
+        {/* 상세내역 안내 주석 */}
         <div className="text-sm text-gray-600 mb-4">
           각 항목 클릭 시 상세내역을 보실 수 있습니다.
         </div>
