@@ -190,7 +190,7 @@ const Login = () => {
       </div>
       <div className="w-1/2 h-[100vh] bg-white">
         <img
-          src={"/public/login3.jpg"}
+          src={"/login3.jpg"}
           alt=""
           className="object-cover w-full h-full"
           style={{ borderRadius: "70px 0 0 0" }}

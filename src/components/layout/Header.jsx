@@ -195,18 +195,20 @@ const Header = () => {
                   방문예약
                 </Link>
               </li>
-              <li>
-                <Link
-                  to={`/status`}
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/status"
-                      ? "text-blue-700"
-                      : "text-gray-800 hover:text-blue-700"
-                  }`}
-                >
-                  생활현황
-                </Link>
-              </li>
+              {!isAdmin && token && (
+                <li>
+                  <Link
+                    to={`/status`}
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/status"
+                        ? "text-blue-700"
+                        : "text-gray-800 hover:text-blue-700"
+                    }`}
+                  >
+                    생활현황
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   to={`/mypage`}
