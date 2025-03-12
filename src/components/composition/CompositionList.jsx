@@ -10,7 +10,7 @@ const CompositionList = () => {
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
-  const { userData } = useMyContext();
+  const { userData, isAdmin } = useMyContext();
 
   useEffect(() => {
     if (userData && userData.residentId) {
@@ -42,12 +42,16 @@ const CompositionList = () => {
 
   return (
     <>
-      <h1 className="text-4xl flex justify-center items-center">
-        {compositions.length > 0
-          ? compositions[0].comResName
-          : "환자 이름 없음"}
-        님 체성분 분석
-      </h1>
+      {!isAdmin && (
+        <>
+          <h1 className="text-4xl font-bold flex justify-center items-center pt-4">
+            {compositions.length > 0
+              ? compositions[0].comResName
+              : "환자 이름 없음"}
+            님 체성분 분석
+          </h1>
+        </>
+      )}
       <div className="flex justify-center my-4">
         <button
           onClick={() => setIsModalOpen(true)}

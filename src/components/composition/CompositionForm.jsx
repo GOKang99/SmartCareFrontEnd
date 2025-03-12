@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useMyContext } from "../../ContextApi";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const CompositionForm = ({ resident }) => {
+const CompositionForm = ({ resident, setShowCompositionForm }) => {
   const { giverId } = useMyContext();
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
@@ -48,14 +49,8 @@ const CompositionForm = ({ resident }) => {
         `/composition/create/${formData.resId}/${giverId}`,
         formData
       );
-
-      if (
-        window.confirm(
-          "저장이 완료 되었습니다. 입소자 리스트로 돌아가시겠습니까?"
-        )
-      ) {
-        navigate("/resident/list");
-      }
+      toast.success("체성분 분석 등록 성공");
+      setShowCompositionForm(false);
     } catch (error) {
       if (error.response && error.response.data.message) {
         alert(error.response.data.message); // 백엔드에서 받은 오류 메시지 출력
