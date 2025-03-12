@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMyContext } from "../../ContextApi";
 import api from "../../services/api";
+import { toast } from "react-toastify";
 
 const EditCompositionForm = ({ composition, closeModal, onUpdate }) => {
   const { giverId } = useMyContext();
@@ -36,7 +37,7 @@ const EditCompositionForm = ({ composition, closeModal, onUpdate }) => {
         `/composition/update/${composition.comId}/${formData.updatedBy}`,
         formData
       );
-      alert("수정 완료!");
+      toast.success("수정 완료");
       onUpdate(response.data);
       closeModal(); // 모달 닫기
     } catch (error) {

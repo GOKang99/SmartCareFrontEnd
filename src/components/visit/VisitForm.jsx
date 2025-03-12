@@ -5,6 +5,7 @@ import ErrorMessage from "../form/ErrorMessage";
 import TimePicker from "./TimePicker";
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
+import { toast } from "react-toastify";
 
 const VisitForm = () => {
   const navigate = useNavigate();
@@ -62,7 +63,11 @@ const VisitForm = () => {
         formData
       );
       console.log("Response", response.data);
-      alert(`${formData.visDate}일 ${formData.visTime}에 예약 완료`);
+      const vistTpText = response.data.visTp === "visit" ? "방문" : "영상통화";
+
+      toast.success(
+        `${response.data.visDate}일 ${formData.visTime} ${vistTpText} 예약 `
+      );
       //내 예약으로 이동
       navigate(isAdmin ? "/visits/list" : "/visits/my");
     } catch (error) {

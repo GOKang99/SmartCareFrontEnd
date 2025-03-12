@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import VisitUpdateModal from "./VisitUpdateModal";
 import api from "../../services/api";
+import { toast } from "react-toastify";
 
 const VisitItem = ({ visit, onUpdate }) => {
   // 토글을 위한 수정 모드 셋팅
@@ -21,10 +22,12 @@ const VisitItem = ({ visit, onUpdate }) => {
   const handleDelete = async (visId) => {
     try {
       const response = await api.delete(`/visit/delete/${visId}`);
+      toast.success("방문예약 삭제 성공");
       window.location.reload();
-      console.log("삭제 성공:", response.data);
+      // console.log("삭제 성공:", response.data);
     } catch (error) {
       console.error("삭제 중 오류 발생", error);
+      toast.error("방문예약 삭제 오류 발생");
     }
   };
 

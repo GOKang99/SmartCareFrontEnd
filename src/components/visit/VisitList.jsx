@@ -12,6 +12,10 @@ const VisitList = () => {
   const [filterDate, SetFilterDate] = useState(""); //날짜로 필터
   const [filterStatus, SetFilterStatus] = useState(""); //예약 상태로 필터
 
+  // 페이징 관련 상태
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
   useEffect(() => {
     const fetchAllVisits = async () => {
       try {
@@ -27,7 +31,7 @@ const VisitList = () => {
   }, []);
 
   //필터링 된 목록 반환하기
-  const FilteredVisits = visits.filter((visit) => {
+  const filteredVisits = visits.filter((visit) => {
     //nameMatch= filterName과 완전히 일치하거나, 환자 이름이 포함되어 있을 때
     const nameMatch = filterName === "" || visit.resName?.includes(filterName);
     //완전히 일치하는 날짜만 가지고 온다.
@@ -43,17 +47,18 @@ const VisitList = () => {
     SetFilterStatus("");
   };
 
-  // const handleVisitUpdate = (updatedVisit) => {
-  //   console.log("업데이트된 방문 데이터:", updatedVisit);
-  //   setVisits((prevVisits) =>
-  //     prevVisits.map((visit) =>
-  //       visit.visId === updatedVisit.visId
-  //         ? { ...visit, ...updatedVisit }
-  //         : visit
-  //     )
-  //   );
-  // };
+  // 페이징 처리된 데이터
+  const totalPage = Math.ceil(filteredVisits.length / itemsPerPage);
+  const paginatedVisits = filteredVisits.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPage) {
+      setCurrentPage(page);
+    }
+  };
   return (
     <div className="p-4 space-y-4 w-[1000px] mx-auto ">
       {error && <ErrorMessage error={error} />}
@@ -105,12 +110,65 @@ const VisitList = () => {
       </div>
 
       <div>
-        {FilteredVisits.length > 0 ? (
-          <VisitItem visit={FilteredVisits} />
+        {paginatedVisits.length > 0 ? (
+          <VisitItem visit={paginatedVisits} />
         ) : (
           <NoVisitsMessage />
         )}
       </div>
+      {/* 페이징 버튼 */}
+      <nav className="flex justify-center mt-6 mb-6">
+        <ul className="flex items-center -space-x-px h-10 text-base">
+          <li>
+            <button
+              onClick={() => handlePageChange(1)}
+              className="px-4 h-10 bg-white border rounded-s-lg hover:bg-gray-100"
+            >
+              처음
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-4 h-10 bg-white border hover:bg-gray-100"
+            >
+              이전
+            </button>
+          </li>
+          {Array.from({ length: totalPage }, (_, i) => (
+            <li key={i + 1}>
+              <button
+                onClick={() => handlePageChange(i + 1)}
+                className={`px-4 h-10 border ${
+                  currentPage === i + 1
+                    ? "bg-blue-50 text-blue-600"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPage}
+              className="px-4 h-10 bg-white border hover:bg-gray-100"
+            >
+              다음
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => handlePageChange(totalPage)}
+              className="px-4 h-10 bg-white border rounded-e-lg hover:bg-gray-100"
+            >
+              끝으로
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

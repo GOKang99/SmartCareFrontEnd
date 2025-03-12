@@ -7,6 +7,7 @@ import { useMyContext } from "../ContextApi";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import imageApi from "../services/imageApi";
+import { toast } from "react-toastify";
 
 const Residents = () => {
   const { token } = useMyContext();
@@ -52,13 +53,11 @@ const Residents = () => {
         // 삭제 후 상태에서 해당 입소자 제거
         setResidents(residents.filter((resident) => resident.resId !== resId));
 
-        alert("입소자가 삭제되었습니다.");
+        toast.success("입소자 삭제 성공");
       } catch (error) {
         console.log("삭제 오류:", error);
-        alert("삭제에 실패했습니다.");
+        toast.error("입소자 삭제 실패");
       }
-    } else {
-      alert("삭제가 취소되었습니다.");
     }
   };
 
