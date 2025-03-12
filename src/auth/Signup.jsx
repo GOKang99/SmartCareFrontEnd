@@ -207,289 +207,318 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96 overflow-auto">
-        <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
-          회원가입
-        </h2>
+    <div className="flex justify-center min-h-screen bg-white">
+      <div className="w-1/2 flex flex-col justify-start items-center ps-10 pe-10 pb-10 pt-1 bg-white">
+        <h2 className="text-2xl font-bold mb-2">회원가입</h2>
 
         {/* 폼 시작 */}
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
+        <form onSubmit={handleSubmit(onSubmitHandler)} className="mt-3">
           {/* 역할 선택 */}
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            역할 선택
-          </label>
-          <div className="flex gap-4 mb-4">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                value="admin"
-                checked={role === "admin"}
-                onChange={() => setRole("admin")}
-                className="mr-2"
-              />
-              요양사
-            </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                value="user"
-                checked={role === "user"}
-                onChange={() => setRole("user")}
-                className="mr-2"
-              />
-              보호자
-            </label>
-          </div>
-
-          {/* 아이디 입력 */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              아이디
-            </label>
-            <div className="flex">
-              <input
-                type="text"
-                id="username"
-                className="w-full p-2 border rounded-md"
-                placeholder="아이디 입력"
-                {...register("username", {
-                  required: { value: true, message: "아이디를 입력해주세요" },
-                  minLength: {
-                    value: 4,
-                    message: "아이디는 4자 이상 적어주세요",
-                  },
-                })}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-
-              {/* 중복확인 버튼 */}
-              <button
-                type="button"
-                onClick={duplicateCheckHandle}
-                className={`ml-2 px-3 rounded  ${
-                  usernameValid
-                    ? "bg-gray-300 text-black cursor-pointer"
-                    : "bg-gray-200 text-gray-500 opacity-50"
+          <div className="grid grid-cols-2">
+            <div
+              className={`p-3 text-center ${
+                role === "admin"
+                  ? "border-2 border-gray-300 rounded-t-2xl border-b-0 text-gray-700"
+                  : "border-b-2 border-gray-300"
+              }`}
+            >
+              <label
+                className={`block font-medium dark:text-white focus:border-gray-300 h-full${
+                  role === "admin" ? " text-gray-700" : "text-gray-500 text-sm"
                 }`}
-                disabled={!usernameValid}
               >
-                중복확인
-              </button>
+                <input
+                  type="radio"
+                  value="admin"
+                  checked={role === "admin"}
+                  onChange={() => setRole("admin")}
+                  className="hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                요양사로 회원가입
+              </label>
             </div>
-            {errors.username?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.username.message}
-              </p>
-            )}
+            <div
+              className={`p-3 text-center  ${
+                role === "user"
+                  ? "border-2 border-gray-300 rounded-t-2xl border-b-0 text-gray-700"
+                  : "border-b-2 border-gray-300"
+              }`}
+            >
+              <label
+                className={`block font-medium text-gray-500 dark:text-white h-full${
+                  role === "user" ? " text-gray-700" : "text-gray-500 text-sm"
+                }`}
+              >
+                <input
+                  type="radio"
+                  value="user"
+                  checked={role === "user"}
+                  onChange={() => setRole("user")}
+                  className="hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                보호자로 회원가입
+              </label>
+            </div>
           </div>
-
-          {/* 비밀번호 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              비밀번호
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="비밀번호 입력"
-              {...register("password", {
-                required: { value: true, message: "비밀번호를 입력해주세요" },
-                minLength: {
-                  value: 4,
-                  message: "비밀번호를 4자 이상 적어주세요",
-                },
-              })}
-            />
-            {errors.password?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          {/* 비밀번호 확인 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              비밀번호 확인
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="비밀번호 확인"
-              {...register("confirmPassword", {
-                required: {
-                  value: true,
-                  message: "비밀번호 확인을 적어주세요",
-                },
-              })}
-            />
-            {errors.confirmPassword?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
-
-          {/* 이름 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              성함
-            </label>
-            <input
-              type="text"
-              id="realname"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="성함 입력"
-              {...register("realname", {
-                required: { value: true, message: "성함을 적어주세요" },
-              })}
-            />
-            {errors.realname?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.realname.message}
-              </p>
-            )}
-          </div>
-
-          {/* 이메일 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              이메일
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="이메일 입력"
-              {...register("email", {
-                required: { value: true, message: "이메일을 적어주세요" },
-              })}
-            />
-            {errors.email?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {/* 휴대폰 번호 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              휴대폰 번호
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="휴대폰 번호 입력"
-              {...register("phone", {
-                required: {
-                  value: true,
-                  message: "휴대전화 번호를 적어주세요",
-                },
-              })}
-            />
-            {errors.phone?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.phone.message}
-              </p>
-            )}
-          </div>
-
-          {/* 주소 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              주소
-            </label>
-            <input
-              type="text"
-              id="address"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="주소 입력"
-              {...register("address", {
-                required: { value: true, message: "주소를 적어주세요" },
-              })}
-            />
-            {errors.address?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.address.message}
-              </p>
-            )}
-          </div>
-
-          {/* 주민등록번호 입력 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              주민등록번호
-            </label>
-            <input
-              type="text"
-              id="ssn"
-              className="w-full p-2 border rounded-md mb-3"
-              placeholder="주민등록번호 입력"
-              {...register("ssn", {
-                required: {
-                  value: true,
-                  message: "주민등록번호를 입력해주세요",
-                },
-              })}
-            />
-            {errors.ssn?.message && (
-              <p className="text-sm font-semibold text-red-500 mt-0">
-                {errors.ssn.message}
-              </p>
-            )}
-          </div>
-
-          {/* 보호자 선택 시 환자와의 관계 입력 */}
-          {role === "user" && (
-            <>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  관계
-                </label>
+          <div
+            className={`border-2 border-gray-300 border-t-0 p-5 rounded-b-2xl`}
+          >
+            {/* 아이디 입력 */}
+            <div className="grid md:grid-cols-2 md:gap-6">
+              {/* 이름 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
                 <input
                   type="text"
-                  id="relation"
-                  className="w-full p-2 border rounded-md mb-3"
-                  placeholder="환자와의 관계 입력"
-                  {...register("relation", {
-                    required: {
-                      value: true,
-                      message: "환자분과의 관계를 입력해주세요",
-                    },
+                  id="realname"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("realname", {
+                    required: { value: true, message: "성함을 적어주세요" },
                   })}
                 />
-                {errors.relation?.message && (
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  성함
+                </label>
+                {errors.realname?.message && (
                   <p className="text-sm font-semibold text-red-500 mt-0">
-                    {errors.relation.message}
+                    {errors.realname.message}
                   </p>
                 )}
               </div>
-            </>
-          )}
+              <div className="mb-4">
+                <div className="flex">
+                  <div className="relative z-0 w-full mb-5 group">
+                    <input
+                      type="text"
+                      id="username"
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=""
+                      {...register("username", {
+                        required: {
+                          value: true,
+                          message: "아이디를 입력해주세요",
+                        },
+                        minLength: {
+                          value: 4,
+                          message: "아이디는 4자 이상 적어주세요",
+                        },
+                      })}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                      아이디
+                    </label>
+                  </div>
+                  {/* 중복확인 버튼 */}
+                  <button
+                    type="button"
+                    onClick={duplicateCheckHandle}
+                    className={`ml-2 px-3 rounded mt-3 mb-3 text-xs ${
+                      usernameValid
+                        ? "bg-gray-300 text-black cursor-pointer"
+                        : "bg-gray-200 text-gray-500 opacity-50"
+                    }`}
+                    disabled={!usernameValid}
+                  >
+                    중복확인
+                  </button>
+                </div>
+                {errors.username?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.username.message}
+                  </p>
+                )}
+              </div>
 
-          {/* 사진 입력 */}
-          <div>
-            <label
-              htmlFor="userimage"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              사진 등록
-            </label>
-            <input
-              type="file"
-              id="userimage"
-              onChange={handleImageChange}
-              className="w-full p-2 border rounded-md mb-3"
-            />
+              {/* 비밀번호 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
+                <input
+                  type="password"
+                  id="password"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "비밀번호를 입력해주세요",
+                    },
+                    minLength: {
+                      value: 4,
+                      message: "비밀번호를 4자 이상 적어주세요",
+                    },
+                  })}
+                />
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  비밀번호
+                </label>
+                {errors.password?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              {/* 비밀번호 확인 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("confirmPassword", {
+                    required: {
+                      value: true,
+                      message: "비밀번호 확인을 적어주세요",
+                    },
+                  })}
+                />
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  비밀번호 확인
+                </label>
+                {errors.confirmPassword?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+
+              {/* 이메일 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
+                <input
+                  type="email"
+                  id="email"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("email", {
+                    required: { value: true, message: "이메일을 적어주세요" },
+                  })}
+                />
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  이메일
+                </label>
+                {errors.email?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              {/* 휴대폰 번호 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
+                <input
+                  type="tel"
+                  id="phone"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("phone", {
+                    required: {
+                      value: true,
+                      message: "휴대전화 번호를 적어주세요",
+                    },
+                  })}
+                />
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  휴대폰 번호
+                </label>
+                {errors.phone?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
+
+              {/* 주민등록번호 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
+                <input
+                  type="text"
+                  id="ssn"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("ssn", {
+                    required: {
+                      value: true,
+                      message: "주민등록번호를 입력해주세요",
+                    },
+                  })}
+                />
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  주민등록번호
+                </label>
+                {errors.ssn?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.ssn.message}
+                  </p>
+                )}
+              </div>
+
+              {/* 주소 입력 */}
+              <div className="relative z-0 w-full mb-5 group">
+                <input
+                  type="text"
+                  id="address"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=""
+                  {...register("address", {
+                    required: { value: true, message: "주소를 적어주세요" },
+                  })}
+                />
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                  주소
+                </label>
+                {errors.address?.message && (
+                  <p className="text-sm font-semibold text-red-500 mt-0">
+                    {errors.address.message}
+                  </p>
+                )}
+              </div>
+
+              {/* 보호자 선택 시 환자와의 관계 입력 */}
+              {role === "user" && (
+                <>
+                  <div className="relative z-0 w-full mb-5 group">
+                    <input
+                      type="text"
+                      id="relation"
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=""
+                      {...register("relation", {
+                        required: {
+                          value: true,
+                          message: "환자분과의 관계를 입력해주세요",
+                        },
+                      })}
+                    />
+                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                      환자와의 관계
+                    </label>
+                    {errors.relation?.message && (
+                      <p className="text-sm font-semibold text-red-500 mt-0">
+                        {errors.relation.message}
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+            {/* 사진 입력 */}
+
+            <div>
+              <label
+                htmlFor="userimage"
+                className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400"
+              >
+                사진 등록
+              </label>
+              <input
+                type="file"
+                id="userimage"
+                onChange={handleImageChange}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              />
+            </div>
           </div>
-
           {/* 약관 동의 체크 */}
-          <div className="flex items-center mt-4">
+          <div className="flex items-center mt-4 ps-5 pe-5">
             <input
               type="checkbox"
               checked={agree}
@@ -520,6 +549,15 @@ const Signup = () => {
             가입하기
           </button>
         </form>
+      </div>
+      {/* 오른쪽 배경이미지 시작 */}
+      <div className="w-1/2 h-[100vh]">
+        <img
+          src={"/public/login3.jpg"}
+          alt=""
+          className="object-cover w-full h-full"
+          style={{ borderRadius: "70px 0 0 0" }}
+        />
       </div>
     </div>
   );
@@ -708,7 +746,7 @@ const Signup = () => {
   //         </form>
   //       </div>
   //     </div>
-  //     <div className="w-2/5 bg-blue-500"></div>
+  // <div className="w-2/5 bg-blue-500"></div>
   //   </div>
   // );
 };
