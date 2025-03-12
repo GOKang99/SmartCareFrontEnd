@@ -23,12 +23,15 @@ import Givers from "./pages/Givers";
 import NoticeEdit from "./components/notice/NoticeEdit";
 import Status from "./pages/Status";
 import Compositions from "./pages/Compositions";
+import { useMyContext } from "./ContextApi";
 
 function Layout() {
   const location = useLocation(); // 현재 URL 가져오기
+  const { isAdmin, token } = useMyContext();
 
   // ✅ 팝업 페이지(`/popup/terms`)에서는 Header & Footer 숨기기
   const isPopup = location.pathname.startsWith("/popup");
+  console.log("토큰뽑기", token);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -130,14 +133,16 @@ function Layout() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/status"
-          element={
-            <ProtectedRoute>
-              <Status />
-            </ProtectedRoute>
-          }
-        />
+        {!isAdmin && (
+          <Route
+            path="/status"
+            element={
+              <ProtectedRoute>
+                <Status />
+              </ProtectedRoute>
+            }
+          />
+        )}
 
         {/* ✅ 팝업 전용 라우트 (Header & Footer 없이 렌더링) */}
         <Route path="/popup/terms" element={<Popup />} />

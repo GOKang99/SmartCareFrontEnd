@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-import "./Header.css"
+import "./Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -187,18 +187,20 @@ const Header = () => {
                   방문예약
                 </Link>
               </li>
-              <li>
-                <Link
-                  to={`/status`}
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/status"
-                      ? "text-blue-700"
-                      : "text-gray-800 hover:text-blue-700"
-                  }`}
-                >
-                  생활현황
-                </Link>
-              </li>
+              {!isAdmin && token && (
+                <li>
+                  <Link
+                    to={`/status`}
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/status"
+                        ? "text-blue-700"
+                        : "text-gray-800 hover:text-blue-700"
+                    }`}
+                  >
+                    생활현황
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   to={`/mypage`}
@@ -226,9 +228,12 @@ const Header = () => {
                 </li>
               )}
               {token ? (
-                  <li onClick={handleLogout} className="cursor-pointer text-gray-800">
-                    로그아웃
-                  </li>
+                <li
+                  onClick={handleLogout}
+                  className="cursor-pointer text-gray-800"
+                >
+                  로그아웃
+                </li>
               ) : (
                 <li>
                   <Link

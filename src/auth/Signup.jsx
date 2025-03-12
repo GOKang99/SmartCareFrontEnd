@@ -208,7 +208,7 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center min-h-screen bg-white">
-      <div className="w-1/2 flex flex-col justify-start items-center ps-10 pe-10 pb-10 pt-1 bg-white">
+      <div className="w-1/2 flex flex-col justify-start items-center ps-10 pe-10 pb-10 pt-5 bg-white">
         <h2 className="text-2xl font-bold mb-2">회원가입</h2>
 
         {/* 폼 시작 */}
@@ -553,7 +553,7 @@ const Signup = () => {
       {/* 오른쪽 배경이미지 시작 */}
       <div className="w-1/2 h-[100vh]">
         <img
-          src={"/public/login3.jpg"}
+          src={"/login3.jpg"}
           alt=""
           className="object-cover w-full h-full"
           style={{ borderRadius: "70px 0 0 0" }}
