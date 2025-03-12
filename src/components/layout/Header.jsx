@@ -206,22 +206,20 @@ const Header = () => {
                   )}
                 </div>
               </li>
-
-              {/* 생활현황 */}
-              <li>
-                <Link
-                  to={`/status`}
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/status"
-                      ? "text-blue-700"
-                      : "text-gray-800 hover:text-blue-700"
-                  }`}
-                >
-                  생활현황
-                </Link>
-              </li>
-
-              {/* 마이페이지 */}
+              {!isAdmin && token && (
+                <li>
+                  <Link
+                    to={`/status`}
+                    className={`block py-2 px-3 rounded-sm md:p-0 ${
+                      location.pathname === "/status"
+                        ? "text-blue-700"
+                        : "text-gray-800 hover:text-blue-700"
+                    }`}
+                  >
+                    생활현황
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   to={`/mypage`}
