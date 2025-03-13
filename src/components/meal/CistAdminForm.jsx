@@ -62,12 +62,12 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
     };
 
     const fields = [
-        { field: "orientation", label: "지남력", icon: "🧭" },
-        { field: "attention", label: "주의력", icon: "👁️" },
-        { field: "spatialTemporal", label: "시공간 능력", icon: "🔍" },
-        { field: "executiveFunction", label: "집행기능", icon: "⚙️" },
-        { field: "memory", label: "기억력", icon: "🧠" },
-        { field: "language", label: "언어기능", icon: "💬" }
+        { field: "orientation", label: "지남력", icon: "🧭", max: 5},
+        { field: "attention", label: "주의력", icon: "👁️", max: 3 },
+        { field: "spatialTemporal", label: "시공간 능력", icon: "🔍", max: 2 },
+        { field: "executiveFunction", label: "집행기능", icon: "⚙️", max: 6 },
+        { field: "memory", label: "기억력", icon: "🧠" , max: 10},
+        { field: "language", label: "언어기능", icon: "💬", max: 4 }
     ];
 
     return (
@@ -125,11 +125,12 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
-                    {fields.map(({ field, label, icon }) => (
+                    {fields.map(({ field, label, icon, max }) => (
                         <div key={field} className="group bg-gray-50 rounded-lg p-4 hover:shadow-md transition-all duration-200">
                             <label htmlFor={field} className="flex items-center text-sm font-medium text-gray-700 mb-3">
                                 <span className="text-xl mr-3">{icon}</span>
                                 {label}
+                                <span className="ml-auto text-xs text-gray-500">최대 {max}점</span>
                             </label>
                             <div className="relative">
                                 <input
@@ -138,10 +139,10 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                                     name={field}
                                     value={formData[field] || ""}
                                     onChange={handleInputChange}
+                                    min="0"
+                                    max={max}
                                     className="block w-full px-3 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 group-hover:border-blue-300"
                                     required
-                                    min="0"
-                                    max="100"
                                 />
                             </div>
                         </div>

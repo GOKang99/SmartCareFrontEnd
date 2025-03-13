@@ -95,7 +95,7 @@ const CistDetailModal = ({ cist, onClose }) => {
                             <div className="text-sm text-gray-500">총점 (30점 만점)</div>
                         </div>
                         <div className="text-center flex-1">
-                            <div className={`inline-flex items-center px-4 py-2 rounded-full text-xl font-bold border-2 ${color}`}>
+                            <div className={`inline-flex items-center px-4 py-2 rounded-full text-lg font-bold border-2 ${color}`}>
                                 {icon} {cist.cisGrade} 등급
                             </div>
                         </div>
@@ -129,7 +129,7 @@ const CistDetailModal = ({ cist, onClose }) => {
                 <div className="border-t border-gray-200 p-4 bg-gray-50 flex justify-center">
                     <button
                         onClick={onClose}
-                        className="flex items-center justify-center px-6 py-2.5 bg-gray-800 hover:bg-gray-900 text-white rounded-md shadow-sm transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                        className="flex items-center justify-center px-6 py-2.5 bg-gray-800 hover:bg-gray-900 text-white rounded-md shadow-sm transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
