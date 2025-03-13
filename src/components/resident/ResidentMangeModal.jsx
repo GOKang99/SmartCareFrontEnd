@@ -22,7 +22,7 @@ const ResidentManagementModal = ({ onClose, resident }) => {
               체성분 분석 등록
             </button>
             <button
-              className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md w-full"
+              className="bg-white hover:bg-gray-100 text-black border border-blue-700 font-medium py-1 px-1 rounded-md shadow-sm transition duration-300 w-full text-sm"
               onClick={() => navigate("/composition/admin")}
             >
               체성분 분석 보기
