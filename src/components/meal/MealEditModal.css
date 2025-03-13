@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* 모달창.css */
+.meal-modal {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-btn {
+    font-weight: 600;
+    justify-content: space-around;
+   
+}
+.btn-off {
+    background-color: rgb(75, 75, 252);
+    transition: background-color .2s ;
+}
+.btn-on {
+    background-color: rgb(255, 73, 73);
+    transition: background-color .2s ;
+}
+.btn-off:hover {
+    background-color: rgb(43, 43, 252);
+}
+.btn-on:hover {
+    background-color: rgb(255, 44, 44);
+}
+/* 모달창.css 끝 */

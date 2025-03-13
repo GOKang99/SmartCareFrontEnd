@@ -11,6 +11,7 @@ import MealForm from "./MealForm";
 import MealEditModal from "./MealEditModal"; // 모달 컴포넌트 임포트
 import api from "../../services/api";
 
+
 const MealAdminPage = () => {
   const [meals, setMeals] = useState([]);
   const [residents, setResidents] = useState([]); // 레지던트 목록 상태

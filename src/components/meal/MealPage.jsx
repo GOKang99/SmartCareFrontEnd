@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";  // 날짜 선택 UI 스타일
 import { jwtDecode } from 'jwt-decode';
 import { useMyContext } from '../../ContextApi';
+import "./MealPage.css";
 
 const MealPage = () => {
     const [meals, setMeals] = useState([]);
@@ -12,6 +13,13 @@ const MealPage = () => {
     const [selectedWeek, setSelectedWeek] = useState({ start: null, end: null });
     const [filteredMeals, setFilteredMeals] = useState([]);  // 필터링된 식사 데이터
     
+    // 요일을 한글로 변환하는 함수
+    const getDayOfWeek = (date) => {
+        const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+        const dayIndex = new Date(date).getDay();
+        return daysOfWeek[dayIndex];
+    };
+
     //유저당 아이디를 가져오기  
     const{token}=useMyContext();
     const dToken=jwtDecode(token);
@@ -101,13 +109,13 @@ const MealPage = () => {
 
   return (
     <div className="p-4 w-[60%] ms-auto me-auto">
-      <h1 className="text-2xl font-bold text-center mb-4">식사</h1>
+      <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">오늘 식사 현황</h2>
 
             {/* 오늘 식사 현황 */}
             {todayMeals && (
-                <div className="bg-green-500 text-white p-4 rounded-lg shadow-md text-center mb-6">
-                    <h2 className="">오늘 식사현황</h2>
-                    <p className="text-lg font-semibold">{todayMeals.meaDt}</p>
+                <div className="today-meal text-white p-4 rounded-lg shadow-md text-center mb-6">
+                    <p className="text-lg font-semibold">{todayMeals.meaDt}({getDayOfWeek(todayMeals.meaDt)})</p>
+                    <span className='today-line'></span>
                     <div className="grid grid-cols-3 gap-2 mt-2">
                         <span>🍽 아침: {todayMeals.breQty}</span>
                         <span>🍱 점심: {todayMeals.lunQty}</span>
@@ -119,8 +127,10 @@ const MealPage = () => {
             )}
 
             {/* 날짜 선택 UI */}
-            <h2 className="text-xl font-semibold text-green-600 text-center mb-3">날짜 선택</h2>
-            <div className="text-center mb-6">
+            <h2 className="text-xl font-semibold text-gray-700 text-center mb-3">지난 주간 식사정보</h2>
+            <p className='text-sm font-semibold text-gray-500 text-center mb-3'>지난 일주일간의 식사정보 입니다.</p>
+            <h3 className='text-xl font-semibold text-gray-700 text-center mb-3'>날짜 선택</h3>
+            <div className="date-txt text-center mb-6">
                 <DatePicker
                     selected={selectedWeek.today || new Date(today)}  // selected 값 설정 (오늘 날짜가 기본값)
                     onChange={handleDateChange}
@@ -131,7 +141,7 @@ const MealPage = () => {
 
             {/* 선택된 주간 식사 정보 */}
             {selectedWeek.start && selectedWeek.end && (
-                <div className="bg-green-200 text-green-800 p-3 rounded-lg text-center mb-3">
+                <div className="date-choose p-3 rounded-lg text-center mb-3">
                     {formatWeekRange(selectedWeek.start, selectedWeek.end)}
                 </div>
             )}

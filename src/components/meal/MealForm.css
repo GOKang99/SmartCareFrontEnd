@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.meal-add {
+    background-color: rgb(172, 171, 171);
+    transition: background-color .2s;
+    font-weight: 600;
+}
+.meal-add:hover {
+    background-color: rgb(136, 136, 136);
+}

@@ -1,0 +1,23 @@
+@charset "utf-8";
+.today-meal {
+    background-color: rgb(155, 154, 154);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.today-line {
+    height: 1px;
+    width: 90%;
+    text-align: center;
+    background-color: #fff;
+    display: inline-block;
+}
+.date-txt {
+    display: inline-block;
+    width: 100%;
+    margin-left: 50px;
+}
+.date-choose {
+    background-color:  rgb(184, 183, 183);
+    color:#fff;
+    margin-bottom: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
