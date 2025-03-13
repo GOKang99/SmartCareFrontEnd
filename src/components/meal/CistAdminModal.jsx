@@ -54,17 +54,17 @@ const CistAdminModal = ({ cist, onClose, onSave }) => {
                         ))}
                     </div>
                     
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex justify-end space-x-4 font-bold">
                         <button 
                             type="button" 
                             onClick={onClose} 
-                            className="bg-gray-500 text-white py-2 px-4 rounded"
+                            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded cursor-pointer transition-all duration-200"
                         >
                             취소
                         </button>
                         <button 
                             type="submit" 
-                            className="bg-blue-500 text-white py-2 px-4 rounded"
+                            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded cursor-pointer transition-all duration-200"
                         >
                             저장
                         </button>

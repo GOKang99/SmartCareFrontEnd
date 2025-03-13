@@ -50,12 +50,12 @@ const CistDetailModal = ({ cist, onClose }) => {
                     <li>집행기능: {cist.executiveFunction}/6</li>
                     <li>기억력: {cist.memory}/10</li>
                     <li>언어기능: {cist.language}/4</li>
-                    <li className="font-bold">총점: {cist.totalScore}/30</li>
-                    <li className="font-bold">판정: {cist.cisGrade}</li>
+                    <li>총점: {cist.totalScore}/30</li>
+                    <li className="font-bold mt-3">판정: {cist.cisGrade}</li>
                 </ul>
                 <button
                     onClick={onClose}
-                    className="mt-4 bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
+                    className="font-bold mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer transition-all duration-200"
                 >
                     닫기
                 </button>

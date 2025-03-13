@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useMyContext } from "../../ContextApi";
 import { jwtDecode } from "jwt-decode";
 
-
 const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestDate, residentId }) => {
-    //토큰 가져오기
-    const {token}=useMyContext();
-    
+    // 토큰 가져오기
+    const { token } = useMyContext();
+
     const [formData, setFormData] = useState({
-        residentId: residentId,
+        residentId: residentId,  // 기본값 "0" 설정
         orientation: 0,
         attention: 0,
         spatialTemporal: 0,
@@ -18,19 +17,28 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
         totalScore: 0,
         resName: "",
         cisDt: "",  // 기본값으로 최신 날짜
-        giverId:jwtDecode(token).partId,
+        giverId: jwtDecode(token).partId,
     });
-    //console.log("cisDT는", latestDate);
-    
+
+    console.log("폼 데이터 초기화:", formData);
+
     const today = new Date().toISOString().split("T")[0];
 
-    
     useEffect(() => {
-        setFormData(prevState => ({
-            ...prevState,
-            residentId: residentId || "0"
-        }));
-    }, [residentId]);
+        if (residentId && residentId !== "0") {
+            const selectedResident = residents.find(res => res.resId.toString() === residentId.toString());  // 타입 일치 확인
+            if (selectedResident) {
+                setFormData(prevState => ({
+                    ...prevState,
+                    residentId: selectedResident.resId,
+                    resName: selectedResident.resName,  // 선택된 레지던트 이름 설정
+                }));
+                console.log("선택된 레지던트:", selectedResident);
+            } else {
+                console.error("선택된 레지던트를 찾을 수 없습니다.");
+            }
+        }
+    }, [residentId, residents]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -42,8 +50,6 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-      
         console.log("📢 추가되는 데이터:", formData);
         handleAddCist(formData); // 부모 컴포넌트에서 받은 함수 호출
         setFormData({
@@ -57,7 +63,7 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
             totalScore: 0,
             resName: "",
             cisDt: "",
-            giverId:jwtDecode(token).partId,
+            giverId: jwtDecode(token).partId,
         });
     };
 
@@ -84,7 +90,8 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                         ))}
                     </select>
                 </div>
-                {/* 레지던트선택  끝*/}
+                {/* 레지던트선택 끝 */}
+
                 {/* 검사 날짜 */}
                 <div className="w-2/3">
                     <label htmlFor="cisDt" className="block mb-1">검사 날짜</label>
@@ -94,14 +101,14 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                         name="cisDt"
                         value={formData.cisDt}
                         onChange={handleInputChange}
-                        required 
+                        required
                         className="border px-3 py-2 w-full"
                         min={today}
                     />
                 </div>
-                 {/* 검사 날짜 끝 */}
+                {/* 검사 날짜 끝 */}
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
                 {[
                     { field: "orientation", label: "지남력" },
@@ -117,7 +124,7 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                             type="text"
                             id={field}
                             name={field}
-                            value={formData[field] || ""} //undefined를 빈 문자열로 처리
+                            value={formData[field] || ""} // undefined를 빈 문자열로 처리
                             onChange={handleInputChange}
                             className="border px-3 py-2 w-full"
                             required
@@ -125,7 +132,7 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                     </div>
                 ))}
             </div>
-            
+
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer">
                 추가
             </button>

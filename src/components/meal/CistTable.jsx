@@ -19,14 +19,14 @@ const CistTable = ({ data }) => {
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 mt-6">
-            <table className="w-full border-collapse border-2 border-amber-500">
-                <thead>
+            <table className="w-full border-collapse border-2">
+                <thead className="border">
                     <tr className="bg-gray-10">
-                        <th className="border p-2">이름</th>
-                        <th className="border p-2">날짜</th>
-                        <th className="border p-2">총점</th>
-                        <th className="border p-2">판정</th>
-                        <th className="border p-2">상세</th>
+                        <th className="border border-black p-2">이름</th>
+                        <th className="border border-black p-2">날짜</th>
+                        <th className="border border-black p-2">총점</th>
+                        <th className="border border-black p-2">판정</th>
+                        <th className="border border-black p-2">상세</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@ const CistTable = ({ data }) => {
                             <td className="border p-2">
                                 <button
                                     onClick={() => setSelectedCistId(cist.cisId)}
-                                    className="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer"
+                                    className="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-600 transition-all duration-200 font-bold"
                                 >
                                     {selectedCistId === cist.cisId ? "확인" : "보기"}
                                 </button>
