@@ -122,40 +122,39 @@ const CistAdminForm = ({ handleAddCist, handleSelectResident, residents, latestD
                         min={today}
                     />
                 </div>
-            </div>
-            
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
-                    {fields.map(({ field, label, icon, max }) => (
-                        <div key={field} className="group bg-gray-50 rounded-lg p-4 hover:shadow-md transition-all duration-200">
-                            <label htmlFor={field} className="flex items-center text-sm font-medium text-gray-700 mb-3">
-                                <span className="text-xl mr-3">{icon}</span>
-                                {label}
-                                <span className="ml-auto text-xs text-gray-500">최대 {max}점</span>
-                            </label>
-                            <div className="relative">
-                        <input
-                            type="text"
-                            id={field}
-                            name={field}
-                                    value={formData[field] || ""}
-                            onChange={handleInputChange}
-                                    min="0"
-                                    max={max}
-                                    className="block w-full px-3 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 group-hover:border-blue-300"
-                            required
-                        />
-                            </div>
+            </div>    
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 max-w-none mx-auto">
+                {fields.map(({ field, label, icon, max }) => (
+                    <div key={field} className="group bg-gray-50 rounded-lg p-4 hover:shadow-md transition-all duration-200 ">
+                        <label htmlFor={field} className="flex items-center text-sm font-medium text-gray-700 mb-3">
+                            <span className="text-xl mr-3">{icon}</span>
+                            {label}
+                            <span className="ml-auto text-xs text-gray-500">최대 {max}점</span>
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                id={field}
+                                name={field}
+                                value={formData[field] || ""}
+                                onChange={handleInputChange}
+                                min="0"
+                                max={max}
+                                className="block w-full px-3 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 group-hover:border-blue-300"
+                                required
+                            />
+                        </div>
                     </div>
                 ))}
-            </div>
+            </div>        
             
                 <div className="flex justify-center">
                     <button 
                         type="submit" 
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-8 rounded-md shadow-md font-medium hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:-translate-y-1  cursor-pointer "
+                        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-8 rounded-md shadow-md font-medium hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:-translate-y-1 cursor-pointer"
                     >
                         데이터 추가하기
-            </button>
+                    </button>
                 </div>
         </form>
         </div>
