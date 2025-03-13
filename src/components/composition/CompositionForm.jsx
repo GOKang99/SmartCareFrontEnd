@@ -61,7 +61,7 @@ const CompositionForm = ({ resident, setShowCompositionForm }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <div className="max-w-[700px] mx-auto p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-2">
         {resident.resName}님 입소자 체성분 분석 등록
       </h1>

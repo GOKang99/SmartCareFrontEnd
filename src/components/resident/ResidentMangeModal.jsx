@@ -36,7 +36,7 @@ const ResidentManagementModal = ({ onClose, resident }) => {
       ) : (
         // CompositionForm을 800px 크기로 별도 배치
         <div className="fixed inset-0 flex items-center justify-center">
-          <div className="bg-white w-[800px] p-6 rounded-lg shadow-lg">
+          <div className="bg-white w-[600px] p-6 rounded-lg shadow-lg">
             <CompositionForm
               resident={resident}
               setShowCompositionForm={setShowCompositionForm}
