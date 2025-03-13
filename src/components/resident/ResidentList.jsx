@@ -41,7 +41,7 @@ const ResidentList = ({ residents, deleteResident }) => {
           입소자가 없습니다.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           {/* 필터링된 입소자 목록을 카드 형식으로 출력 */}
           {filteredResidents.map((resident) => (
             <div
