@@ -178,10 +178,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
 
   return (
     <div>
-      <form
-        onSubmit={onSubmit}
-        className="space-y-4 bg-white p-5 rounded-lg shadow-md border border-gray-600 w-full max-w-7xl my-4"
-      >
+      <form onSubmit={onSubmit}>
         <h1 className="text-2xl font-bold text-black mb-4 flex items-center">
           <span className="bg-gray-600 w-2 h-8 rounded mr-3"></span>
           입소자 정보 등록
@@ -485,7 +482,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                               value="예"
                               onChange={handleInputChange}
                               checked={formData.resAdmissionYn === "예"}
-                              className="w-3 h-3 text-black"
+                              className="w-3 h-3 text-green-600"
                             />
                             <label
                               htmlFor="yes"
@@ -627,7 +624,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                                 checked={
                                   formData.koreanReadableYn === item.value
                                 }
-                                className="w-3 h-3"
+                                className="w-3 h-3 text-green-600"
                               />
                               <label
                                 htmlFor={item.id}
@@ -664,7 +661,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                                 value={item.value}
                                 onChange={handleInputChange}
                                 checked={formData.religion === item.value}
-                                className="w-3 h-3"
+                                className="w-3 h-3 text-green-600"
                               />
                               <label
                                 htmlFor={item.id}
@@ -865,7 +862,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
 
         {/* 버튼 섹션 */}
         <div className="flex justify-end items-center space-x-4 pt-4 border-t border-gray-200 mt-4">
-          <Link to="/resident">
+          <Link to="/resident/list">
             <button
               type="button"
               className="px-5 py-2.5 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-gray-400"
@@ -875,9 +872,9 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
           </Link>
           <button
             type="submit"
-            className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-lg"
+            className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-800 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-lg"
           >
-            등록
+            수정
           </button>
         </div>
       </form>

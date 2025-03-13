@@ -103,406 +103,432 @@ const ResidentItem = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md border border-black max-w-6xl mx-auto">
+    <div className="bg-white border border-gray-500 w-10/16 mx-auto">
       <div>
-        <h2 className="text-2xl font-bold text-center mb-6 text-black">
-          {resident.resName} 님 상세정보
-        </h2>
+        {/* 상단 헤더 부분 */}
+        <div className="border-b border-gray-500 bg-gray-500 px-4 py-2 flex justify-between items-center">
+          <h2 className="font-semibold text-white text-lg">입소자 상세정보</h2>
+        </div>
 
-        <div className="flex flex-col md:flex-row gap-6 mb-6">
-          {/* 입소자 이미지 - 고정 크기 */}
-          <div className="md:w-1/4 flex justify-center md:justify-start">
-            <div className="w-40 h-40 overflow-hidden rounded-lg shadow-md border border-black">
+        <div className="p-4">
+          {/* 입소자 기본 정보 테이블 */}
+          <div className="flex flex-col md:flex-row mb-4">
+            {/* 기본 정보 테이블 */}
+            <div className="md:w-3/4">
+              <div className="border border-gray-300 bg-gray-200 px-3 py-1 font-medium text-gray-700">
+                <strong>기본정보</strong>
+              </div>
+              <table className="w-full border-collapse">
+                <tbody>
+                  <tr>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                      성명
+                    </td>
+                    <td className="border border-gray-300 px-3 py-1 w-1/3 text-gray-600">
+                      {resident.resName}
+                    </td>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                      생년월일
+                    </td>
+                    <td className="border border-gray-300 px-3 py-1 w-1/3 text-gray-600">
+                      {resident.resBirth}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                      성별
+                    </td>
+                    <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                      {resident.resGender}
+                    </td>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                      전화번호
+                    </td>
+                    <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                      {resident.resPhone}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                      장기요양 번호
+                    </td>
+                    <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                      {resident.resLongTermCareNo}
+                    </td>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                      등록번호
+                    </td>
+                    <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                      {resident.systemResCode}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                      주소
+                    </td>
+                    <td
+                      className="border border-gray-300 px-3 py-1 text-gray-600"
+                      colSpan="3"
+                    >
+                      {resident.resAddress}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* 이미지 영역 - 위치 유지 */}
+            <div className="md:w-1/5 flex justify-center md:justify-end mb-4 md:mb-0 md:pl-3 mt-3 md:mt-3">
               <img
                 src={`http://localhost:8080/images/${resident.resImageAddress}`}
                 alt={`${resident.resName}의 사진`}
-                className="w-full h-full object-cover"
+                className="w-36 h-36 object-cover border border-gray-300"
               />
             </div>
           </div>
 
-          {/* 기본 정보 - 고정 높이의 그리드 */}
-          <div className="md:w-3/4">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {/* 각 정보 칸의 높이를 고정 */}
-              <div className="p-3 bg-gray-100 rounded-lg h-20 flex flex-col justify-between border border-gray-300">
-                <span className="text-sm text-black font-medium">성별</span>
-                <p className="font-medium text-black">{resident.resGender}</p>
-              </div>
-              <div className="p-3 bg-gray-100 rounded-lg h-20 flex flex-col justify-between border border-gray-300">
-                <span className="text-sm text-black font-medium">생년월일</span>
-                <p className="font-medium text-black">{resident.resBirth}</p>
-              </div>
-              <div className="p-3 bg-gray-100 rounded-lg h-20 flex flex-col justify-between border border-gray-300">
-                <span className="text-sm text-black font-medium">등급</span>
-                <p className="font-medium text-black">{resident.resGrade}</p>
-              </div>
-              <div className="p-3 bg-gray-100 rounded-lg h-20 flex flex-col justify-between border border-gray-300">
-                <span className="text-sm text-black font-medium">생활실</span>
-                <p className="font-medium text-black">{resident.resLocation}</p>
-              </div>
-              <div className="p-3 bg-gray-100 rounded-lg h-20 flex flex-col justify-between border border-gray-300">
-                <span className="text-sm text-black font-medium">케어그룹</span>
-                <p className="font-medium text-black">
-                  {resident.resCareGroup}
-                </p>
-              </div>
-              <div className="p-3 bg-gray-100 rounded-lg h-20 flex flex-col justify-between border border-gray-300">
-                <span className="text-sm text-black font-medium">입소일</span>
-                <p className="font-medium text-black">
-                  {resident.resEnterDate}
-                </p>
-              </div>
+          {/* 입소정보 */}
+          <div className="mt-4">
+            <div className="border border-gray-300 bg-gray-200 px-3 py-1 font-medium text-gray-700">
+              <strong>입소정보</strong>
             </div>
-          </div>
-        </div>
-
-        {/* 탭 메뉴 */}
-        <div className="mb-4 border-b border-black">
-          <ul className="flex flex-wrap -mb-px">
-            <li className="mr-2">
-              <button
-                onClick={() => setActiveTab("personal")}
-                className={`inline-block py-2 px-4 ${
-                  activeTab === "personal"
-                    ? "border-b-2 border-black text-black font-medium"
-                    : "text-gray-600 hover:text-black"
-                }`}
-              >
-                개인정보
-              </button>
-            </li>
-            <li className="mr-2">
-              <button
-                onClick={() => setActiveTab("health")}
-                className={`inline-block py-2 px-4 ${
-                  activeTab === "health"
-                    ? "border-b-2 border-black text-black font-medium"
-                    : "text-gray-600 hover:text-black"
-                }`}
-              >
-                건강정보
-              </button>
-            </li>
-            <li className="mr-2">
-              <button
-                onClick={() => setActiveTab("guardian")}
-                className={`inline-block py-2 px-4 ${
-                  activeTab === "guardian"
-                    ? "border-b-2 border-black text-black font-medium"
-                    : "text-gray-600 hover:text-black"
-                }`}
-              >
-                보호자정보
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* 탭 컨텐츠 - 고정 높이 */}
-        <div className="py-4">
-          {/* 고정 높이 컨테이너, 필요시 내부 스크롤 */}
-          <div className="min-h-[400px] max-h-[400px] overflow-y-auto p-2">
-            {/* 개인정보 탭 */}
-            {activeTab === "personal" && (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {/* 각 정보 카드의 크기 고정 */}
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">전화번호</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.resPhone}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">주소</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.resAddress}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">최종학력</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.resSchoolGrade}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">배우자 여부</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.maritalStatus}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">종교</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.religion}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">
-                    한글해독 가능
-                  </p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.koreanReadableYn}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">입소자 코드</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.systemResCode}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">
-                    장기요양인정번호
-                  </p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.resLongTermCareNo}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">재입소 여부</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                    등급
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 w-1/3 text-gray-600">
+                    {resident.resGrade}
+                  </td>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                    케어그룹
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 w-1/3 text-gray-600">
+                    {resident.resCareGroup}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    생활실
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                    {resident.resLocation}
+                  </td>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    재입소 여부
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 text-gray-600">
                     {resident.resAdmissionYn}
-                  </p>
-                </div>
-                <div className="p-3 border border-black rounded-lg h-24 flex flex-col justify-between shadow-sm">
-                  <p className="text-sm text-black font-medium">퇴소일</p>
-                  <p className="overflow-hidden text-ellipsis text-black">
-                    {resident.resExitDate ? resident.resExitDate : "미정"}
-                  </p>
-                </div>
-              </div>
-            )}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    입소일
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                    {resident.resEnterDate}
+                  </td>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    퇴소일
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                    {resident.resExitDate || "미정"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            {/* 건강정보 탭 */}
-            {activeTab === "health" && (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {/* 건강 체크 항목들 - 고정 높이 카드 */}
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm">
-                  <div className="flex items-center mb-2">
-                    <div
-                      className={`w-3 h-3 rounded-full mr-2 ${
-                        resident.bedsoreYn ? "bg-red-500" : "bg-green-500"
-                      }`}
-                    ></div>
-                    <p className="font-medium text-black">욕창위험</p>
-                  </div>
-                  <p className="text-sm text-black mt-1">
-                    {resident.bedsoreYn ? "있음" : "없음"}
-                  </p>
-                </div>
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm">
-                  <div className="flex items-center mb-2">
-                    <div
-                      className={`w-3 h-3 rounded-full mr-2 ${
-                        resident.fallYn ? "bg-red-500" : "bg-green-500"
-                      }`}
-                    ></div>
-                    <p className="font-medium text-black">낙상위험</p>
-                  </div>
-                  <p className="text-sm text-black mt-1">
-                    {resident.fallYn ? "있음" : "없음"}
-                  </p>
-                </div>
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm">
-                  <div className="flex items-center mb-2">
-                    <div
-                      className={`w-3 h-3 rounded-full mr-2 ${
-                        resident.dementiaYn ? "bg-red-500" : "bg-green-500"
-                      }`}
-                    ></div>
-                    <p className="font-medium text-black">치매유무</p>
-                  </div>
-                  <p className="text-sm text-black mt-1">
-                    {resident.dementiaYn ? "있음" : "없음"}
-                  </p>
-                </div>
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm">
-                  <div className="flex items-center mb-2">
-                    <div
-                      className={`w-3 h-3 rounded-full mr-2 ${
-                        resident.postureYn ? "bg-yellow-500" : "bg-green-500"
-                      }`}
-                    ></div>
-                    <p className="font-medium text-black">자세변경</p>
-                  </div>
-                  <p className="text-sm text-black mt-1">
-                    {resident.postureYn ? "필요" : "필요없음"}
-                  </p>
-                </div>
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm md:col-span-3">
-                  <p className="font-medium text-black">주요질환</p>
-                  <div className="h-16 overflow-y-auto">
-                    <p className="text-sm text-black mt-1">
-                      {resident.resDisease}
-                    </p>
-                  </div>
-                </div>
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm md:col-span-2">
-                  <p className="font-medium text-black">기능장애</p>
-                  <div className="h-16 overflow-y-auto">
-                    <p className="text-sm text-black mt-1">
-                      {resident.resFunctionDis}
-                    </p>
-                  </div>
-                </div>
-                <div className="p-4 border border-black rounded-lg h-32 flex flex-col justify-between shadow-sm">
-                  <p className="font-medium text-black">식사종류</p>
-                  <p className="text-sm text-black mt-1">
-                    {resident.resFoodType}
-                  </p>
-                </div>
-              </div>
-            )}
+          {/* 개인정보 */}
+          <div className="mt-4">
+            <div className="border border-gray-300 bg-gray-200 px-3 py-1 font-medium text-gray-700">
+              <strong>개인정보</strong>
+            </div>
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                    최종학력
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 w-1/3 text-gray-600">
+                    {resident.resSchoolGrade}
+                  </td>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                    한글해독 가능
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 w-1/3 text-gray-600">
+                    {resident.koreanReadableYn}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    종교
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                    {resident.religion}
+                  </td>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    배우자 여부
+                  </td>
+                  <td className="border border-gray-300 px-3 py-1 text-gray-600">
+                    {resident.maritalStatus}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            {/* 보호자정보 탭 */}
-            {activeTab === "guardian" && (
-              <div>
+          {/* 건강상태 */}
+          <div className="mt-3">
+            <div className="border border-gray-300 bg-gray-200 px-3 py-1 font-medium text-gray-700">
+              <strong>건강상태</strong>
+            </div>
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 w-1/6 font-medium text-black">
+                    건강체크
+                  </td>
+                  <td
+                    className="border border-gray-300 px-3 py-1 text-gray-600"
+                    colSpan="3"
+                  >
+                    <div className="flex flex-wrap gap-6">
+                      <div className="flex items-center">
+                        <div
+                          className={`w-2 h-2 rounded-full mr-1 ${
+                            resident.dementiaYn ? "bg-red-500" : "bg-green-500"
+                          }`}
+                        ></div>
+                        <span className="mr-1 font-medium">치매유무:</span>
+                        <span>{resident.dementiaYn ? "있음" : "없음"}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div
+                          className={`w-3 h-3 rounded-full mr-1 ${
+                            resident.fallYn ? "bg-red-500" : "bg-green-500"
+                          }`}
+                        ></div>
+                        <span className="mr-1 font-medium">낙상위험:</span>
+                        <span>{resident.fallYn ? "있음" : "없음"}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div
+                          className={`w-3 h-3 rounded-full mr-1 ${
+                            resident.bedsoreYn ? "bg-red-500" : "bg-green-500"
+                          }`}
+                        ></div>
+                        <span className="mr-1 font-medium">욕창위험:</span>
+                        <span>{resident.bedsoreYn ? "있음" : "없음"}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div
+                          className={`w-3 h-3 rounded-full mr-1 ${
+                            resident.postureYn
+                              ? "bg-yellow-500"
+                              : "bg-green-500"
+                          }`}
+                        ></div>
+                        <span className="mr-1 font-medium">자세변경:</span>
+                        <span>{resident.postureYn ? "필요" : "필요없음"}</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    주요질환
+                  </td>
+                  <td
+                    className="border border-gray-300 px-3 py-1 text-gray-600"
+                    colSpan="3"
+                  >
+                    <p>{resident.resDisease}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    기능장애
+                  </td>
+                  <td
+                    className="border border-gray-300 px-3 py-1 text-gray-600"
+                    colSpan="3"
+                  >
+                    <p>{resident.resFunctionDis}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
+                    식사종류
+                  </td>
+                  <td
+                    className="border border-gray-300 px-3 py-1 text-gray-600"
+                    colSpan="3"
+                  >
+                    <p>{resident.resFoodType}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* 보호자 정보 */}
+          <div className="mt-4">
+            <div className="border border-gray-300 bg-gray-200 px-3 py-1 font-medium flex justify-between items-center">
+              <span className="text-gray-700">
+                <strong>보호자 정보</strong>
+              </span>
+              <button
+                onClick={() => setIsFormVisible(!isFormVisible)}
+                className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 transition-all duration-200 flex items-center shadow-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-3 w-3 mr-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                {isFormVisible ? "취소" : "보호자 등록"}
+              </button>
+            </div>
+
+            {/* 보호자 테이블 */}
+            <table className="w-full border-collapse">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="border border-gray-300 px-2 py-1 text-left font-medium w-8 text-black">
+                    #
+                  </th>
+                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                    성명
+                  </th>
+                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                    관계
+                  </th>
+                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                    주민번호
+                  </th>
+                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                    전화번호
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
                 {Array.isArray(guardInfo) && guardInfo.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {guardInfo.map((guardItem, i) => (
-                      <div
-                        className="p-4 border border-black rounded-lg shadow-sm"
-                        key={i}
-                      >
-                        <h4 className="font-medium mb-3 text-black border-b pb-2 border-gray-300">
-                          보호자 {i + 1}
-                        </h4>
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="p-2 bg-gray-100 rounded-lg border border-gray-300">
-                            <p className="text-sm text-black font-medium">
-                              이름
-                            </p>
-                            <p className="text-black">{guardItem.realname}</p>
-                          </div>
-                          <div className="p-2 bg-gray-100 rounded-lg border border-gray-300">
-                            <p className="text-sm text-black font-medium">
-                              관계
-                            </p>
-                            <p className="text-black">{guardItem.relation}</p>
-                          </div>
-                          <div className="p-2 bg-gray-100 rounded-lg border border-gray-300">
-                            <p className="text-sm text-black font-medium">
-                              주민번호
-                            </p>
-                            <p className="text-black">{guardItem.ssn}</p>
-                          </div>
-                          <div className="p-2 bg-gray-100 rounded-lg border border-gray-300">
-                            <p className="text-sm text-black font-medium">
-                              전화번호
-                            </p>
-                            <p className="text-black">{guardItem.phone}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  guardInfo.map((guardItem, i) => (
+                    <tr key={i}>
+                      <td className="border border-gray-300 px-2 py-1 text-center text-gray-600">
+                        {i + 1}
+                      </td>
+                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                        {guardItem.realname}
+                      </td>
+                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                        {guardItem.relation}
+                      </td>
+                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                        {guardItem.ssn}
+                      </td>
+                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                        {guardItem.phone}
+                      </td>
+                    </tr>
+                  ))
                 ) : (
-                  <div className="text-center py-8 text-black bg-gray-100 rounded-lg border border-black">
-                    등록된 보호자 정보가 없습니다.
-                  </div>
-                )}
-
-                {/* 보호자 등록 버튼 */}
-                <div className="flex justify-end mt-5">
-                  <button
-                    onClick={() => setIsFormVisible(!isFormVisible)}
-                    className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200 flex items-center shadow-sm"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-1"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
+                  <tr>
+                    <td
+                      colSpan="5"
+                      className="border border-gray-300 px-2 py-3 text-center text-gray-600"
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {isFormVisible ? "취소" : "보호자 등록"}
-                  </button>
-                </div>
-
-                {/* 폼 영역 - 고정 높이 내에서 표시되도록 */}
-                {isFormVisible && (
-                  <form
-                    onSubmit={handleSubmit}
-                    className="mt-4 p-4 border border-black rounded-lg shadow-sm bg-white"
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-black mb-1">
-                          보호자 성명
-                        </label>
-                        <input
-                          type="text"
-                          id="realname"
-                          name="realname"
-                          value={guardData.realname}
-                          onChange={handleInputChange}
-                          placeholder="이름"
-                          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black text-black placeholder:text-gray-400"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-black mb-1">
-                          관계
-                        </label>
-                        <input
-                          type="text"
-                          id="relation"
-                          name="relation"
-                          value={guardData.relation}
-                          onChange={handleInputChange}
-                          placeholder="관계 입력"
-                          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black text-black placeholder:text-gray-400"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-black mb-1">
-                          주민번호
-                        </label>
-                        <input
-                          type="text"
-                          id="ssn"
-                          name="ssn"
-                          value={guardData.ssn}
-                          onChange={handleInputChange}
-                          placeholder="주민번호 입력"
-                          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black text-black placeholder:text-gray-400"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-black mb-1">
-                          전화번호
-                        </label>
-                        <input
-                          type="text"
-                          id="phone"
-                          name="phone"
-                          value={guardData.phone}
-                          onChange={handleInputChange}
-                          placeholder="전화번호 입력"
-                          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black text-black placeholder:text-gray-400"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex justify-center mt-4">
-                      <button
-                        type="submit"
-                        className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black transition-all duration-200 shadow-sm font-medium"
-                      >
-                        등록
-                      </button>
-                    </div>
-                  </form>
+                      등록된 보호자 정보가 없습니다.
+                    </td>
+                  </tr>
                 )}
+              </tbody>
+            </table>
+
+            {/* 보호자 등록 폼 */}
+            {isFormVisible && (
+              <div className="p-3 border border-gray-300 border-t-0 bg-gray-50">
+                <form onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-black mb-1">
+                        보호자 성명
+                      </label>
+                      <input
+                        type="text"
+                        id="realname"
+                        name="realname"
+                        value={guardData.realname}
+                        onChange={handleInputChange}
+                        placeholder="이름"
+                        className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black placeholder:text-gray-400"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-black mb-1">
+                        관계
+                      </label>
+                      <input
+                        type="text"
+                        id="relation"
+                        name="relation"
+                        value={guardData.relation}
+                        onChange={handleInputChange}
+                        placeholder="관계 입력"
+                        className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black placeholder:text-gray-400"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-black mb-1">
+                        주민번호
+                      </label>
+                      <input
+                        type="text"
+                        id="ssn"
+                        name="ssn"
+                        value={guardData.ssn}
+                        onChange={handleInputChange}
+                        placeholder="주민번호 입력"
+                        className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black placeholder:text-gray-400"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-black mb-1">
+                        전화번호
+                      </label>
+                      <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value={guardData.phone}
+                        onChange={handleInputChange}
+                        placeholder="전화번호 입력"
+                        className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black placeholder:text-gray-400"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center mt-3">
+                    <button
+                      type="submit"
+                      className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm font-medium text-sm"
+                    >
+                      등록
+                    </button>
+                  </div>
+                </form>
               </div>
             )}
           </div>
