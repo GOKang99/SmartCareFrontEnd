@@ -18,7 +18,6 @@ const Visits = () => {
       {/* 하위 라우트가 렌더링되는 부분 */}
       <Routes>
         {/* 사용 안함 <Route path="container" element={<VisitItemContainer />} /> */}
-        <Route path="list" element={<VisitList />} />
         {/* GuardId 넘겨주어야만 볼수있음. */}
         <Route path="my" element={<VisitLisitForGuard />} />
         {/* GuardId 있어야지만 예약 생성 가능 */}
