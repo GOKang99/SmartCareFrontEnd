@@ -74,7 +74,7 @@ const CompositionList = () => {
       {/* 모달 추가 */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-3/4 max-h-[90vh] overflow-y-auto">
+          <div className="bg-gray-200 p-6 rounded-lg shadow-lg w-3/4 max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setIsModalOpen(false)}
               className="float-right bg-red-500 text-white px-3 py-1 rounded"

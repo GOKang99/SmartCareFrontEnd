@@ -61,7 +61,7 @@ function Layout() {
         />
         {/* admin전용 체성분 분석 보기 */}
         <Route
-          path="/admin/composition*"
+          path="/admin/composition"
           element={
             <ProtectedRoute adminPage={true}>
               <CompositionListForGiver />
