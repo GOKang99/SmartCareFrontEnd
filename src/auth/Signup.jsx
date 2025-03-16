@@ -223,7 +223,7 @@ const Signup = () => {
               }`}
             >
               <label
-                className={`block font-medium dark:text-white focus:border-gray-300 h-full${
+                className={`block font-medium text-gray-500 dark:text-white focus:border-gray-300 h-full${
                   role === "admin" ? " text-gray-700" : "text-gray-500 text-sm"
                 }`}
               >

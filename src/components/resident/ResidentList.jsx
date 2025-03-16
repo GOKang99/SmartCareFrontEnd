@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMyContext } from "../../ContextApi";
 import ResidentManagementModal from "./ResidentMangeModal";
@@ -22,6 +22,9 @@ const ResidentList = ({ residents, deleteResident }) => {
     console.log(selectedResident);
   };
 
+  useEffect(() => {
+    console.log("셀레", selectedResident);
+  }, [selectedResident]);
   return (
     <div className="min-h-screen bg-white text-blue-900 p-6">
       {/* 검색 input */}
