@@ -181,7 +181,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
       <form onSubmit={onSubmit}>
         <h1 className="text-2xl font-bold text-black mb-4 flex items-center">
           <span className="bg-gray-600 w-2 h-8 rounded mr-3"></span>
-          입소자 정보 등록
+          입소자 정보 수정
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">

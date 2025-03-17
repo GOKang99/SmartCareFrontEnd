@@ -150,7 +150,7 @@ const ResidentItem = () => {
                   </tr>
                   <tr>
                     <td className="border border-gray-300 bg-gray-100 px-3 py-1 font-medium text-black">
-                      장기요양 번호
+                      장기요양인증번호
                     </td>
                     <td className="border border-gray-300 px-3 py-1 text-gray-600">
                       {resident.resLongTermCareNo}
@@ -403,19 +403,19 @@ const ResidentItem = () => {
             <table className="w-full border-collapse">
               <thead className="bg-gray-100">
                 <tr>
-                  <th className="border border-gray-300 px-2 py-1 text-left font-medium w-8 text-black">
+                  <th className="border border-gray-200 bg-gray-100 px-2 py-1 text-left font-medium w-8 text-black">
                     #
                   </th>
-                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                  <th className="border border-gray-300 bg-gray-100 px-2 py-1 text-left font-medium text-black">
                     성명
                   </th>
-                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                  <th className="border border-gray-300 bg-gray-100 px-2 py-1 text-left font-medium text-black">
                     관계
                   </th>
-                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                  <th className="border border-gray-300 bg-gray-100 px-2 py-1 text-left font-medium text-black">
                     주민번호
                   </th>
-                  <th className="border border-gray-300 px-2 py-1 text-left font-medium text-black">
+                  <th className="border border-gray-300 bg-gray-100 px-2 py-1 text-left font-medium text-black">
                     전화번호
                   </th>
                 </tr>
@@ -424,19 +424,19 @@ const ResidentItem = () => {
                 {Array.isArray(guardInfo) && guardInfo.length > 0 ? (
                   guardInfo.map((guardItem, i) => (
                     <tr key={i}>
-                      <td className="border border-gray-300 px-2 py-1 text-center text-gray-600">
+                      <td className="border border-gray-300 px-2 py-1 text-center text-black">
                         {i + 1}
                       </td>
-                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                      <td className="border border-gray-300 px-2 py-1 text-black">
                         {guardItem.realname}
                       </td>
-                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                      <td className="border border-gray-300 px-2 py-1 text-black">
                         {guardItem.relation}
                       </td>
-                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                      <td className="border border-gray-300 px-2 py-1 text-black">
                         {guardItem.ssn}
                       </td>
-                      <td className="border border-gray-300 px-2 py-1 text-gray-600">
+                      <td className="border border-gray-300 px-2 py-1 text-black">
                         {guardItem.phone}
                       </td>
                     </tr>
