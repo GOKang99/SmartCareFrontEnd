@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./MealEditModal.css";
 
 const MealEditModal = ({ meal, onClose, onSave }) => {
     const [editedMeal, setEditedMeal] = useState({ ...meal });
@@ -21,9 +22,9 @@ const MealEditModal = ({ meal, onClose, onSave }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="meal-modal fixed inset-0 flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg w-96">
-                <h2 className="text-lg font-semibold mb-4 text-center">식사 수정</h2>
+                <h2 className="text-xl font-bold mb-4 text-center">식사 수정</h2>
                 <form onSubmit={handleSubmit}>
                     {/* 날짜 */}
                     <input 
@@ -55,11 +56,11 @@ const MealEditModal = ({ meal, onClose, onSave }) => {
                             </select>
                         </div>
                     ))}
-                    <div className="flex justify-between">
-                        <button type="button" onClick={onClose} className="w-1/3 bg-gray-500 text-white p-2 rounded mt-4 hover:bg-gray-600">
+                    <div className="modal-btn flex">
+                        <button type="button" onClick={onClose} className="btn-off w-1/3  cursor-pointer text-white p-2 rounded mt-4 ">
                             취소
                         </button>
-                        <button type="submit" className="w-1/3 bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-600">
+                        <button type="submit" className="btn-on w-1/3 text-white cursor-pointer p-2 rounded mt-4 ">
                             저장
                         </button>
                     </div>

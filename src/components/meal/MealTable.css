@@ -1,0 +1,8 @@
+@charset "utf-8";
+.mealtable {
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+}
+thead tr{
+    background-color: rgb(155, 154, 154);
+    color: #fff;
+}
