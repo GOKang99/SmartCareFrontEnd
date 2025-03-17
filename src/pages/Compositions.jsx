@@ -12,7 +12,6 @@ const Compositions = () => {
 
       <Routes>
         <Route path="/my" element={<CompositionList />} />
-        <Route path="/admin" element={<CompositionListForGiver />} />
       </Routes>
     </div>
   );

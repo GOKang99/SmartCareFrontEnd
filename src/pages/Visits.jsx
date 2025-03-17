@@ -14,17 +14,10 @@ const Visits = () => {
         <h2 className="pt-4 text-3xl font-bold text-center mb-6 text-gray-800">
           방문 예약
         </h2>
-        <nav>
-          <Link to="/visits/form">방문 예약하기</Link> |
-          <Link to="/visits/my">보호자 예약 내역 보기</Link> |
-          {isAdmin && <Link to="/visits/list">모든 예약 보기 |</Link>}
-          {/* <Link to="/visits/container">한 예약 보기</Link> */}
-        </nav>
       </div>
       {/* 하위 라우트가 렌더링되는 부분 */}
       <Routes>
         {/* 사용 안함 <Route path="container" element={<VisitItemContainer />} /> */}
-        <Route path="list" element={<VisitList />} />
         {/* GuardId 넘겨주어야만 볼수있음. */}
         <Route path="my" element={<VisitLisitForGuard />} />
         {/* GuardId 있어야지만 예약 생성 가능 */}

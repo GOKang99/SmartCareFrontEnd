@@ -10,33 +10,35 @@ const ResidentManagementModal = ({ onClose, resident }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
       {/* 모달창이 안켜져있을 때 */}
       {!showCompositionForm ? (
-        <div className="bg-white w-[200px] h-auto p-4 rounded-lg shadow-lg flex flex-col">
-          <h2 className="text-center text-lg font-semibold">입소자 관리</h2>
-          <div className="flex flex-col space-y-2 mt-2">
+        <div className="bg-white w-[200px] h-auto p-4 rounded-lg shadow-lg flex flex-col border border-black">
+          <h2 className="text-center text-lg font-semibold mb-3">
+            입소자 관리
+          </h2>
+          <div className="flex flex-col space-y-2">
             <button
               onClick={() => setShowCompositionForm(true)}
-              className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md w-full"
+              className="bg-white hover:bg-gray-100 text-black border border-green-700 font-medium py-1 px-1 rounded-md shadow-sm transition duration-300 w-full text-sm"
             >
               체성분 분석 등록
             </button>
             <button
-              className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md w-full"
-              onClick={() => navigate("/composition/admin")}
+              className="bg-white hover:bg-gray-100 text-black border border-blue-700 font-medium py-1 px-1 rounded-md shadow-sm transition duration-300 w-full text-sm"
+              onClick={() => navigate("/admin/composition")}
             >
               체성분 분석 보기
             </button>
+            <button
+              className="bg-white hover:bg-gray-100 text-black border border-red-600 font-medium py-1 px-1 rounded-md shadow-sm transition duration-300 w-full text-sm"
+              onClick={onClose}
+            >
+              닫기
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md w-full"
-          >
-            닫기
-          </button>
         </div>
       ) : (
         // CompositionForm을 800px 크기로 별도 배치
         <div className="fixed inset-0 flex items-center justify-center">
-          <div className="bg-white w-[800px] p-6 rounded-lg shadow-lg">
+          <div className="bg-white w-[600px] p-6 rounded-lg shadow-lg">
             <CompositionForm
               resident={resident}
               setShowCompositionForm={setShowCompositionForm}

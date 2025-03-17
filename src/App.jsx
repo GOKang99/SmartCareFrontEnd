@@ -24,6 +24,10 @@ import NoticeEdit from "./components/notice/NoticeEdit";
 import Status from "./pages/Status";
 import Compositions from "./pages/Compositions";
 import { useMyContext } from "./ContextApi";
+import CompositionListForGiver from "./components/composition/CompositionListForGiver";
+import CompositionList from "./components/composition/CompositionList";
+import VisitList from "./components/visit/VisitList";
+import NotFound from "./pages/NotFound";
 
 function Layout() {
   const location = useLocation(); // 현재 URL 가져오기
@@ -44,14 +48,46 @@ function Layout() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/notice" element={<NoticeList />} />
         <Route path="givers" element={<Givers />} />
+
+        {/* 체성분 분석 composition */}
+        {/* 보호자 기준 체성분 분석 보기 */}
         <Route
-          path="/composition/*"
+          path="/composition/my"
           element={
             <ProtectedRoute>
-              <Compositions />
+              <CompositionList />
             </ProtectedRoute>
           }
         />
+        {/* admin전용 체성분 분석 보기 */}
+        <Route
+          path="/admin/composition"
+          element={
+            <ProtectedRoute adminPage={true}>
+              <CompositionListForGiver />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 예약 */}
+        <Route
+          path="/visits/*"
+          element={
+            <ProtectedRoute>
+              <Visits />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/visitlist"
+          element={
+            <ProtectedRoute adminPage={true}>
+              <VisitList />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/notice/create"
           element={
@@ -85,14 +121,7 @@ function Layout() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/visits/*"
-          element={
-            <ProtectedRoute>
-              <Visits />
-            </ProtectedRoute>
-          }
-        />
+
         <Route
           path="/meal"
           element={
@@ -143,6 +172,15 @@ function Layout() {
             }
           />
         )}
+        {/* 404 NotFound */}
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <NotFound />
+            </ProtectedRoute>
+          }
+        />
 
         {/* ✅ 팝업 전용 라우트 (Header & Footer 없이 렌더링) */}
         <Route path="/popup/terms" element={<Popup />} />

@@ -128,17 +128,8 @@ const Header = () => {
               </li>
 
               {isAdmin && (
-                <li className="relative group">
-                  <Link
-                    to="/resident"
-                    className={`block py-2 px-3 rounded-sm md:p-0 ${
-                      location.pathname === "/resident"
-                        ? "text-blue-700"
-                        : "text-gray-800 hover:text-blue-700"
-                    }`}
-                  >
-                    입소자 정보
-                  </Link>
+                <li className="relative group text-gray-800 hover:text-blue-700">
+                  입소자 정보
                   <div
                     className={`absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                   >
@@ -158,10 +149,11 @@ const Header = () => {
                 </li>
               )}
 
+              {/* 체성분 분석 */}
               <li>
                 {isAdmin ? (
                   <Link
-                    to="/composition/admin"
+                    to="/admin/composition"
                     className={`block py-2 px-3 rounded-sm md:p-0 ${
                       location.pathname === "/composition/admin"
                         ? "text-blue-700"
@@ -183,18 +175,38 @@ const Header = () => {
                   </Link>
                 )}
               </li>
-              <li>
-                <Link
-                  to="/visits"
-                  className={`block py-2 px-3 rounded-sm md:p-0 ${
-                    location.pathname === "/visits"
-                      ? "text-blue-700"
-                      : "text-gray-800 hover:text-blue-700"
-                  }`}
+
+              {/* 방문예약  */}
+
+              <li className="relative group text-gray-800 hover:text-blue-700">
+                방문 예약
+                <div
+                  className={`absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                 >
-                  방문예약
-                </Link>
+                  <Link
+                    to="/visits/form"
+                    className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                  >
+                    예약하기
+                  </Link>
+                  {isAdmin ? (
+                    <Link
+                      to="admin/visitlist"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      모든 예약 내역
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/visits/my"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      나의 예약 내역
+                    </Link>
+                  )}
+                </div>
               </li>
+              {/* 생활현황 */}
               {!isAdmin && token && (
                 <li>
                   <Link
@@ -209,6 +221,30 @@ const Header = () => {
                   </Link>
                 </li>
               )}
+              {/* 생활현황 어드민 */}
+              
+              {isAdmin && (
+                <li className="relative group text-gray-800 hover:text-blue-700">
+                  생활현황
+                  <div
+                    className={`absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  >
+                    <Link
+                      to="/admin/meal"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      식사일지
+                    </Link>
+                    <Link
+                      to="/admin/cist"
+                      className="block text-blue-900 hover:bg-blue-100 px-4 py-2 w-full text-left"
+                    >
+                      CIST 검사
+                    </Link>
+                  </div>
+                </li>
+              )}
+
               <li>
                 <Link
                   to={`/mypage`}
@@ -221,6 +257,8 @@ const Header = () => {
                   마이페이지
                 </Link>
               </li>
+
+              {/* 회원가입 */}
               {!token && (
                 <li>
                   <Link

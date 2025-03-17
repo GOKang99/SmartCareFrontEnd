@@ -7,7 +7,6 @@
 }
 .menu li a {
   display: inline-block;
-  font-size: 17px;
   font-weight: bold;
   transition: color 0.2s ease-in-out;
   padding-bottom: 6px; 
