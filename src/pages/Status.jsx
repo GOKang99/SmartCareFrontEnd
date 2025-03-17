@@ -205,7 +205,7 @@ const Status = () => {
             <h3 className="ml-2 mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
               체성분
             </h3>
-            <div className="composition_title ml-2 text-xs mb-4 text-gray-600 mt-2 mb-2">
+            <div className="composition_title ml-2 text-xs mb-4 text-gray-600 mt-2 ">
               <div>최근 측정일: {compositionData.comDate}</div>
             </div>
 

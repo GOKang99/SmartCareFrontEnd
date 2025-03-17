@@ -100,13 +100,18 @@ const NoticeDetail = () => {
                     key={index}
                     src={`http://localhost:8080${url}`}
                     alt={`공지 이미지 ${index + 1}`}
-                    className="w-auto h-auto max-w-[45%] rounded-lg border border-gray-300"
+                    className={`rounded-lg border border-gray-300 object-cover transition-transform
+                                 ${
+                                   notice.noticeImageURL.length === 1
+                                     ? "w-[600px] "
+                                     : "max-w-[45%] "
+                                 }`}
                     onClick={() => handleImageClick(url)}
                   />
                 ))}
               </div>
             )}
-            <p className="text-sm text-gray-800 mt-6 whitespace-pre-line text-center">
+            <p className="text-md text-gray-800 mt-8 whitespace-pre-line text-center">
               {notice.noticeContent}
             </p>
           </div>
