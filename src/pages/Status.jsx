@@ -10,11 +10,12 @@ const Status = () => {
   const [cistData, setCistData] = useState(null);
   const [compositionData, setCompositionData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { guardId, giverId, userData } = useMyContext();
-  console.log("콤포지션",compositionData)
+  const { guardId, giverId, userData, resId } = useMyContext();
+  console.log("콤포지션", compositionData);
   useEffect(() => {
     setIsLoading(true);
-    if (guardId && userData) {
+    console.log("환자아뒤", resId);
+    if (guardId && userData && resId) {
       Promise.all([
         api.get(`/resident/status/${guardId}`), // 환자 정보
         api.get(`/meals/status/${guardId}`), // 식사 정보
@@ -36,7 +37,7 @@ const Status = () => {
     console.log("가드아디", guardId);
     console.log("기버아디", giverId);
     console.log("유데", userData);
-  }, [guardId, userData]);
+  }, [guardId, userData, resId]);
 
   useEffect(() => {
     // if(!isLoading)
