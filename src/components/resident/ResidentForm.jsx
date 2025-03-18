@@ -266,6 +266,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                           onChange={handleInputChange}
                           checked={formData.gender === "남자"}
                           className="h-4 w-4 text-red-600 focus:ring-2 focus:ring-red-600"
+                          required
                         />
                         <label
                           htmlFor="male"
@@ -283,6 +284,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                           onChange={handleInputChange}
                           checked={formData.gender === "여자"}
                           className="h-4 w-4 text-red-600 focus:ring-2 focus:ring-red-600"
+                          required
                         />
                         <label
                           htmlFor="female"
@@ -414,6 +416,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                         <div className="flex items-center space-x-4">
                           <div className="flex items-center">
                             <input
+                              required
                               type="radio"
                               id="yes"
                               name="resAdmissionYn"
@@ -433,6 +436,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                           <div className="flex items-center">
                             <input
                               type="radio"
+                              required
                               id="no"
                               name="resAdmissionYn"
                               value="아니요"
@@ -520,6 +524,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="schoolgrade"
                                 value={item.value}
@@ -555,6 +560,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="koreanReadableYn"
                                 value={item.value}
@@ -594,6 +600,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="religion"
                                 value={item.value}
@@ -629,6 +636,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="maritalStatus"
                                 value={item.value}
@@ -775,6 +783,7 @@ const ResidentForm = ({ handleNewResident, giverId }) => {
                         >
                           <input
                             type="radio"
+                            required
                             id={type}
                             name="foodtype"
                             value={type}
