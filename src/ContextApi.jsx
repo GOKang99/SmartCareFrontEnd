@@ -33,6 +33,8 @@ export const ContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   //환자
   const [selectedResident, setSelectedResident] = useState("");
+  //보호자와 연결된 환자의 아이디
+  const [resId, setResId] = useState(null);
 
   const fetchUser = async () => {
     //로컬스토리지에서 USER라는 키에 저장된 데이터를 JSON에서 자바스크립트 객체로 변환
@@ -100,17 +102,20 @@ export const ContextProvider = ({ children }) => {
 
   //역할에 따라 저장하기
   useEffect(() => {
-    // console.log("해독", deToken, isAdmin);
+    console.log("해독", deToken, isAdmin);
     if (isAdmin) {
       // console.log("요양보호사 입니다." + isAdmin);
       setGuardId(null);
+      setResId(null);
       setGiverId(deToken?.partId);
       // console.log("요양보호사 아이디는", giverId);
     } else {
       // console.log("어드민이 아닙니다." + isAdmin);
       setGiverId(null);
       setGuardId(deToken?.partId);
+      setResId(deToken?.resId);
       // console.log("보호자 아이디는", guardId);
+      console.log("환자 아이디는", resId);
     }
   }, [isAdmin, deToken?.partId]);
 
@@ -150,6 +155,8 @@ export const ContextProvider = ({ children }) => {
         setGuardId,
         selectedResident,
         setSelectedResident,
+        resId,
+        setResId,
       }}
     >
       {children}
