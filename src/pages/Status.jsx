@@ -105,7 +105,7 @@ const Status = () => {
                         {residentData.resName}
                       </td>
                       <td className="px-6 py-4">{residentData.resGender}</td>
-                      <td className="px-6 py-4">{cistData.cisGrade}</td>
+                      <td className="px-6 py-4">{residentData.resLocation}</td>
                     </tr>
                   </tbody>
                 </table>
