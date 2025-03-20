@@ -379,24 +379,26 @@ const ResidentItem = () => {
               <span className="text-gray-700">
                 <strong>보호자 정보</strong>
               </span>
-              <button
-                onClick={() => setIsFormVisible(!isFormVisible)}
-                className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 transition-all duration-200 flex items-center shadow-sm"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3 mr-1"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+              {isAdmin && (
+                <button
+                  onClick={() => setIsFormVisible(!isFormVisible)}
+                  className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 transition-all duration-200 flex items-center shadow-sm"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                {isFormVisible ? "취소" : "보호자 등록"}
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3 w-3 mr-1"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {isFormVisible ? "취소" : "보호자 등록"}
+                </button>
+              )}
             </div>
 
             {/* 보호자 테이블 */}

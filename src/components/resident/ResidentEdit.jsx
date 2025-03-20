@@ -328,6 +328,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                           onChange={handleInputChange}
                           checked={formData.gender === "남자"}
                           className="h-4 w-4 text-red-600 focus:ring-2 focus:ring-red-600"
+                          required
                         />
                         <label
                           htmlFor="male"
@@ -345,6 +346,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                           onChange={handleInputChange}
                           checked={formData.gender === "여자"}
                           className="h-4 w-4 text-red-600 focus:ring-2 focus:ring-red-600"
+                          required
                         />
                         <label
                           htmlFor="female"
@@ -476,6 +478,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                         <div className="flex items-center space-x-4">
                           <div className="flex items-center">
                             <input
+                              required
                               type="radio"
                               id="yes"
                               name="resAdmissionYn"
@@ -495,6 +498,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                           <div className="flex items-center">
                             <input
                               type="radio"
+                              required
                               id="no"
                               name="resAdmissionYn"
                               value="아니요"
@@ -582,6 +586,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="schoolgrade"
                                 value={item.value}
@@ -613,10 +618,11 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                           ].map((item) => (
                             <div
                               key={item.id}
-                              className="flex items-center bg-gray-100 p-1 rounded-md border border-gray-100 transition-all hover:bg-gray-100"
+                              className="flex items-center bg-gray-100 p-1 rounded-md border border-gray-100 transition-all hover:bg-gray-100 text-green-600"
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="koreanReadableYn"
                                 value={item.value}
@@ -656,6 +662,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="religion"
                                 value={item.value}
@@ -691,6 +698,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                             >
                               <input
                                 type="radio"
+                                required
                                 id={item.id}
                                 name="maritalStatus"
                                 value={item.value}
@@ -837,6 +845,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
                         >
                           <input
                             type="radio"
+                            required
                             id={type}
                             name="foodtype"
                             value={type}
@@ -862,7 +871,7 @@ const ResidentEdit = ({ giverId, handleEditResident }) => {
 
         {/* 버튼 섹션 */}
         <div className="flex justify-end items-center space-x-4 pt-4 border-t border-gray-200 mt-4">
-          <Link to="/resident/list">
+          <Link to="/">
             <button
               type="button"
               className="px-5 py-2.5 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-gray-400"
