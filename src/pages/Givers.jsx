@@ -35,7 +35,7 @@ const Givers = () => {
   }
 
   return (
-    <div className="p-4 m-auto">
+    <div className="p-4 m-auto mt-4">
       <h2 className="text-2xl font-bold text-center mb-6">
         함께 할 요양사분들을 소개합니다
       </h2>
@@ -48,7 +48,7 @@ const Givers = () => {
             <img
               src={`${giverImage}${giver.user.userimage}`}
               alt={giver.user.realname}
-              className="w-1/3 h-auto object-cover"
+              className=" w-48 h-48 object-cover"
             />
             <div className="p-4 bg-blue-100 w-2/3">
               <h3 className="text-lg font-semibold mb-2">
